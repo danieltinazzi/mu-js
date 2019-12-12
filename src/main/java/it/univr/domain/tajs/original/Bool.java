@@ -126,7 +126,7 @@ public class Bool implements AbstractValue {
 		else if (value == 1)
 			return "true";
 		else
-			return "TopBool";
+			return "true|false";
 	}
 	
 	@Override

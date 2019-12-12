@@ -1,1 +1,1 @@
-x = true && (true + 1);
+x = true && ( true || false );

@@ -1,5 +1,7 @@
 package it.univr.main;
 
+import org.antlr.v4.runtime.misc.NotNull;
+
 import it.univr.domain.AbstractDomain;
 import it.univr.domain.AbstractValue;
 
@@ -195,9 +197,20 @@ public class AbstractInterpreter extends MuJsBaseVisitor<AbstractValue> {
 	}
 	
 	@Override 
-	public AbstractValue visitParenthesis(MuJsParser.ParenthesisContext ctx) {
-		return visit(ctx.exp()); 
+	public AbstractValue visitBExpPar(MuJsParser.BExpParContext ctx) { 
+		return visit(ctx.bexp()); 
 	}
+
+	@Override 
+	public AbstractValue visitSExpPar(MuJsParser.SExpParContext ctx) { 
+		return visit(ctx.sexp()); 
+	}
+
+	@Override 
+	public AbstractValue visitAExpPar(MuJsParser.AExpParContext ctx) { 
+		return visit(ctx.aexp()); 
+	}
+
 	
 	@Override 
 	public AbstractValue visitWhileStmt(MuJsParser.WhileStmtContext ctx) { 

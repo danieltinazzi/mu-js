@@ -1,6 +1,8 @@
 x = "";
-while (x.length < 100) {
-	x = x + "a";
+i = 0;
+y = 0;
+while (i < 100) {
+	x = concat(x, "a");
+	y = y + 1;
+	i = i + 1;
 }
-
-y = x.length;

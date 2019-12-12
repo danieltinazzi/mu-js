@@ -42,12 +42,26 @@ public interface MuJsVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitDiff(@NotNull MuJsParser.DiffContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code SExpPar}
+	 * labeled alternative in {@link MuJsParser#sexp}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSExpPar(@NotNull MuJsParser.SExpParContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code Int}
 	 * labeled alternative in {@link MuJsParser#aexp}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitInt(@NotNull MuJsParser.IntContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code BExpPar}
+	 * labeled alternative in {@link MuJsParser#bexp}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBExpPar(@NotNull MuJsParser.BExpParContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code Str}
 	 * labeled alternative in {@link MuJsParser#sexp}.
@@ -62,13 +76,6 @@ public interface MuJsVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitConcat(@NotNull MuJsParser.ConcatContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code Parenthesis}
-	 * labeled alternative in {@link MuJsParser#exp}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitParenthesis(@NotNull MuJsParser.ParenthesisContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code Bool}
 	 * labeled alternative in {@link MuJsParser#bexp}.
@@ -124,6 +131,13 @@ public interface MuJsVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitIdAExp(@NotNull MuJsParser.IdAExpContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code AExpPar}
+	 * labeled alternative in {@link MuJsParser#aexp}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAExpPar(@NotNull MuJsParser.AExpParContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code BlockStmt}
 	 * labeled alternative in {@link MuJsParser#stmt}.

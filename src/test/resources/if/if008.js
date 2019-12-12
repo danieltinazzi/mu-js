@@ -6,9 +6,9 @@ while (a < 100) {
 } 
 
 if (a == 5) {
-	c = (str.charAt(0));
+	c = "h";
 } else {
-	c = (str.charAt(3));
+	c = "l";
 }
 
 

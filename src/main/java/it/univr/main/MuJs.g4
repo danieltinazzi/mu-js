@@ -39,6 +39,7 @@ aexp : INT													#Int
 	|	aexp '*' aexp										#Mul
 	|	aexp '/' aexp										#Div
 	| 	'toNum' '(' sexp ')'								#ToNum
+	|	'(' aexp ')'										#AExpPar
 	;
 
 bexp: BOOL													#Bool
@@ -48,17 +49,18 @@ bexp: BOOL													#Bool
 	|	bexp '&&' bexp										#And
 	|	bexp '||' bexp										#Or
 	|	'!' bexp											#Not
+	|	'(' bexp ')'										#BExpPar
 	;
 
 sexp: STRING												#Str
 	|	ID													#IdSExp
 	|	'concat(' sexp ',' sexp ')'							#Concat
+	|	'(' sexp ')'										#SExpPar
 	;
 
 exp : aexp 													#AExp
 	| sexp 													#SExp
 	| bexp 													#BExp
-	| '(' exp ')' 											#Parenthesis
 	;
 	
 stmt:

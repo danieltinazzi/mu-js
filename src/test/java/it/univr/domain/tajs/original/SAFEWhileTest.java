@@ -7,7 +7,7 @@ import it.univr.main.Analyzer;
 import it.univr.state.AbstractMemory;
 import it.univr.state.Variable;
 
-public class CoalescedWhileTest {
+public class SAFEWhileTest {
 
 	private SAFEAbstractDomain domain = new SAFEAbstractDomain();
 
@@ -20,7 +20,7 @@ public class CoalescedWhileTest {
 		Assert.assertEquals(state.size(), 1);
 
 		// State values
-		Assert.assertEquals(state.getValue(new Variable("x")), new Interval("100", "100"));
+		Assert.assertEquals(state.getValue(new Variable("x")), new Interval("0", "+Inf"));
 	}
 
 	@Test
@@ -56,7 +56,7 @@ public class CoalescedWhileTest {
 		Assert.assertEquals(state.size(), 1);
 
 		// State values
-		Assert.assertEquals(state.getValue(new Variable("x")), new Interval("0", "0"));
+		Assert.assertEquals(state.getValue(new Variable("x")), new Interval("-Inf", "100"));
 	}	
 
 	@Test
@@ -69,7 +69,7 @@ public class CoalescedWhileTest {
 
 		// State values
 		Assert.assertEquals(state.getValue(new Variable("x")), new Interval("0", "+Inf"));
-		Assert.assertEquals(state.getValue(new Variable("y")), new Interval("100", "100"));
+		Assert.assertEquals(state.getValue(new Variable("y")), new Interval("0", "+Inf"));
 	}
 
 
@@ -83,6 +83,6 @@ public class CoalescedWhileTest {
 
 		// State values
 		Assert.assertEquals(state.getValue(new Variable("x")), new Interval("0", "+Inf"));
-		Assert.assertEquals(state.getValue(new Variable("y")), new Interval("100", "101"));
+		Assert.assertEquals(state.getValue(new Variable("y")), new Interval("0", "+Inf"));
 	}
 }

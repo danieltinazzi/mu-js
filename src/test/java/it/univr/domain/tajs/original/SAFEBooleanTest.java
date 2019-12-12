@@ -7,7 +7,7 @@ import it.univr.main.Analyzer;
 import it.univr.state.AbstractMemory;
 import it.univr.state.Variable;
 
-public class CoalescedBooleanTest {
+public class SAFEBooleanTest {
 
 	SAFEAbstractDomain domain = new SAFEAbstractDomain();
 	String dir = "src/test/resources/bool/";
@@ -45,7 +45,7 @@ public class CoalescedBooleanTest {
 		Assert.assertEquals(state.size(), 1);
 		
 		// State values
-		Assert.assertEquals(state.getValue(new Variable("x")), new Interval("2", "2"));
+		Assert.assertEquals(state.getValue(new Variable("x")), new Bool(1));
 	}
 
 	@Test
@@ -57,7 +57,7 @@ public class CoalescedBooleanTest {
 		Assert.assertEquals(state.size(), 1);
 		
 		// State values
-		Assert.assertEquals(state.getValue(new Variable("x")), new Interval("0", "0"));
+		Assert.assertEquals(state.getValue(new Variable("x")), new Bool(0));
 	}
 	
 	@Test
@@ -69,7 +69,7 @@ public class CoalescedBooleanTest {
 		Assert.assertEquals(state.size(), 1);
 		
 		// State values
-		Assert.assertEquals(state.getValue(new Variable("x")), new Interval("2", "2"));
+		Assert.assertEquals(state.getValue(new Variable("x")), new Bool(1));
 	}
 	
 	@Test
@@ -81,7 +81,7 @@ public class CoalescedBooleanTest {
 		Assert.assertEquals(state.size(), 1);
 		
 		// State values
-		Assert.assertEquals(state.getValue(new Variable("x")), new Interval("2", "2"));
+		Assert.assertEquals(state.getValue(new Variable("x")), new Bool(1));
 	}
 	
 	@Test
@@ -118,6 +118,6 @@ public class CoalescedBooleanTest {
 		Assert.assertEquals(state.size(), 1);
 		
 		// State values
-		Assert.assertEquals(state.getValue(new Variable("x")), new Bool(0));
+		Assert.assertEquals(state.getValue(new Variable("x")), new Bool(1));
 	}
 }

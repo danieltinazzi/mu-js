@@ -7,7 +7,7 @@ import it.univr.main.Analyzer;
 import it.univr.state.AbstractMemory;
 import it.univr.state.Variable;
 
-public class CoalescedIntervalTest {
+public class SAFEIntervalTest {
 
 	private SAFEAbstractDomain domain = new SAFEAbstractDomain();
 	
@@ -34,7 +34,7 @@ public class CoalescedIntervalTest {
 		Assert.assertEquals(state.size(), 1);
 		
 		// State values
-		Assert.assertEquals(state.getValue(new Variable("x")), new SAFEStrings("12"));
+		Assert.assertEquals(state.getValue(new Variable("x")), new Interval("3", "3"));
 	}
 	
 	@Test

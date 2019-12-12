@@ -1,5 +1,5 @@
 
-if (true == true) {
+if (true && true) {
 	x = 1;
 } else {
 	x = 2;

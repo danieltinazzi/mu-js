@@ -1,1 +1,1 @@
-x = 2 * false;
+x = true && false;

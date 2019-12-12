@@ -93,33 +93,15 @@ public class SAFEAbstractDomain extends AbstractDomain {
 
 	@Override
 	public AbstractValue and(AbstractValue first, AbstractValue second) {
-
-		if (first instanceof Bool) {
-			if (((Bool) first).isTrue())
-				return second;
-			else if (((Bool) first).isFalse())
-				return new Bool(0);
-			else {
-				return new Bool(0).leastUpperBound(second);			
-			}
-		}
-
+		if (first instanceof Bool && second instanceof Bool)
+			return ((Bool) first).and((Bool) second);
 		return new Bottom();
 	}
 
 	@Override
 	public AbstractValue or(AbstractValue first, AbstractValue second) {
-
-		if (first instanceof Bool) {
-			if (((Bool) first).isFalse())
-				return second;
-			else if (((Bool) first).isTrue())
-				return new Bool(0);
-			else {
-				return new Bool(0).leastUpperBound(second);			
-			}
-		}
-
+		if (first instanceof Bool && second instanceof Bool)
+			return ((Bool) first).or((Bool) second);
 		return new Bottom();
 	}
 

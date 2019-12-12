@@ -1,7 +1,7 @@
 x = "";
 a = 0;
 
-while (true) {
+while (a < 100) {
 	a = a + 1;
 }
 

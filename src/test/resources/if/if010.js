@@ -6,7 +6,7 @@ while (i < 100) {
 }
 
 if (i < 2) {
-	str = str + "b";
+	str = concat(str, "b");
 } else {
-	str = str + "c";
+	str = concat(str , "c");
 }

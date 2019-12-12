@@ -14,14 +14,19 @@ public class SAFEStrings implements AbstractValue {
 	private final static int BOT = 0x00000001; 
 	private final static int SINGLE_STRING = 0x00000002;
 	private final static int NUMERIC = 0x00000003;
-	private final static int NOT_NUMERIC = 0x00000003;
-	private final static int TOP = 0x00000003;
+	private final static int NOT_NUMERIC = 0x00000004;
+	private final static int TOP = 0x00000005;
 
 
 	private String str;
 	private int v;
 
 
+	public static void main(String args[]) {
+		System.err.println(NUMBER.matcher("").matches());
+		System.err.println("\n\n" + new SAFEStrings("").leastUpperBound(new SAFEStrings("a")));
+	}
+	
 	public SAFEStrings(String str) {
 		this.str = str;
 		this.v = SINGLE_STRING;
@@ -40,6 +45,10 @@ public class SAFEStrings implements AbstractValue {
 		return new SAFEStrings(NUMERIC);
 	}
 
+	public int getAbstractValue() {
+		return v;
+	}
+	
 	public static SAFEStrings createTopString() {
 		return new SAFEStrings(TOP);
 	}
@@ -88,11 +97,11 @@ public class SAFEStrings implements AbstractValue {
 				if (getSingleString().equals(that.getSingleString())) // if strings are equals returns this
 					return clone();
 				else 
-					return isNumericString() && that.isNumericString() ? createNumeric() : createTopString();
+					return isNumericString() && that.isNumericString() ? createNumeric() 
+							: (!isNumericString() && !that.isNumericString() ? createNotNumeric() : createTopString());
 			}
 
 			else if (isString()) {
-
 				// this is single string and it is numeric
 				if (isNumericString()) {
 					if (that.isNotNumeric())
@@ -167,6 +176,27 @@ public class SAFEStrings implements AbstractValue {
 	private boolean isNumericString() {
 		assertTrue(isString());
 		return NUMBER.matcher(str).matches();
+	}
+	
+	@Override
+	public String toString() {
+		if (isString())
+			return "\"" + getSingleString() + "\"";
+		else if (isNotNumeric())
+			return "NotNumeric";
+		else if (isNumeric())
+			return "Numeric";
+		else
+			return "String";
+	}
+	
+	@Override
+	public boolean equals(Object other) {
+		if (other instanceof SAFEStrings) {
+			return isString() && ((SAFEStrings) other).isString() ? getSingleString().equals(((SAFEStrings) other).getSingleString()) : v == ((SAFEStrings) other).getAbstractValue();
+		}
+		
+		return false;
 	}
 
 	public SAFEStrings concat(SAFEStrings that) {

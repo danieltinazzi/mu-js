@@ -1,1 +1,1 @@
-x = true + true;
+x = true && true;

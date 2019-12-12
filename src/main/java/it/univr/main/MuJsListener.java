@@ -59,6 +59,18 @@ public interface MuJsListener extends ParseTreeListener {
 	 */
 	void exitDiff(@NotNull MuJsParser.DiffContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code SExpPar}
+	 * labeled alternative in {@link MuJsParser#sexp}.
+	 * @param ctx the parse tree
+	 */
+	void enterSExpPar(@NotNull MuJsParser.SExpParContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code SExpPar}
+	 * labeled alternative in {@link MuJsParser#sexp}.
+	 * @param ctx the parse tree
+	 */
+	void exitSExpPar(@NotNull MuJsParser.SExpParContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code Int}
 	 * labeled alternative in {@link MuJsParser#aexp}.
 	 * @param ctx the parse tree
@@ -70,6 +82,18 @@ public interface MuJsListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitInt(@NotNull MuJsParser.IntContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code BExpPar}
+	 * labeled alternative in {@link MuJsParser#bexp}.
+	 * @param ctx the parse tree
+	 */
+	void enterBExpPar(@NotNull MuJsParser.BExpParContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code BExpPar}
+	 * labeled alternative in {@link MuJsParser#bexp}.
+	 * @param ctx the parse tree
+	 */
+	void exitBExpPar(@NotNull MuJsParser.BExpParContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code Str}
 	 * labeled alternative in {@link MuJsParser#sexp}.
@@ -94,18 +118,6 @@ public interface MuJsListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitConcat(@NotNull MuJsParser.ConcatContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code Parenthesis}
-	 * labeled alternative in {@link MuJsParser#exp}.
-	 * @param ctx the parse tree
-	 */
-	void enterParenthesis(@NotNull MuJsParser.ParenthesisContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code Parenthesis}
-	 * labeled alternative in {@link MuJsParser#exp}.
-	 * @param ctx the parse tree
-	 */
-	void exitParenthesis(@NotNull MuJsParser.ParenthesisContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code Bool}
 	 * labeled alternative in {@link MuJsParser#bexp}.
@@ -200,6 +212,18 @@ public interface MuJsListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitIdAExp(@NotNull MuJsParser.IdAExpContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code AExpPar}
+	 * labeled alternative in {@link MuJsParser#aexp}.
+	 * @param ctx the parse tree
+	 */
+	void enterAExpPar(@NotNull MuJsParser.AExpParContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code AExpPar}
+	 * labeled alternative in {@link MuJsParser#aexp}.
+	 * @param ctx the parse tree
+	 */
+	void exitAExpPar(@NotNull MuJsParser.AExpParContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code BlockStmt}
 	 * labeled alternative in {@link MuJsParser#stmt}.

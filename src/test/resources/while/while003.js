@@ -1,5 +1,5 @@
 x = "";
 
 while (false) {
-	x = x + "a";
+	x = concat(x, "a");
 }
