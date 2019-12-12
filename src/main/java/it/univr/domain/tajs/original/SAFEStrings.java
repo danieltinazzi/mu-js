@@ -208,7 +208,7 @@ public class SAFEStrings implements AbstractValue {
 			if (that.isString())
 				return new SAFEStrings(getSingleString() + that.getSingleString());
 			else if (that.isNumeric()) {
-				if (isUnsignedInteger(getSingleString()) || getSingleString().isEmpty())
+				if (isUnsignedInteger() || getSingleString().isEmpty())
 					return new SAFEStrings(NUMERIC);
 				else
 					return new SAFEStrings(NOT_NUMERIC);
@@ -222,7 +222,7 @@ public class SAFEStrings implements AbstractValue {
 		else if (isNumeric()) { // third row
 
 			if (that.isString()) {
-				if (that.isUnsignedInteger(getSingleString()) || that.getSingleString().isEmpty())
+				if (that.isUnsignedInteger() || that.getSingleString().isEmpty())
 					return new SAFEStrings(NUMERIC);
 				else
 					return new SAFEStrings(NOT_NUMERIC);
@@ -245,12 +245,12 @@ public class SAFEStrings implements AbstractValue {
 			return new SAFEStrings(TOP);
 	}
 
-	private  boolean isUnsignedInteger(String s) {
-		if (s.isEmpty())
+	private  boolean isUnsignedInteger() {
+		if (getSingleString().isEmpty())
 			return false;
 		long val = 0L;
-		for (int i = 0; i < s.length(); i++) {
-			char c = s.charAt(i);
+		for (int i = 0; i < getSingleString().length(); i++) {
+			char c = getSingleString().charAt(i);
 			if (c < '0' || c > '9')
 				return false;
 			val = 10 * val + Character.digit(c, 10);
