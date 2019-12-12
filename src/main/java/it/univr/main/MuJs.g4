@@ -1,5 +1,9 @@
 grammar MuJs;
 
+@header {
+    package it.univr.main;
+}
+
 ASG: '=';
 
 NAN: 'NaN'
@@ -27,42 +31,46 @@ LESS : '<'
 program: stmt EOF 														#ProgramExecution
 	;
 	
-val: 	INT 															#Integer
-	| 	BOOL 															#Boolean
-	| 	STRING															#String
-	|	NAN																#NaN
-	;	
 	
-expression:	
-		expression '.' 'substring' '(' expression ',' expression ')'	#Substring
-	|	expression '.' 'charAt' '(' expression ')'						#CharAt
-	|	expression '.' 'indexOf' '(' expression ')'						#IndexOf
-	|	expression '.' 'length'											#Length
-	|	'(' expression ')'												#Parenthesis
-	|	expression '==' expression										#Equals
-	|	ID																#Identifier
-	|	val																#PrimitiveValue
-	|	expression '+' expression										#Sum
-	|	expression '-' expression										#Diff
-	|	expression '*' expression										#Mul
-	|	expression '/' expression										#Div
-	|	expression '>' expression										#Greater
-	|	expression LESS expression										#Less
-	|	expression '&&' expression										#And
-	|	expression '||' expression										#Or
-	|	'!' expression													#Not
+aexp : INT													#Int
+	|	ID													#IdAExp
+	|	aexp '+' aexp										#Sum
+	|	aexp '-' aexp										#Diff
+	|	aexp '*' aexp										#Mul
+	|	aexp '/' aexp										#Div
+	| 	'toNum' '(' sexp ')'								#ToNum
+	;
+
+bexp: BOOL													#Bool
+	|	ID													#IdBExp
+	|	aexp '<' aexp										#Less
+	|	aexp '==' aexp										#Equals	
+	|	bexp '&&' bexp										#And
+	|	bexp '||' bexp										#Or
+	|	'!' bexp											#Not
+	;
+
+sexp: STRING												#Str
+	|	ID													#IdSExp
+	|	'concat(' sexp ',' sexp ')'							#Concat
+	;
+
+exp : aexp 													#AExp
+	| sexp 													#SExp
+	| bexp 													#BExp
+	| '(' exp ')' 											#Parenthesis
 	;
 	
 stmt:
-	   ID ASG expression SEMICOLON										#AssignmentStmt
-	| 'if' '(' expression ')' block 'else' block						#IfStmt
-	| 'while' '(' expression ')' block									#WhileStmt
-	|  block															#BlockStmt
-	|  stmt stmt														#Composition
+	   ID ASG exp SEMICOLON									#AssignmentStmt
+	| 'if' '(' bexp ')' block 'else' block					#IfStmt
+	| 'while' '(' bexp ')' block							#WhileStmt
+	|  block												#BlockStmt
+	|  stmt stmt											#Composition
 	;
 	
-block:  '{' '}'
-	|	'{' stmt '}'
+block:  '{' '}'													
+	|	'{' stmt '}'											
 	;	
 	
 WS: [ \r\n\t] + -> skip

@@ -1,12 +1,9 @@
-package it.univr.domain.coalasced;
+package it.univr.domain.tajs.original;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 
 import it.univr.domain.AbstractValue;
-import it.univr.fsm.machine.Automaton;
-import it.univr.fsm.machine.State;
-import it.univr.fsm.machine.Transition;
 
 /**
  * Interval abstract domain.
@@ -397,79 +394,6 @@ public class Interval implements AbstractValue {
 				return true;
 	}
 
-	@Override
-	public AbstractValue juggleToNumber() {
-		return clone();
-	}
-
-	@Override
-	public AbstractValue juggleToString() {
-
-		// [i, j]
-		if (isFiniteConcrete()) {
-
-			HashSet<State> states = new HashSet<>();
-			HashSet<Transition> delta = new HashSet<>();
-
-			State q0 = new State("q0", true, false);
-			states.add(q0);
-
-
-			int i = 1;
-
-			for (Long n : getIntergers()) {
-
-				if (n > 0) {
-					State p = new State("q" + i, false, true);
-					states.add(p);
-					delta.add(new Transition(q0, p, String.valueOf(n)));
-				} else {
-
-					State p = new State("q" + i, false, false);
-					i++;
-					State q = new State("q" + i, false, true);
-
-					states.add(p);
-					states.add(q);
-
-					delta.add(new Transition(q0, p, "-"));
-					delta.add(new Transition(q0, p, String.valueOf(Math.abs(n))));
-				}
-
-				i++;
-			}
-
-			Automaton result = new Automaton(delta, states);
-			return new FA(result);
-		} 
-
-
-		// [i, +Inf]
-		else if (isPositiveInfinite() && !isNegativeInfinite()) {
-
-			if (Long.parseLong(getLow()) == 0) 
-				return FA.makePositiveNumbersAutomaton();
-			else if (Long.parseLong(getLow()) > 0) 
-				return new FA(Automaton.minus(FA.makePositiveNumbersAutomaton().getAutomaton(), ((FA) new Interval("0", getLow()).juggleToString()).getAutomaton()));
-			else 
-				return new FA(Automaton.union(FA.makePositiveNumbersAutomaton().getAutomaton(), ((FA) new Interval(getLow(), "0").juggleToString()).getAutomaton()));				
-		}
-
-		// [-Inf, i]
-		else if (isPositiveInfinite() && !isNegativeInfinite()) {
-			if (Long.parseLong(getHigh()) == 0) 
-				return FA.makeNegativeNumbersAutomaton();
-			else if (Long.parseLong(getHigh()) > 0) 
-				return new FA(Automaton.union(FA.makeNegativeNumbersAutomaton().getAutomaton(), ((FA) new Interval("0", getHigh()).juggleToString()).getAutomaton()));
-			else 
-				return new FA(Automaton.minus(FA.makeNegativeNumbersAutomaton().getAutomaton(), ((FA) new Interval(getHigh(), "0").juggleToString()).getAutomaton()));				
-		} 
-
-		return FA.makeNumberAutomaton();
-	}
-
-
-
 	private long getMax(ArrayList<Long> list) {
 		long max = Long.MIN_VALUE;
 
@@ -480,14 +404,6 @@ public class Interval implements AbstractValue {
 		return max;
 	} 
 
-	@Override
-	public AbstractValue juggleToBool() {
-		if (isZeroInterval())
-			return new Bool(0);
-		else if (!contains(0))
-			return new Bool(1);
-		return new Bool(2);
-	}
 
 	@Override
 	public Interval clone() {

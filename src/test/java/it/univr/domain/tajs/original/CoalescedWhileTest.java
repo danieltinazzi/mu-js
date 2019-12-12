@@ -1,24 +1,15 @@
-package it.univr.main.coalesced;
-
-
-import java.util.HashSet;
+package it.univr.domain.tajs.original;
 
 import org.junit.Assert;
 import org.junit.Test;
 
-import it.univr.domain.coalasced.CoalascedAbstractDomain;
-import it.univr.domain.coalasced.FA;
-import it.univr.domain.coalasced.Interval;
-import it.univr.fsm.machine.Automaton;
-import it.univr.fsm.machine.State;
-import it.univr.fsm.machine.Transition;
 import it.univr.main.Analyzer;
 import it.univr.state.AbstractMemory;
 import it.univr.state.Variable;
 
 public class CoalescedWhileTest {
 
-	private CoalascedAbstractDomain domain = new CoalascedAbstractDomain();
+	private SAFEAbstractDomain domain = new SAFEAbstractDomain();
 
 	@Test
 	public void testWhile001() throws Exception {
@@ -37,23 +28,11 @@ public class CoalescedWhileTest {
 		String file = "src/test/resources/while/while002.js";
 		AbstractMemory state = Analyzer.analyze(file, domain, true);
 
-		HashSet<State> states = new HashSet<State>();
-		HashSet<Transition> delta = new HashSet<Transition>();
-
-		State q0 = new State("q0", true, true);
-
-		states.add(q0);
-
-		delta.add(new Transition(q0, q0, "a"));
-
-		// a^* 
-		Automaton a = new Automaton(delta, states);
-
 		// State size
 		Assert.assertEquals(state.size(), 1);
 
 		// State values
-		Assert.assertEquals(state.getValue(new Variable("x")), new FA(a));
+		Assert.assertEquals(state.getValue(new Variable("x")), SAFEStrings.createNotNumeric());
 	}
 
 	@Test
@@ -65,7 +44,7 @@ public class CoalescedWhileTest {
 		Assert.assertEquals(state.size(), 1);
 
 		// State values
-		Assert.assertEquals(state.getValue(new Variable("x")), new FA(Automaton.makeEmptyString()));
+		Assert.assertEquals(state.getValue(new Variable("x")), new SAFEStrings(""));
 	}
 
 	@Test

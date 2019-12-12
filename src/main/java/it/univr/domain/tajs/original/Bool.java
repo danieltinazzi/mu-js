@@ -1,7 +1,6 @@
-package it.univr.domain.coalasced;
+package it.univr.domain.tajs.original;
 
 import it.univr.domain.AbstractValue;
-import it.univr.fsm.machine.Automaton;
 
 public class Bool implements AbstractValue {
 
@@ -157,31 +156,6 @@ public class Bool implements AbstractValue {
 	@Override
 	public AbstractValue widening(AbstractValue other) {
 		return leastUpperBound(other);
-	}
-
-	@Override
-	public AbstractValue juggleToNumber() {
-		if (isTrue())
-			return new Interval("1", "1");
-		else if (isFalse())
-			return new Interval("0", "0");
-		else
-			return new Interval("0", "1");
-	}
-
-	@Override
-	public AbstractValue juggleToString() {
-		if (isTrue())
-			return new FA(Automaton.makeAutomaton("true"));
-		else if (isFalse())
-			return new FA(Automaton.makeAutomaton("false"));
-		else
-			return new FA(Automaton.union(Automaton.makeAutomaton("true"), Automaton.makeAutomaton("false")));
-	}
-
-	@Override
-	public AbstractValue juggleToBool() {
-		return clone();
 	}
 
 	@Override

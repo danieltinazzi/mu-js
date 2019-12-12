@@ -1,20 +1,15 @@
-package it.univr.domain.coalesced;
+package it.univr.domain.tajs.original;
 
 import org.junit.Assert;
 import org.junit.Test;
 
-import it.univr.domain.coalasced.CoalascedAbstractDomain;
-import it.univr.domain.coalasced.FA;
-import it.univr.domain.coalasced.Interval;
-import it.univr.domain.coalasced.Top;
-import it.univr.fsm.machine.Automaton;
 import it.univr.main.Analyzer;
 import it.univr.state.AbstractMemory;
 import it.univr.state.Variable;
 
 public class CoalescedIntervalTest {
 
-	private CoalascedAbstractDomain domain = new CoalascedAbstractDomain();
+	private SAFEAbstractDomain domain = new SAFEAbstractDomain();
 	
 	@Test
 	public void testSum001() throws Exception {
@@ -39,7 +34,7 @@ public class CoalescedIntervalTest {
 		Assert.assertEquals(state.size(), 1);
 		
 		// State values
-		Assert.assertEquals(state.getValue(new Variable("x")), new FA(Automaton.makeAutomaton("12")));
+		Assert.assertEquals(state.getValue(new Variable("x")), new SAFEStrings("12"));
 	}
 	
 	@Test

@@ -1,18 +1,15 @@
-package it.univr.domain.lifted;
+package it.univr.domain.tajs.original;
 
 import org.junit.Assert;
 import org.junit.Test;
 
-import it.univr.domain.coalasced.Bool;
-import it.univr.domain.coalasced.Interval;
-import it.univr.domain.lifted.LiftedUnionAbstractDomain;
-import it.univr.domain.lifted.LiftedUnionAbstractValue;
 import it.univr.main.Analyzer;
 import it.univr.state.AbstractMemory;
 import it.univr.state.Variable;
 
-public class LiftedUnionBooleanTest {
-	LiftedUnionAbstractDomain domain = new LiftedUnionAbstractDomain();
+public class CoalescedBooleanTest {
+
+	SAFEAbstractDomain domain = new SAFEAbstractDomain();
 	String dir = "src/test/resources/bool/";
 	
 	@Test
@@ -23,11 +20,8 @@ public class LiftedUnionBooleanTest {
 		// State size
 		Assert.assertEquals(state.size(), 1);
 		
-		LiftedUnionAbstractValue x = new LiftedUnionAbstractValue();
-		x.setBool(new Bool(1));
-		
 		// State values
-		Assert.assertEquals(state.getValue(new Variable("x")), x);
+		Assert.assertEquals(state.getValue(new Variable("x")), new Bool(1));
 	}
 	
 	@Test
@@ -38,11 +32,8 @@ public class LiftedUnionBooleanTest {
 		// State size
 		Assert.assertEquals(state.size(), 1);
 		
-		LiftedUnionAbstractValue x = new LiftedUnionAbstractValue();
-		x.setBool(new Bool(0));
-		
 		// State values
-		Assert.assertEquals(state.getValue(new Variable("x")), x);
+		Assert.assertEquals(state.getValue(new Variable("x")), new Bool(0));
 	}
 	
 	@Test
@@ -53,11 +44,8 @@ public class LiftedUnionBooleanTest {
 		// State size
 		Assert.assertEquals(state.size(), 1);
 		
-		LiftedUnionAbstractValue x = new LiftedUnionAbstractValue();
-		x.setInterval(new Interval("2", "2"));
-		
 		// State values
-		Assert.assertEquals(state.getValue(new Variable("x")), x);
+		Assert.assertEquals(state.getValue(new Variable("x")), new Interval("2", "2"));
 	}
 
 	@Test
@@ -68,11 +56,8 @@ public class LiftedUnionBooleanTest {
 		// State size
 		Assert.assertEquals(state.size(), 1);
 		
-		LiftedUnionAbstractValue x = new LiftedUnionAbstractValue();
-		x.setInterval(new Interval("0", "0"));
-		
 		// State values
-		Assert.assertEquals(state.getValue(new Variable("x")), x);
+		Assert.assertEquals(state.getValue(new Variable("x")), new Interval("0", "0"));
 	}
 	
 	@Test
@@ -83,11 +68,8 @@ public class LiftedUnionBooleanTest {
 		// State size
 		Assert.assertEquals(state.size(), 1);
 		
-		LiftedUnionAbstractValue x = new LiftedUnionAbstractValue();
-		x.setInterval(new Interval("2", "2"));
-		
 		// State values
-		Assert.assertEquals(state.getValue(new Variable("x")), x);
+		Assert.assertEquals(state.getValue(new Variable("x")), new Interval("2", "2"));
 	}
 	
 	@Test
@@ -98,11 +80,8 @@ public class LiftedUnionBooleanTest {
 		// State size
 		Assert.assertEquals(state.size(), 1);
 		
-		LiftedUnionAbstractValue x = new LiftedUnionAbstractValue();
-		x.setInterval(new Interval("2", "2"));
-		
 		// State values
-		Assert.assertEquals(state.getValue(new Variable("x")), x);
+		Assert.assertEquals(state.getValue(new Variable("x")), new Interval("2", "2"));
 	}
 	
 	@Test
@@ -113,11 +92,8 @@ public class LiftedUnionBooleanTest {
 		// State size
 		Assert.assertEquals(state.size(), 1);
 		
-		LiftedUnionAbstractValue x = new LiftedUnionAbstractValue();
-		x.setBool(new Bool(0));
-		
 		// State values
-		Assert.assertEquals(state.getValue(new Variable("x")), x);
+		Assert.assertEquals(state.getValue(new Variable("x")), new Bool(0));
 	}
 	
 	@Test
@@ -127,16 +103,10 @@ public class LiftedUnionBooleanTest {
 
 		// State size
 		Assert.assertEquals(state.size(), 2);
-
-		LiftedUnionAbstractValue x = new LiftedUnionAbstractValue();
-		x.setBool(new Bool(2));
-		
-		LiftedUnionAbstractValue a = new LiftedUnionAbstractValue();
-		a.setInterval(new Interval("0", "+Inf"));
 		
 		// State values
-		Assert.assertEquals(state.getValue(new Variable("a")), a);
-		Assert.assertEquals(state.getValue(new Variable("x")), x);
+		Assert.assertEquals(state.getValue(new Variable("a")), new Interval("0", "+Inf"));
+		Assert.assertEquals(state.getValue(new Variable("x")), new Bool(2));
 	}
 	
 	@Test
@@ -146,11 +116,8 @@ public class LiftedUnionBooleanTest {
 
 		// State size
 		Assert.assertEquals(state.size(), 1);
-
-		LiftedUnionAbstractValue x = new LiftedUnionAbstractValue();
-		x.setBool(new Bool(0));
 		
 		// State values
-		Assert.assertEquals(state.getValue(new Variable("x")), x);
+		Assert.assertEquals(state.getValue(new Variable("x")), new Bool(0));
 	}
 }

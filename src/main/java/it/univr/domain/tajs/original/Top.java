@@ -1,7 +1,6 @@
-package it.univr.domain.coalasced;
+package it.univr.domain.tajs.original;
 
 import it.univr.domain.AbstractValue;
-import it.univr.fsm.machine.Automaton;
 
 public class Top implements AbstractValue {
 
@@ -31,21 +30,6 @@ public class Top implements AbstractValue {
 	}
 
 	@Override
-	public AbstractValue juggleToNumber() {
-		return Interval.makeTopInterval();
-	}
-
-	@Override
-	public AbstractValue juggleToString() {
-		return new FA(Automaton.makeTopLanguage());
-	}
-
-	@Override
-	public AbstractValue juggleToBool() {
-		return new Bool(2);
-	}
-	
-	@Override
 	public Object clone() {
 		return new Top();
 	}
@@ -54,8 +38,7 @@ public class Top implements AbstractValue {
 	public AbstractValue greatestLowerBound(AbstractValue value) {
 		if (value instanceof Interval) return ((Interval) value).clone();
 		if (value instanceof Bottom) return new Bottom();
-		if (value instanceof FA) return ((FA) value).clone();
-		if (value instanceof NaN) return ((NaN) value).clone();
+		if (value instanceof SAFEStrings) return ((SAFEStrings) value).clone();
 		if (value instanceof Bool) return ((Bool) value).clone();
 		
 		return new Top();

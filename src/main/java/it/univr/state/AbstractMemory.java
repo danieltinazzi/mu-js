@@ -4,9 +4,6 @@ import java.util.HashMap;
 
 import it.univr.domain.AbstractDomain;
 import it.univr.domain.AbstractValue;
-import it.univr.domain.coalasced.Bottom;
-import it.univr.domain.coalasced.FA;
-import it.univr.domain.lifted.LiftedUnionAbstractValue;
 
 /**
  * Abstract state class. It is a partial map from Variable to AbstractValue.
@@ -46,26 +43,6 @@ public class AbstractMemory extends HashMap<Variable, AbstractValue> {
 	}
 
 	/**
-	 * Perform the narrowing of two states.
-	 * 
-	 * @param m1 first state
-	 * @param m2 second state
-	 * @return the widening of the two states
-	 */
-	public AbstractMemory narrowing(AbstractMemory other) {
-		AbstractMemory lub = new AbstractMemory(domain);
-
-		for (Variable v: keySet()) 
-			lub.put(v, domain.narrowing(getValue(v),other.getValue(v)));
-
-		for (Variable v: other.keySet()) 
-			if (!containsKey(v))
-				lub.put(v, domain.narrowing(getValue(v),other.getValue(v)));
-
-		return lub; 
-	}
-
-	/**
 	 * Perform the widening of two states.
 	 * 
 	 * @param m1 first state
@@ -88,7 +65,7 @@ public class AbstractMemory extends HashMap<Variable, AbstractValue> {
 	public AbstractValue getValue(Variable v) {
 		if (containsKey(v))
 			return get(v);
-		return new Bottom();
+		return domain.makeBottom();
 	}
 
 
@@ -117,21 +94,7 @@ public class AbstractMemory extends HashMap<Variable, AbstractValue> {
 	}
 
 	@Override
-	public AbstractValue put(Variable key, AbstractValue v) {
-		if (v instanceof FA) {
-			((FA) v).minimize();
-			super.put(key, v);
-			return v;
-		}
-
-		else if (v instanceof LiftedUnionAbstractValue && ((LiftedUnionAbstractValue) v).isFA()) {
-			if (((LiftedUnionAbstractValue) v).getFA() instanceof FA) {
-				((FA) ((LiftedUnionAbstractValue) v).getFA()).minimize(); 
-				super.put(key, v);
-				return v;
-			}
-		}
-		
+	public AbstractValue put(Variable key, AbstractValue v) {		
 		super.put(key, v);
 		return v;
 	}

@@ -1,24 +1,19 @@
-package it.univr.main.coalesced;
-
-import java.util.HashSet;
+package it.univr.domain.tajs.original;
 
 import org.junit.Assert;
 import org.junit.Test;
 
-import it.univr.domain.coalasced.CoalascedAbstractDomain;
-import it.univr.domain.coalasced.FA;
-import it.univr.domain.coalasced.Interval;
-import it.univr.domain.coalasced.Top;
-import it.univr.fsm.machine.Automaton;
-import it.univr.fsm.machine.State;
-import it.univr.fsm.machine.Transition;
+import it.univr.domain.tajs.original.Interval;
+import it.univr.domain.tajs.original.SAFEAbstractDomain;
+import it.univr.domain.tajs.original.SAFEStrings;
+import it.univr.domain.tajs.original.Top;
 import it.univr.main.Analyzer;
 import it.univr.state.AbstractMemory;
 import it.univr.state.Variable;
 
 public class CoalescedIfTest {
 
-	private CoalascedAbstractDomain domain = new CoalascedAbstractDomain();
+	private SAFEAbstractDomain domain = new SAFEAbstractDomain();
 
 
 	@Test
@@ -54,20 +49,8 @@ public class CoalescedIfTest {
 		// State size
 		Assert.assertEquals(state.size(), 2);
 
-		HashSet<State> states = new HashSet<State>();
-		HashSet<Transition> delta = new HashSet<Transition>();
-
-		State q0 = new State("q0", true, true);
-
-		states.add(q0);
-
-		delta.add(new Transition(q0, q0, "a"));
-
-		// a^* 
-		Automaton a = new Automaton(delta, states);
-
 		// State values
-		Assert.assertEquals(state.getValue(new Variable("x")), new FA(a));
+		Assert.assertEquals(state.getValue(new Variable("x")), SAFEStrings.createNotNumeric());
 		Assert.assertEquals(state.getValue(new Variable("y")), new Interval("0", "+Inf"));
 	}
 
@@ -127,12 +110,10 @@ public class CoalescedIfTest {
 		// State size
 		Assert.assertEquals(state.size(), 3);
 
-		Automaton aut = Automaton.union(Automaton.makeAutomaton("h"), Automaton.makeAutomaton("l"));
-
 		// State values
 		Assert.assertEquals(state.getValue(new Variable("a")), new Interval("0", "+Inf"));
-		Assert.assertEquals(state.getValue(new Variable("str")), new FA(Automaton.makeAutomaton("helloworld")));
-		Assert.assertEquals(state.getValue(new Variable("c")), new FA(aut));
+		Assert.assertEquals(state.getValue(new Variable("str")), new SAFEStrings("helloworld"));
+		Assert.assertEquals(state.getValue(new Variable("c")), SAFEStrings.createNotNumeric());
 	}
 
 	@Test
@@ -143,11 +124,9 @@ public class CoalescedIfTest {
 		// State size
 		Assert.assertEquals(state.size(), 2);
 
-		Automaton a = Automaton.union(Automaton.union(Automaton.union(Automaton.makeAutomaton("a"), Automaton.makeAutomaton("b")), Automaton.makeAutomaton("c")), Automaton.makeAutomaton("d"));
-
 		// State values
 		Assert.assertEquals(state.getValue(new Variable("a")), new Interval("0", "+Inf"));
-		Assert.assertEquals(state.getValue(new Variable("str")), new FA(a));
+		Assert.assertEquals(state.getValue(new Variable("str")), SAFEStrings.createNotNumeric());
 	}
 
 	@Test
@@ -157,11 +136,9 @@ public class CoalescedIfTest {
 
 		// State size
 		Assert.assertEquals(state.size(), 2);
-
-		Automaton a = Automaton.union(Automaton.makeAutomaton("ab"), Automaton.makeAutomaton("ac"));
 				
 		// State values
 		Assert.assertEquals(state.getValue(new Variable("i")), new Interval("0", "+Inf"));
-		Assert.assertEquals(state.getValue(new Variable("str")), new FA(a));
+		Assert.assertEquals(state.getValue(new Variable("str")),  SAFEStrings.createNotNumeric());
 	}
 }

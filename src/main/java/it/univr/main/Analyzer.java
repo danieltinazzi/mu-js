@@ -11,9 +11,7 @@ import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 
 import it.univr.domain.AbstractDomain;
-import it.univr.domain.coalasced.CoalascedAbstractDomain;
-import it.univr.domain.coalasced.FA;
-import it.univr.domain.lifted.LiftedUnionAbstractDomain;
+import it.univr.domain.tajs.original.SAFEAbstractDomain;
 import it.univr.state.AbstractMemory;
 import it.univr.state.AbstractState;
 
@@ -26,27 +24,18 @@ public class Analyzer {
 		boolean narrowing = false;
 		boolean printInvariants = false;
 
-		AbstractDomain domain = new CoalascedAbstractDomain();
+		AbstractDomain domain = new SAFEAbstractDomain();
 		
 		for (int i = 0; i < args.length; ++i) {
 			if (args[i].equals("-narr"))
 				narrowing = true;
-			else if (args[i].equals("-coalesced"))
-				domain = new CoalascedAbstractDomain();
-			else if (args[i].equals("-lifted"))
-				domain = new LiftedUnionAbstractDomain();
+			else if (args[i].equals("-tajs"))
+				domain = new SAFEAbstractDomain();
 			else if (args[i].equals("-help")) {
 				System.out.println(potd()  + "\n\n" + printHelp());
 				return;
 			}
-			else if (args[i].equals("-widening")) {
-				try {
-					FA.setWidening(Integer.parseInt(args[i+1]));
-				} catch (NumberFormatException e) {
-					System.out.println(printHelp());
-					return;
-				}
-			}
+			
 			else if (args[i].equals("-invariants")) {
 				printInvariants = true;
 			}
