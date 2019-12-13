@@ -4,7 +4,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import it.univr.main.Analyzer;
-import it.univr.state.AbstractMemory;
+import it.univr.state.AbstractStore;
 import it.univr.state.Variable;
 
 public class SAFEIntervalTest {
@@ -14,7 +14,7 @@ public class SAFEIntervalTest {
 	@Test
 	public void testSum001() throws Exception {
 		String file = "src/test/resources/intervals/sum001.js";
-		AbstractMemory state = Analyzer.analyze(file, domain, false);
+		AbstractStore state = Analyzer.analyze(file, domain, false);
 
 		// State size
 		Assert.assertEquals(state.size(), 3);
@@ -28,7 +28,7 @@ public class SAFEIntervalTest {
 	@Test
 	public void testSum002() throws Exception {
 		String file = "src/test/resources/intervals/sum002.js";
-		AbstractMemory state = Analyzer.analyze(file, domain, false);
+		AbstractStore state = Analyzer.analyze(file, domain, false);
 
 		// State size
 		Assert.assertEquals(state.size(), 1);
@@ -40,7 +40,7 @@ public class SAFEIntervalTest {
 	@Test
 	public void testSum003() throws Exception {
 		String file = "src/test/resources/intervals/sum003.js";
-		AbstractMemory state = Analyzer.analyze(file, domain, false);
+		AbstractStore state = Analyzer.analyze(file, domain, false);
 
 		// State size
 		Assert.assertEquals(state.size(), 1);
@@ -52,7 +52,7 @@ public class SAFEIntervalTest {
 	@Test
 	public void testSum004() throws Exception {
 		String file = "src/test/resources/intervals/sum004.js";
-		AbstractMemory state = Analyzer.analyze(file, domain, false);
+		AbstractStore state = Analyzer.analyze(file, domain, false);
 
 		// State size
 		Assert.assertEquals(state.size(), 1);
@@ -64,7 +64,7 @@ public class SAFEIntervalTest {
 	@Test
 	public void testSum005() throws Exception {
 		String file = "src/test/resources/intervals/sum005.js";
-		AbstractMemory state = Analyzer.analyze(file, domain, false);
+		AbstractStore state = Analyzer.analyze(file, domain, false);
 
 		// State size
 		Assert.assertEquals(state.size(), 3);
@@ -78,7 +78,7 @@ public class SAFEIntervalTest {
 	@Test
 	public void testMul001() throws Exception {
 		String file = "src/test/resources/intervals/mul001.js";
-		AbstractMemory state = Analyzer.analyze(file, domain, false);
+		AbstractStore state = Analyzer.analyze(file, domain, false);
 
 		// State size
 		Assert.assertEquals(state.size(), 1);

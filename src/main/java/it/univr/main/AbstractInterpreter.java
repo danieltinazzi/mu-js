@@ -5,26 +5,26 @@ import org.antlr.v4.runtime.misc.NotNull;
 import it.univr.domain.AbstractDomain;
 import it.univr.domain.AbstractValue;
 
-import it.univr.state.AbstractMemory;
+import it.univr.state.AbstractStore;
 import it.univr.state.AbstractState;
 import it.univr.state.KeyAbstractState;
 import it.univr.state.Variable;
 
 public class AbstractInterpreter extends MuJsBaseVisitor<AbstractValue> {
 
-	private AbstractMemory memory;
+	private AbstractStore memory;
 	private AbstractDomain domain;
 	private AbstractState state;
 
 	private boolean printInvariants;
 
 	public AbstractInterpreter(AbstractDomain domain, boolean narrowing, boolean invariants) {
-		this.memory = new AbstractMemory(domain);
+		this.memory = new AbstractStore(domain);
 		this.state = new AbstractState();
 		this.printInvariants = invariants;
 	}
 
-	public AbstractMemory getFinalAbstractMemory() {
+	public AbstractStore getFinalAbstractMemory() {
 		return memory;
 	}
 
@@ -32,7 +32,7 @@ public class AbstractInterpreter extends MuJsBaseVisitor<AbstractValue> {
 		return state;
 	}
 
-	public void setAbstractState(AbstractMemory state) {
+	public void setAbstractState(AbstractStore state) {
 		this.memory = state;
 	}
 
@@ -68,11 +68,11 @@ public class AbstractInterpreter extends MuJsBaseVisitor<AbstractValue> {
 		if (domain.isFalse(visit(ctx.bexp())))
 			return visit(ctx.block(1));
 
-		AbstractMemory previous = (AbstractMemory) memory.clone();
+		AbstractStore previous = (AbstractStore) memory.clone();
 
 		visit(ctx.block(0));
 
-		AbstractMemory trueBranch = (AbstractMemory) memory.clone();
+		AbstractStore trueBranch = (AbstractStore) memory.clone();
 		memory = previous;
 
 		visit(ctx.block(1));
@@ -215,7 +215,7 @@ public class AbstractInterpreter extends MuJsBaseVisitor<AbstractValue> {
 	@Override 
 	public AbstractValue visitWhileStmt(MuJsParser.WhileStmtContext ctx) { 
 
-		AbstractMemory previous = (AbstractMemory) memory.clone();
+		AbstractStore previous = (AbstractStore) memory.clone();
 
 		do {
 			AbstractValue guard =  visit(ctx.bexp());
@@ -243,7 +243,7 @@ public class AbstractInterpreter extends MuJsBaseVisitor<AbstractValue> {
 				memory = previous.widening(previous.leastUpperBound(memory));
 			}
 
-			AbstractMemory s =  memory.clone();
+			AbstractStore s =  memory.clone();
 
 
 			if (previous.equals(s))

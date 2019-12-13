@@ -10,14 +10,13 @@ import it.univr.domain.AbstractValue;
  * 
  * @author  * @author <a href="vincenzo.arceri@univr.it">Vincenzo Arceri</a>
  */
-public class AbstractMemory extends HashMap<Variable, AbstractValue> {
+public class AbstractStore extends HashMap<Variable, AbstractValue> {
 
 
 	private static final long serialVersionUID = 1L;
 	private AbstractDomain domain;
 
-
-	public AbstractMemory(AbstractDomain domain) {
+	public AbstractStore(AbstractDomain domain) {
 		super();
 		this.domain = domain;
 	}
@@ -29,8 +28,8 @@ public class AbstractMemory extends HashMap<Variable, AbstractValue> {
 	 * @param m2 second memory
 	 * @return the least upper bound of the two memory
 	 */
-	public AbstractMemory leastUpperBound(AbstractMemory other) {
-		AbstractMemory lub = new AbstractMemory(domain);
+	public AbstractStore leastUpperBound(AbstractStore other) {
+		AbstractStore lub = new AbstractStore(domain);
 
 		for (Variable v: keySet()) 
 			lub.put(v, domain.leastUpperBound(getValue(v),other.getValue(v)));
@@ -49,8 +48,8 @@ public class AbstractMemory extends HashMap<Variable, AbstractValue> {
 	 * @param m2 second state
 	 * @return the widening of the two states
 	 */
-	public AbstractMemory widening(AbstractMemory other) {
-		AbstractMemory lub = new AbstractMemory(domain);
+	public AbstractStore widening(AbstractStore other) {
+		AbstractStore lub = new AbstractStore(domain);
 
 		for (Variable v: keySet()) 
 			lub.put(v, domain.widening(getValue(v),other.getValue(v)));
@@ -69,7 +68,7 @@ public class AbstractMemory extends HashMap<Variable, AbstractValue> {
 	}
 
 
-	public void intersect(AbstractMemory other) {
+	public void intersect(AbstractStore other) {
 		for (Variable v : other.keySet()) 
 			put(v, domain.greatestLowerBound(getValue(v),(other.getValue(v))));
 	}
@@ -89,8 +88,8 @@ public class AbstractMemory extends HashMap<Variable, AbstractValue> {
 	}
 
 	@Override
-	public AbstractMemory clone() {
-		return (AbstractMemory) super.clone();
+	public AbstractStore clone() {
+		return (AbstractStore) super.clone();
 	}
 
 	@Override

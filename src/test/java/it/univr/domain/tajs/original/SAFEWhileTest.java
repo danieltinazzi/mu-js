@@ -4,7 +4,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import it.univr.main.Analyzer;
-import it.univr.state.AbstractMemory;
+import it.univr.state.AbstractStore;
 import it.univr.state.Variable;
 
 public class SAFEWhileTest {
@@ -14,7 +14,7 @@ public class SAFEWhileTest {
 	@Test
 	public void testWhile001() throws Exception {
 		String file = "src/test/resources/while/while001.js";
-		AbstractMemory state = Analyzer.analyze(file, domain, true);
+		AbstractStore state = Analyzer.analyze(file, domain, true);
 
 		// State size
 		Assert.assertEquals(state.size(), 1);
@@ -26,7 +26,7 @@ public class SAFEWhileTest {
 	@Test
 	public void testWhile002() throws Exception {
 		String file = "src/test/resources/while/while002.js";
-		AbstractMemory state = Analyzer.analyze(file, domain, true);
+		AbstractStore state = Analyzer.analyze(file, domain, true);
 
 		// State size
 		Assert.assertEquals(state.size(), 1);
@@ -38,7 +38,7 @@ public class SAFEWhileTest {
 	@Test
 	public void testWhile003() throws Exception {
 		String file = "src/test/resources/while/while003.js";
-		AbstractMemory state = Analyzer.analyze(file, domain, true);
+		AbstractStore state = Analyzer.analyze(file, domain, true);
 
 		// State size
 		Assert.assertEquals(state.size(), 1);
@@ -50,7 +50,7 @@ public class SAFEWhileTest {
 	@Test
 	public void testWhile004() throws Exception {
 		String file = "src/test/resources/while/while004.js";
-		AbstractMemory state = Analyzer.analyze(file, domain, true);
+		AbstractStore state = Analyzer.analyze(file, domain, true);
 
 		// State size
 		Assert.assertEquals(state.size(), 1);
@@ -62,7 +62,7 @@ public class SAFEWhileTest {
 	@Test
 	public void testWhile005() throws Exception {
 		String file = "src/test/resources/while/while005.js";
-		AbstractMemory state = Analyzer.analyze(file, domain, true);
+		AbstractStore state = Analyzer.analyze(file, domain, true);
 
 		// State size
 		Assert.assertEquals(state.size(), 2);
@@ -76,7 +76,7 @@ public class SAFEWhileTest {
 	@Test
 	public void testWhile006() throws Exception {
 		String file = "src/test/resources/while/while006.js";
-		AbstractMemory state = Analyzer.analyze(file, domain, true);
+		AbstractStore state = Analyzer.analyze(file, domain, true);
 
 		// State size
 		Assert.assertEquals(state.size(), 2);

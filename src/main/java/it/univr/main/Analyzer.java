@@ -12,7 +12,7 @@ import org.antlr.v4.runtime.tree.ParseTree;
 
 import it.univr.domain.AbstractDomain;
 import it.univr.domain.tajs.original.SAFEAbstractDomain;
-import it.univr.state.AbstractMemory;
+import it.univr.state.AbstractStore;
 import it.univr.state.AbstractState;
 
 public class Analyzer {
@@ -41,7 +41,7 @@ public class Analyzer {
 			}
 		}
 
-		AbstractMemory memory = null;
+		AbstractStore memory = null;
 		AbstractState state = null;
 		
 		try {
@@ -59,7 +59,7 @@ public class Analyzer {
 		}
 	}
 
-	public static AbstractMemory analyze(String file, AbstractDomain domain, boolean narrowing) throws IOException {
+	public static AbstractStore analyze(String file, AbstractDomain domain, boolean narrowing) throws IOException {
 		AbstractInterpreter interpreter = new AbstractInterpreter(domain, narrowing, false);
 
 		interpreter.setAbstractDomain(domain);

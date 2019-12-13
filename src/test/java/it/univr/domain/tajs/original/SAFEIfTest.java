@@ -8,7 +8,7 @@ import it.univr.domain.tajs.original.SAFEAbstractDomain;
 import it.univr.domain.tajs.original.SAFEStrings;
 import it.univr.domain.tajs.original.Top;
 import it.univr.main.Analyzer;
-import it.univr.state.AbstractMemory;
+import it.univr.state.AbstractStore;
 import it.univr.state.Variable;
 
 public class SAFEIfTest {
@@ -19,7 +19,7 @@ public class SAFEIfTest {
 	@Test
 	public void testIf001() throws Exception {
 		String file = "src/test/resources/if/if001.js";
-		AbstractMemory state = Analyzer.analyze(file, domain, false);
+		AbstractStore state = Analyzer.analyze(file, domain, false);
 
 		// State size
 		Assert.assertEquals(state.size(), 1);
@@ -31,7 +31,7 @@ public class SAFEIfTest {
 	@Test
 	public void testIf002() throws Exception {
 		String file = "src/test/resources/if/if002.js";
-		AbstractMemory state = Analyzer.analyze(file, domain, false);
+		AbstractStore state = Analyzer.analyze(file, domain, false);
 
 		// State size
 		Assert.assertEquals(state.size(), 2);
@@ -44,7 +44,7 @@ public class SAFEIfTest {
 	@Test
 	public void testIf003() throws Exception {
 		String file = "src/test/resources/if/if003.js";
-		AbstractMemory state = Analyzer.analyze(file, domain, false);
+		AbstractStore state = Analyzer.analyze(file, domain, false);
 
 		// State size
 		Assert.assertEquals(state.size(), 3);
@@ -58,7 +58,7 @@ public class SAFEIfTest {
 	@Test
 	public void testIf004() throws Exception {
 		String file = "src/test/resources/if/if004.js";
-		AbstractMemory state = Analyzer.analyze(file, domain, false);
+		AbstractStore state = Analyzer.analyze(file, domain, false);
 
 		// State size
 		Assert.assertEquals(state.size(), 1);
@@ -70,7 +70,7 @@ public class SAFEIfTest {
 	@Test
 	public void testIf005() throws Exception {
 		String file = "src/test/resources/if/if005.js";
-		AbstractMemory state = Analyzer.analyze(file, domain, false);
+		AbstractStore state = Analyzer.analyze(file, domain, false);
 
 		// State size
 		Assert.assertEquals(state.size(), 1);
@@ -82,7 +82,7 @@ public class SAFEIfTest {
 	@Test
 	public void testIf006() throws Exception {
 		String file = "src/test/resources/if/if006.js";
-		AbstractMemory state = Analyzer.analyze(file, domain, false);
+		AbstractStore state = Analyzer.analyze(file, domain, false);
 
 		// State size
 		Assert.assertEquals(state.size(), 1);
@@ -94,7 +94,7 @@ public class SAFEIfTest {
 	@Test
 	public void testIf007() throws Exception {
 		String file = "src/test/resources/if/if007.js";
-		AbstractMemory state = Analyzer.analyze(file, domain, false);
+		AbstractStore state = Analyzer.analyze(file, domain, false);
 
 		// State size
 		Assert.assertEquals(state.size(), 1);
@@ -106,7 +106,7 @@ public class SAFEIfTest {
 	@Test
 	public void testIf008() throws Exception {
 		String file = "src/test/resources/if/if008.js";
-		AbstractMemory state = Analyzer.analyze(file, domain, false);
+		AbstractStore state = Analyzer.analyze(file, domain, false);
 
 		// State size
 		Assert.assertEquals(state.size(), 3);
@@ -120,7 +120,7 @@ public class SAFEIfTest {
 	@Test
 	public void testIf009() throws Exception {
 		String file = "src/test/resources/if/if009.js";
-		AbstractMemory state = Analyzer.analyze(file, domain, false);
+		AbstractStore state = Analyzer.analyze(file, domain, false);
 
 		// State size
 		Assert.assertEquals(state.size(), 2);
@@ -133,7 +133,7 @@ public class SAFEIfTest {
 	@Test
 	public void testIf010() throws Exception {
 		String file = "src/test/resources/if/if010.js";
-		AbstractMemory state = Analyzer.analyze(file, domain, false);
+		AbstractStore state = Analyzer.analyze(file, domain, false);
 
 		// State size
 		Assert.assertEquals(state.size(), 2);

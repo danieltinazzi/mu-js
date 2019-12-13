@@ -4,7 +4,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import it.univr.main.Analyzer;
-import it.univr.state.AbstractMemory;
+import it.univr.state.AbstractStore;
 import it.univr.state.Variable;
 
 public class SAFEConcatTest {
@@ -15,7 +15,7 @@ public class SAFEConcatTest {
 	@Test
 	public void testConcat001() throws Exception {
 		String file = path + "concat001.js";
-		AbstractMemory state = Analyzer.analyze(file, domain, true);
+		AbstractStore state = Analyzer.analyze(file, domain, true);
 
 		// State size
 		Assert.assertEquals(state.size(), 1);
@@ -27,7 +27,7 @@ public class SAFEConcatTest {
 	@Test
 	public void testConcat002() throws Exception {
 		String file = path + "concat002.js";
-		AbstractMemory state = Analyzer.analyze(file, domain, true);
+		AbstractStore state = Analyzer.analyze(file, domain, true);
 
 		// State size
 		Assert.assertEquals(state.size(), 4);
@@ -42,7 +42,7 @@ public class SAFEConcatTest {
 	@Test
 	public void testConcat003() throws Exception {
 		String file = path + "concat003.js";
-		AbstractMemory state = Analyzer.analyze(file, domain, true);
+		AbstractStore state = Analyzer.analyze(file, domain, true);
 
 		// State size
 		Assert.assertEquals(state.size(), 4);
@@ -58,7 +58,7 @@ public class SAFEConcatTest {
 	@Test
 	public void testConcat004() throws Exception {
 		String file = path + "concat004.js";
-		AbstractMemory state = Analyzer.analyze(file, domain, true);
+		AbstractStore state = Analyzer.analyze(file, domain, true);
 
 		// State size
 		Assert.assertEquals(state.size(), 4);
