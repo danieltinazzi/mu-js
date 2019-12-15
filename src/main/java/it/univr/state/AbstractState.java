@@ -2,13 +2,13 @@ package it.univr.state;
 
 import java.util.HashMap;
 
-public class AbstractState extends HashMap<KeyAbstractState, AbstractStore>{
+public class AbstractState extends HashMap<KeyAbstractState, AbstractEnvironment>{
 
 	public AbstractState() {
 		super();
 	}
 
-	public void add(KeyAbstractState key, AbstractStore m) {
+	public void add(KeyAbstractState key, AbstractEnvironment m) {
 		if (containsKey(key))
 			put(key, get(key).leastUpperBound(m));
 		else

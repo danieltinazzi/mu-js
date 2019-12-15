@@ -4,7 +4,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import it.univr.main.Analyzer;
-import it.univr.state.AbstractStore;
+import it.univr.state.AbstractEnvironment;
 import it.univr.state.Variable;
 
 public class SAFEWhileTest {
@@ -14,10 +14,11 @@ public class SAFEWhileTest {
 	@Test
 	public void testWhile001() throws Exception {
 		String file = "src/test/resources/while/while001.js";
-		AbstractStore state = Analyzer.analyze(file, domain, true);
+		AbstractEnvironment state = Analyzer.analyze(file, domain, true);
 
-		// State size
-		Assert.assertEquals(state.size(), 1);
+		// State sizeStore
+		Assert.assertEquals(state.sizeStore(), 1);
+		Assert.assertEquals(state.sizeHeap(), 0);
 
 		// State values
 		Assert.assertEquals(state.getValue(new Variable("x")), new Interval("0", "+Inf"));
@@ -26,10 +27,11 @@ public class SAFEWhileTest {
 	@Test
 	public void testWhile002() throws Exception {
 		String file = "src/test/resources/while/while002.js";
-		AbstractStore state = Analyzer.analyze(file, domain, true);
+		AbstractEnvironment state = Analyzer.analyze(file, domain, true);
 
-		// State size
-		Assert.assertEquals(state.size(), 1);
+		// State sizeStore
+		Assert.assertEquals(state.sizeStore(), 1);
+		Assert.assertEquals(state.sizeHeap(), 0);
 
 		// State values
 		Assert.assertEquals(state.getValue(new Variable("x")), SAFEStrings.createNotNumeric());
@@ -38,10 +40,11 @@ public class SAFEWhileTest {
 	@Test
 	public void testWhile003() throws Exception {
 		String file = "src/test/resources/while/while003.js";
-		AbstractStore state = Analyzer.analyze(file, domain, true);
+		AbstractEnvironment state = Analyzer.analyze(file, domain, true);
 
-		// State size
-		Assert.assertEquals(state.size(), 1);
+		// State sizeStore
+		Assert.assertEquals(state.sizeStore(), 1);
+		Assert.assertEquals(state.sizeHeap(), 0);
 
 		// State values
 		Assert.assertEquals(state.getValue(new Variable("x")), new SAFEStrings(""));
@@ -50,10 +53,11 @@ public class SAFEWhileTest {
 	@Test
 	public void testWhile004() throws Exception {
 		String file = "src/test/resources/while/while004.js";
-		AbstractStore state = Analyzer.analyze(file, domain, true);
+		AbstractEnvironment state = Analyzer.analyze(file, domain, true);
 
-		// State size
-		Assert.assertEquals(state.size(), 1);
+		// State sizeStore
+		Assert.assertEquals(state.sizeStore(), 1);
+		Assert.assertEquals(state.sizeHeap(), 0);
 
 		// State values
 		Assert.assertEquals(state.getValue(new Variable("x")), new Interval("-Inf", "100"));
@@ -62,10 +66,11 @@ public class SAFEWhileTest {
 	@Test
 	public void testWhile005() throws Exception {
 		String file = "src/test/resources/while/while005.js";
-		AbstractStore state = Analyzer.analyze(file, domain, true);
+		AbstractEnvironment state = Analyzer.analyze(file, domain, true);
 
-		// State size
-		Assert.assertEquals(state.size(), 2);
+		// State sizeStore
+		Assert.assertEquals(state.sizeStore(), 2);
+		Assert.assertEquals(state.sizeHeap(), 0);
 
 		// State values
 		Assert.assertEquals(state.getValue(new Variable("x")), new Interval("0", "+Inf"));
@@ -76,10 +81,11 @@ public class SAFEWhileTest {
 	@Test
 	public void testWhile006() throws Exception {
 		String file = "src/test/resources/while/while006.js";
-		AbstractStore state = Analyzer.analyze(file, domain, true);
+		AbstractEnvironment state = Analyzer.analyze(file, domain, true);
 
-		// State size
-		Assert.assertEquals(state.size(), 2);
+		// State sizeStore
+		Assert.assertEquals(state.sizeStore(), 2);
+		Assert.assertEquals(state.sizeHeap(), 0);
 
 		// State values
 		Assert.assertEquals(state.getValue(new Variable("x")), new Interval("0", "+Inf"));

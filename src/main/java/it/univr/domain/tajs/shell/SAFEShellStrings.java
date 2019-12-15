@@ -166,11 +166,11 @@ public class SAFEShellStrings implements AbstractValue {
 						return new SAFEShellStrings(SAFEShellStrings.NOT_NUMERIC);	
 				}
 			}
-			
+
 			else if (isString()) { // first parameter is single string and the second one is not
-				
+
 				if (isEmptyString()) {
-					
+
 					if (that.getAbstractValue() == UINT)
 						return new SAFEShellStrings(UINT_EPSILON);
 					else if (that.containsEpsilonString())
@@ -180,7 +180,7 @@ public class SAFEShellStrings implements AbstractValue {
 					else if (that.getAbstractValue() == UFLOAT)
 						return new SAFEShellStrings(UNUM_EPSILON);		
 					else if (that.getAbstractValue() == SIGNED_NUM)
-							return new SAFEShellStrings(TOP);
+						return new SAFEShellStrings(TOP);
 					else if (that.getAbstractValue() == NOTNUM_NOTEMPTY)
 						return new SAFEShellStrings(NOT_NUMERIC);
 					else if (that.getAbstractValue() == NOTUNSIGNED_NOTEMPTY)
@@ -190,14 +190,14 @@ public class SAFEShellStrings implements AbstractValue {
 					else if (that.getAbstractValue() == NUMERIC)
 						return new SAFEShellStrings(TOP);
 				}
-				
+
 				else if (isUnsignedInteger()) {
 					if (that.containsUnsignedIntegerStrings())
 						return that.clone();
 					else if (that.getAbstractValue() == UFLOAT)
 						return new SAFEShellStrings(UNUM);		
 					else if (that.getAbstractValue() == SIGNED_NUM)
-							return new SAFEShellStrings(NUMERIC);
+						return new SAFEShellStrings(NUMERIC);
 					else if (that.getAbstractValue() == NOTNUM_NOTEMPTY)
 						return new SAFEShellStrings(TOP);
 					else if (that.getAbstractValue() == NOTUNSIGNED_NOTEMPTY)
@@ -207,7 +207,7 @@ public class SAFEShellStrings implements AbstractValue {
 					else if (that.getAbstractValue() == NOT_NUMERIC)
 						return new SAFEShellStrings(TOP);
 				}
-				
+
 				else if (isUnsignedFloat()) {
 					if (that.containsUnsignedFloats())
 						return that.clone();
@@ -225,9 +225,9 @@ public class SAFEShellStrings implements AbstractValue {
 						return new SAFEShellStrings(NOTUINT_NOTEMPTY);
 					else if (that.getAbstractValue() == NOT_NUMERIC)
 						return new SAFEShellStrings(TOP);
-					
+
 				}
-				
+
 				else if (isSignedNumber()) {
 					if (that.containsSignedNumbers()) 
 						return that.clone();
@@ -246,7 +246,7 @@ public class SAFEShellStrings implements AbstractValue {
 					else if (that.getAbstractValue() == UINT_EPSILON)
 						return new SAFEShellStrings(TOP);
 				}
-				
+
 				else if (isNotNumericAndNotEmpty()) {
 					if (that.containsNotNumericNotEmptyStrings())
 						return that.clone();
@@ -268,11 +268,11 @@ public class SAFEShellStrings implements AbstractValue {
 						return new SAFEShellStrings(NOTUNSIGNED_NOTEMPTY);
 				}
 			}
-			
+
 			else if (that.isString()) { // first parameter is single string and the second one is not
-				
+
 				if (that.isEmptyString()) {
-					
+
 					if (getAbstractValue() == UINT)
 						return new SAFEShellStrings(UINT_EPSILON);
 					else if (containsEpsilonString())
@@ -282,7 +282,7 @@ public class SAFEShellStrings implements AbstractValue {
 					else if (getAbstractValue() == UFLOAT)
 						return new SAFEShellStrings(UNUM_EPSILON);		
 					else if (getAbstractValue() == SIGNED_NUM)
-							return new SAFEShellStrings(TOP);
+						return new SAFEShellStrings(TOP);
 					else if (getAbstractValue() == NOTNUM_NOTEMPTY)
 						return new SAFEShellStrings(NOT_NUMERIC);
 					else if (getAbstractValue() == NOTUNSIGNED_NOTEMPTY)
@@ -292,14 +292,14 @@ public class SAFEShellStrings implements AbstractValue {
 					else if (getAbstractValue() == NUMERIC)
 						return new SAFEShellStrings(TOP);
 				}
-				
+
 				else if (that.isUnsignedInteger()) {
 					if (containsUnsignedIntegerStrings())
 						return clone();
 					else if (getAbstractValue() == UFLOAT)
 						return new SAFEShellStrings(UNUM);		
 					else if (getAbstractValue() == SIGNED_NUM)
-							return new SAFEShellStrings(NUMERIC);
+						return new SAFEShellStrings(NUMERIC);
 					else if (getAbstractValue() == NOTNUM_NOTEMPTY)
 						return new SAFEShellStrings(TOP);
 					else if (getAbstractValue() == NOTUNSIGNED_NOTEMPTY)
@@ -309,7 +309,7 @@ public class SAFEShellStrings implements AbstractValue {
 					else if (getAbstractValue() == NOT_NUMERIC)
 						return new SAFEShellStrings(TOP);
 				}
-				
+
 				else if (that.isUnsignedFloat()) {
 					if (containsUnsignedFloats())
 						return clone();
@@ -327,9 +327,9 @@ public class SAFEShellStrings implements AbstractValue {
 						return new SAFEShellStrings(NOTUINT_NOTEMPTY);
 					else if (getAbstractValue() == NOT_NUMERIC)
 						return new SAFEShellStrings(TOP);
-					
+
 				}
-				
+
 				else if (that.isSignedNumber()) {
 					if (containsSignedNumbers()) 
 						return clone();
@@ -348,7 +348,7 @@ public class SAFEShellStrings implements AbstractValue {
 					else if (getAbstractValue() == UINT_EPSILON)
 						return new SAFEShellStrings(TOP);
 				}
-				
+
 				else if (that.isNotNumericAndNotEmpty()) {
 					if (containsNotNumericNotEmptyStrings())
 						return clone();
@@ -370,11 +370,399 @@ public class SAFEShellStrings implements AbstractValue {
 						return new SAFEShellStrings(NOTUNSIGNED_NOTEMPTY);
 				}
 			}
+
+			// All the cases where one of the two parameter is a single string is handled before
+
+			else if (v == UINT) {
 				
+				if (that.getAbstractValue() == UINT)
+					return new SAFEShellStrings(UINT);
+				
+				else if (that.getAbstractValue() == UINT_EPSILON)
+					return new SAFEShellStrings(UINT_EPSILON);
+				
+				else if (that.getAbstractValue() == UNUM)
+					return new SAFEShellStrings(UNUM);
+				
+				else if (that.getAbstractValue() == UNUM_EPSILON)
+					return new SAFEShellStrings(UNUM_EPSILON);
+				
+				else if (that.getAbstractValue() == UFLOAT)
+					return new SAFEShellStrings(UNUM);
+				
+				else if (that.getAbstractValue() == NUMERIC)
+					return new SAFEShellStrings(NUMERIC);
+				
+				else if (that.getAbstractValue() == SIGNED_NUM)
+					return new SAFEShellStrings(NUMERIC);
+				
+				else if (that.getAbstractValue() == NOTNUM_NOTEMPTY)
+					return new SAFEShellStrings(TOP);
+				
+				else if (that.getAbstractValue() == NOTUNSIGNED_NOTEMPTY)
+					return new SAFEShellStrings(TOP);
+				
+				else if (that.getAbstractValue() == NOTUINT_NOTEMPTY)
+					return new SAFEShellStrings(TOP);
+				
+				else if (that.getAbstractValue() == NOT_NUMERIC)
+					return new SAFEShellStrings(TOP);
+
+			}
+
+			else if (v == UINT_EPSILON) {
+				if (that.getAbstractValue() == UINT)
+					return new SAFEShellStrings(UINT_EPSILON);
+				
+				else if (that.getAbstractValue() == UINT_EPSILON)
+					return new SAFEShellStrings(UINT_EPSILON);
+				
+				else if (that.getAbstractValue() == UNUM)
+					return new SAFEShellStrings(UNUM_EPSILON);
+				
+				else if (that.getAbstractValue() == UNUM_EPSILON)
+					return new SAFEShellStrings(UNUM_EPSILON);
+				
+				else if (that.getAbstractValue() == UFLOAT)
+					return new SAFEShellStrings(UNUM_EPSILON);
+				
+				else if (that.getAbstractValue() == NUMERIC)
+					return new SAFEShellStrings(TOP);
+				
+				else if (that.getAbstractValue() == SIGNED_NUM)
+					return new SAFEShellStrings(TOP);
+				
+				else if (that.getAbstractValue() == NOTNUM_NOTEMPTY)
+					return new SAFEShellStrings(TOP);
+				
+				else if (that.getAbstractValue() == NOTUNSIGNED_NOTEMPTY)
+					return new SAFEShellStrings(TOP);
+				
+				else if (that.getAbstractValue() == NOTUINT_NOTEMPTY)
+					return new SAFEShellStrings(TOP);
+				
+				else if (that.getAbstractValue() == NOT_NUMERIC)
+					return new SAFEShellStrings(TOP);
+			}
+
+			else if (v == UNUM) {
+				if (that.getAbstractValue() == UINT)
+					return new SAFEShellStrings(UNUM);
+				
+				else if (that.getAbstractValue() == UINT_EPSILON)
+					return new SAFEShellStrings(UNUM_EPSILON);
+				
+				else if (that.getAbstractValue() == UNUM)
+					return new SAFEShellStrings(UNUM);
+				
+				else if (that.getAbstractValue() == UNUM_EPSILON)
+					return new SAFEShellStrings(UNUM_EPSILON);
+				
+				else if (that.getAbstractValue() == UFLOAT)
+					return new SAFEShellStrings(UNUM);
+				
+				else if (that.getAbstractValue() == NUMERIC)
+					return new SAFEShellStrings(NUMERIC);
+				
+				else if (that.getAbstractValue() == SIGNED_NUM)
+					return new SAFEShellStrings(NUMERIC);
+				
+				else if (that.getAbstractValue() == NOTNUM_NOTEMPTY)
+					return new SAFEShellStrings(TOP);
+				
+				else if (that.getAbstractValue() == NOTUNSIGNED_NOTEMPTY)
+					return new SAFEShellStrings(TOP);
+				
+				else if (that.getAbstractValue() == NOTUINT_NOTEMPTY)
+					return new SAFEShellStrings(TOP);
+				
+				else if (that.getAbstractValue() == NOT_NUMERIC)
+					return new SAFEShellStrings(TOP);
+			}
+
+			else if (v == UNUM_EPSILON) {
+				if (that.getAbstractValue() == UINT)
+					return new SAFEShellStrings(UNUM_EPSILON);
+				
+				else if (that.getAbstractValue() == UINT_EPSILON)
+					return new SAFEShellStrings(UNUM_EPSILON);
+				
+				else if (that.getAbstractValue() == UNUM)
+					return new SAFEShellStrings(UNUM_EPSILON);
+				
+				else if (that.getAbstractValue() == UNUM_EPSILON)
+					return new SAFEShellStrings(UNUM_EPSILON);
+				
+				else if (that.getAbstractValue() == UFLOAT)
+					return new SAFEShellStrings(UNUM_EPSILON);
+				
+				else if (that.getAbstractValue() == NUMERIC)
+					return new SAFEShellStrings(TOP);
+				
+				else if (that.getAbstractValue() == SIGNED_NUM)
+					return new SAFEShellStrings(TOP);
+				
+				else if (that.getAbstractValue() == NOTNUM_NOTEMPTY)
+					return new SAFEShellStrings(TOP);
+				
+				else if (that.getAbstractValue() == NOTUNSIGNED_NOTEMPTY)
+					return new SAFEShellStrings(TOP);
+				
+				else if (that.getAbstractValue() == NOTUINT_NOTEMPTY)
+					return new SAFEShellStrings(TOP);
+				
+				else if (that.getAbstractValue() == NOT_NUMERIC)
+					return new SAFEShellStrings(TOP);
+			}
+			
+			else if (v == UFLOAT) {
+				if (that.getAbstractValue() == UINT)
+					return new SAFEShellStrings(UNUM);
+				
+				else if (that.getAbstractValue() == UINT_EPSILON)
+					return new SAFEShellStrings(UNUM_EPSILON);
+				
+				else if (that.getAbstractValue() == UNUM)
+					return new SAFEShellStrings(UNUM);
+				
+				else if (that.getAbstractValue() == UNUM_EPSILON)
+					return new SAFEShellStrings(UNUM_EPSILON);
+				
+				else if (that.getAbstractValue() == UFLOAT)
+					return new SAFEShellStrings(UFLOAT);
+				
+				else if (that.getAbstractValue() == NUMERIC)
+					return new SAFEShellStrings(NUMERIC);
+				
+				else if (that.getAbstractValue() == SIGNED_NUM)
+					return new SAFEShellStrings(NUMERIC);
+				
+				else if (that.getAbstractValue() == NOTNUM_NOTEMPTY)
+					return new SAFEShellStrings(NOTUINT_NOTEMPTY);
+				
+				else if (that.getAbstractValue() == NOTUNSIGNED_NOTEMPTY)
+					return new SAFEShellStrings(NOTUINT_NOTEMPTY);
+				
+				else if (that.getAbstractValue() == NOTUINT_NOTEMPTY)
+					return new SAFEShellStrings(NOTUINT_NOTEMPTY);
+				
+				else if (that.getAbstractValue() == NOT_NUMERIC)
+					return new SAFEShellStrings(TOP);
+			}
+			
+			else if (v == NUMERIC) {
+				if (that.getAbstractValue() == UINT)
+					return new SAFEShellStrings(NUMERIC);
+				
+				else if (that.getAbstractValue() == UINT_EPSILON)
+					return new SAFEShellStrings(TOP);
+				
+				else if (that.getAbstractValue() == UNUM)
+					return new SAFEShellStrings(NUMERIC);
+				
+				else if (that.getAbstractValue() == UNUM_EPSILON)
+					return new SAFEShellStrings(TOP);
+				
+				else if (that.getAbstractValue() == UFLOAT)
+					return new SAFEShellStrings(NUMERIC);
+				
+				else if (that.getAbstractValue() == NUMERIC)
+					return new SAFEShellStrings(NUMERIC);
+				
+				else if (that.getAbstractValue() == SIGNED_NUM)
+					return new SAFEShellStrings(NUMERIC);
+				
+				else if (that.getAbstractValue() == NOTNUM_NOTEMPTY)
+					return new SAFEShellStrings(TOP);
+				
+				else if (that.getAbstractValue() == NOTUNSIGNED_NOTEMPTY)
+					return new SAFEShellStrings(TOP);
+				
+				else if (that.getAbstractValue() == NOTUINT_NOTEMPTY)
+					return new SAFEShellStrings(TOP);
+				
+				else if (that.getAbstractValue() == NOT_NUMERIC)
+					return new SAFEShellStrings(TOP);
+			}
+
+			else if (v == SIGNED_NUM) {
+				if (that.getAbstractValue() == UINT)
+					return new SAFEShellStrings(NUMERIC);
+				
+				else if (that.getAbstractValue() == UINT_EPSILON)
+					return new SAFEShellStrings(TOP);
+				
+				else if (that.getAbstractValue() == UNUM)
+					return new SAFEShellStrings(NUMERIC);
+				
+				else if (that.getAbstractValue() == UNUM_EPSILON)
+					return new SAFEShellStrings(TOP);
+				
+				else if (that.getAbstractValue() == UFLOAT)
+					return new SAFEShellStrings(NUMERIC);
+				
+				else if (that.getAbstractValue() == NUMERIC)
+					return new SAFEShellStrings(NUMERIC);
+				
+				else if (that.getAbstractValue() == SIGNED_NUM)
+					return new SAFEShellStrings(NUMERIC);
+				
+				else if (that.getAbstractValue() == NOTNUM_NOTEMPTY)
+					return new SAFEShellStrings(NOTUNSIGNED_NOTEMPTY);
+				
+				else if (that.getAbstractValue() == NOTUNSIGNED_NOTEMPTY)
+					return new SAFEShellStrings(NOTUNSIGNED_NOTEMPTY);
+				
+				else if (that.getAbstractValue() == NOTUINT_NOTEMPTY)
+					return new SAFEShellStrings(NOTUINT_NOTEMPTY);
+				
+				else if (that.getAbstractValue() == NOT_NUMERIC)
+					return new SAFEShellStrings(TOP);
+			}
+
+			else if (v == NOTNUM_NOTEMPTY) {
+				if (that.getAbstractValue() == UINT)
+					return new SAFEShellStrings(TOP);
+				
+				else if (that.getAbstractValue() == UINT_EPSILON)
+					return new SAFEShellStrings(TOP);
+				
+				else if (that.getAbstractValue() == UNUM)
+					return new SAFEShellStrings(TOP);
+				
+				else if (that.getAbstractValue() == UNUM_EPSILON)
+					return new SAFEShellStrings(TOP);
+				
+				else if (that.getAbstractValue() == UFLOAT)
+					return new SAFEShellStrings(NOTUINT_NOTEMPTY);
+				
+				else if (that.getAbstractValue() == NUMERIC)
+					return new SAFEShellStrings(TOP);
+				
+				else if (that.getAbstractValue() == SIGNED_NUM)
+					return new SAFEShellStrings(NOTUNSIGNED_NOTEMPTY);
+				
+				else if (that.getAbstractValue() == NOTNUM_NOTEMPTY)
+					return new SAFEShellStrings(NOTNUM_NOTEMPTY);
+				
+				else if (that.getAbstractValue() == NOTUNSIGNED_NOTEMPTY)
+					return new SAFEShellStrings(NOTUNSIGNED_NOTEMPTY);
+				
+				else if (that.getAbstractValue() == NOTUINT_NOTEMPTY)
+					return new SAFEShellStrings(NOTUINT_NOTEMPTY);
+				
+				else if (that.getAbstractValue() == NOT_NUMERIC)
+					return new SAFEShellStrings(TOP);
+			}
+
+			else if (v == NOTUNSIGNED_NOTEMPTY) {
+				if (that.getAbstractValue() == UINT)
+					return new SAFEShellStrings(TOP);
+				
+				else if (that.getAbstractValue() == UINT_EPSILON)
+					return new SAFEShellStrings(TOP);
+				
+				else if (that.getAbstractValue() == UNUM)
+					return new SAFEShellStrings(TOP);
+				
+				else if (that.getAbstractValue() == UNUM_EPSILON)
+					return new SAFEShellStrings(TOP);
+				
+				else if (that.getAbstractValue() == UFLOAT)
+					return new SAFEShellStrings(NOTUINT_NOTEMPTY);
+				
+				else if (that.getAbstractValue() == NUMERIC)
+					return new SAFEShellStrings(TOP);
+				
+				else if (that.getAbstractValue() == SIGNED_NUM)
+					return new SAFEShellStrings(NOTUNSIGNED_NOTEMPTY);
+				
+				else if (that.getAbstractValue() == NOTNUM_NOTEMPTY)
+					return new SAFEShellStrings(NOTNUM_NOTEMPTY);
+				
+				else if (that.getAbstractValue() == NOTUNSIGNED_NOTEMPTY)
+					return new SAFEShellStrings(NOTUNSIGNED_NOTEMPTY);
+				
+				else if (that.getAbstractValue() == NOTUINT_NOTEMPTY)
+					return new SAFEShellStrings(NOTUINT_NOTEMPTY);
+				
+				else if (that.getAbstractValue() == NOT_NUMERIC)
+					return new SAFEShellStrings(TOP);
+			}
+
+			else if (v == NOT_NUMERIC) {
+				if (that.getAbstractValue() == UINT)
+					return new SAFEShellStrings(TOP);
+				
+				else if (that.getAbstractValue() == UINT_EPSILON)
+					return new SAFEShellStrings(TOP);
+				
+				else if (that.getAbstractValue() == UNUM)
+					return new SAFEShellStrings(TOP);
+				
+				else if (that.getAbstractValue() == UNUM_EPSILON)
+					return new SAFEShellStrings(TOP);
+				
+				else if (that.getAbstractValue() == UFLOAT)
+					return new SAFEShellStrings(TOP);
+				
+				else if (that.getAbstractValue() == NUMERIC)
+					return new SAFEShellStrings(TOP);
+				
+				else if (that.getAbstractValue() == SIGNED_NUM)
+					return new SAFEShellStrings(TOP);
+				
+				else if (that.getAbstractValue() == NOTNUM_NOTEMPTY)
+					return new SAFEShellStrings(NOTNUM_NOTEMPTY);
+				
+				else if (that.getAbstractValue() == NOTUNSIGNED_NOTEMPTY)
+					return new SAFEShellStrings(TOP);
+				
+				else if (that.getAbstractValue() == NOTUINT_NOTEMPTY)
+					return new SAFEShellStrings(TOP);
+				
+				else if (that.getAbstractValue() == NOT_NUMERIC)
+					return new SAFEShellStrings(NOT_NUMERIC);
+			}
+
+			else if (v == NOTUINT_NOTEMPTY) {
+				if (that.getAbstractValue() == UINT)
+					return new SAFEShellStrings(TOP);
+				
+				else if (that.getAbstractValue() == UINT_EPSILON)
+					return new SAFEShellStrings(TOP);
+				
+				else if (that.getAbstractValue() == UNUM)
+					return new SAFEShellStrings(TOP);
+				
+				else if (that.getAbstractValue() == UNUM_EPSILON)
+					return new SAFEShellStrings(TOP);
+				
+				else if (that.getAbstractValue() == UFLOAT)
+					return new SAFEShellStrings(NOTUINT_NOTEMPTY);
+				
+				else if (that.getAbstractValue() == NUMERIC)
+					return new SAFEShellStrings(TOP);
+				
+				else if (that.getAbstractValue() == SIGNED_NUM)
+					return new SAFEShellStrings(NOTUINT_NOTEMPTY);
+				
+				else if (that.getAbstractValue() == NOTNUM_NOTEMPTY)
+					return new SAFEShellStrings(NOTUINT_NOTEMPTY);
+				
+				else if (that.getAbstractValue() == NOTUNSIGNED_NOTEMPTY)
+					return new SAFEShellStrings(NOTUINT_NOTEMPTY);
+				
+				else if (that.getAbstractValue() == NOTUINT_NOTEMPTY)
+					return new SAFEShellStrings(NOTUINT_NOTEMPTY);
+				
+				else if (that.getAbstractValue() == NOT_NUMERIC)
+					return new SAFEShellStrings(NOTUINT_NOTEMPTY);
+			}
 
 		}
-		
-		
+
+
 		return new Top();
 
 	}
@@ -530,15 +918,15 @@ public class SAFEShellStrings implements AbstractValue {
 		assertTrue(isString());
 		return !isNumericString() && !isEmptyString();
 	}
-	
+
 	private boolean containsEpsilonString() {
 		return v == UINT_EPSILON || v == UNUM_EPSILON || v == NOT_NUMERIC || v == TOP;
 	}
-	
+
 	private boolean containsUnsignedIntegerStrings() {
 		return v == UINT || v == UINT_EPSILON || v == UNUM || v == UNUM_EPSILON || v == NUMERIC || v == TOP;
 	}
-	
+
 	private boolean containsUnsignedFloats() {
 		return v == UNUM || v == UNUM_EPSILON || v == UFLOAT || v == NUMERIC || v == NOTUINT_NOTEMPTY || v == TOP;
 	}
@@ -546,11 +934,11 @@ public class SAFEShellStrings implements AbstractValue {
 	private boolean containsSignedNumbers() {
 		return v == SIGNED_NUM || v == NUMERIC || v == NOTUNSIGNED_NOTEMPTY || v == NOTUINT_NOTEMPTY || v == TOP;
 	}
-	
+
 	private boolean containsNotNumericNotEmptyStrings() {
 		return v == NOTNUM_NOTEMPTY || v == NOTUNSIGNED_NOTEMPTY || v == NOTUINT_NOTEMPTY || v == TOP;
 	}
-	
+
 
 
 }

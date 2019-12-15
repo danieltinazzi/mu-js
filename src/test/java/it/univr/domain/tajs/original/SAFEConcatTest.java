@@ -4,7 +4,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import it.univr.main.Analyzer;
-import it.univr.state.AbstractStore;
+import it.univr.state.AbstractEnvironment;
 import it.univr.state.Variable;
 
 public class SAFEConcatTest {
@@ -15,10 +15,11 @@ public class SAFEConcatTest {
 	@Test
 	public void testConcat001() throws Exception {
 		String file = path + "concat001.js";
-		AbstractStore state = Analyzer.analyze(file, domain, true);
+		AbstractEnvironment state = Analyzer.analyze(file, domain, true);
 
 		// State size
-		Assert.assertEquals(state.size(), 1);
+		Assert.assertEquals(state.sizeStore(), 1);
+		Assert.assertEquals(state.sizeHeap(), 0);
 
 		// State values
 		Assert.assertEquals(state.getValue(new Variable("x")), new SAFEStrings("12"));
@@ -27,10 +28,11 @@ public class SAFEConcatTest {
 	@Test
 	public void testConcat002() throws Exception {
 		String file = path + "concat002.js";
-		AbstractStore state = Analyzer.analyze(file, domain, true);
+		AbstractEnvironment state = Analyzer.analyze(file, domain, true);
 
 		// State size
-		Assert.assertEquals(state.size(), 4);
+		Assert.assertEquals(state.sizeStore(), 4);
+		Assert.assertEquals(state.sizeHeap(), 0);
 
 		// State values
 		Assert.assertEquals(state.getValue(new Variable("x")), new SAFEStrings("12"));
@@ -42,10 +44,11 @@ public class SAFEConcatTest {
 	@Test
 	public void testConcat003() throws Exception {
 		String file = path + "concat003.js";
-		AbstractStore state = Analyzer.analyze(file, domain, true);
+		AbstractEnvironment state = Analyzer.analyze(file, domain, true);
 
 		// State size
-		Assert.assertEquals(state.size(), 4);
+		Assert.assertEquals(state.sizeStore(), 4);
+		Assert.assertEquals(state.sizeHeap(), 0);
 
 		// State values
 		Assert.assertEquals(state.getValue(new Variable("x")), new SAFEStrings("12"));
@@ -58,10 +61,11 @@ public class SAFEConcatTest {
 	@Test
 	public void testConcat004() throws Exception {
 		String file = path + "concat004.js";
-		AbstractStore state = Analyzer.analyze(file, domain, true);
+		AbstractEnvironment state = Analyzer.analyze(file, domain, true);
 
 		// State size
-		Assert.assertEquals(state.size(), 4);
+		Assert.assertEquals(state.sizeStore(), 4);
+		Assert.assertEquals(state.sizeHeap(), 0);
 
 		// State values
 		Assert.assertEquals(state.getValue(new Variable("x")), new SAFEStrings("d2"));

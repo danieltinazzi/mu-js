@@ -6,34 +6,35 @@ import it.univr.domain.AbstractDomain;
 import it.univr.domain.AbstractValue;
 
 import it.univr.state.AbstractStore;
+import it.univr.state.AbstractEnvironment;
 import it.univr.state.AbstractState;
 import it.univr.state.KeyAbstractState;
 import it.univr.state.Variable;
 
 public class AbstractInterpreter extends MuJsBaseVisitor<AbstractValue> {
 
-	private AbstractStore memory;
+	private AbstractEnvironment env;
 	private AbstractDomain domain;
 	private AbstractState state;
 
 	private boolean printInvariants;
 
 	public AbstractInterpreter(AbstractDomain domain, boolean narrowing, boolean invariants) {
-		this.memory = new AbstractStore(domain);
+		this.env = new AbstractEnvironment(domain);
 		this.state = new AbstractState();
 		this.printInvariants = invariants;
 	}
 
-	public AbstractStore getFinalAbstractMemory() {
-		return memory;
+	public AbstractEnvironment getFinalAbstractMemory() {
+		return env;
 	}
 
 	public AbstractState getAbstractState() {
 		return state;
 	}
 
-	public void setAbstractState(AbstractStore state) {
-		this.memory = state;
+	public void setAbstractState(AbstractEnvironment env) {
+		this.env = env;
 	}
 
 	public AbstractDomain getAbstractDomain() {
@@ -68,20 +69,20 @@ public class AbstractInterpreter extends MuJsBaseVisitor<AbstractValue> {
 		if (domain.isFalse(visit(ctx.bexp())))
 			return visit(ctx.block(1));
 
-		AbstractStore previous = (AbstractStore) memory.clone();
+		AbstractEnvironment previous = (AbstractEnvironment) env.clone();
 
 		visit(ctx.block(0));
 
-		AbstractStore trueBranch = (AbstractStore) memory.clone();
-		memory = previous;
+		AbstractEnvironment trueBranch = (AbstractEnvironment) env.clone();
+		env = previous;
 
 		visit(ctx.block(1));
 
-		memory = memory.leastUpperBound(trueBranch);
+		env = env.leastUpperBound(trueBranch);
 
 		if (printInvariants) {
 			KeyAbstractState key = new KeyAbstractState(ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine());
-			state.add(key, memory.clone());
+			state.add(key, env.clone());
 		}		
 
 		return domain.makeBottom();
@@ -177,8 +178,8 @@ public class AbstractInterpreter extends MuJsBaseVisitor<AbstractValue> {
 	public AbstractValue visitIdBExp(MuJsParser.IdBExpContext ctx) { 
 		Variable v = new Variable(ctx.ID().getText());
 
-		if (memory.containsKey(v))
-			return memory.get(v);
+		if (env.getStore().containsKey(v))
+			return env.getStore().get(v);
 		else
 			return domain.makeBottom();
 	}
@@ -215,7 +216,7 @@ public class AbstractInterpreter extends MuJsBaseVisitor<AbstractValue> {
 	@Override 
 	public AbstractValue visitWhileStmt(MuJsParser.WhileStmtContext ctx) { 
 
-		AbstractStore previous = (AbstractStore) memory.clone();
+		AbstractEnvironment previous = (AbstractEnvironment) env.clone();
 
 		do {
 			AbstractValue guard =  visit(ctx.bexp());
@@ -225,7 +226,7 @@ public class AbstractInterpreter extends MuJsBaseVisitor<AbstractValue> {
 			 */
 			if (domain.isTrue(guard)) {
 				visit(ctx.block());
-				memory = previous.widening(memory);
+				env = previous.widening(env);
 			} 
 
 			/**
@@ -240,22 +241,22 @@ public class AbstractInterpreter extends MuJsBaseVisitor<AbstractValue> {
 			 */
 			else {
 				visit(ctx.block());
-				memory = previous.widening(previous.leastUpperBound(memory));
+				env = previous.widening(previous.leastUpperBound(env));
 			}
 
-			AbstractStore s =  memory.clone();
+			AbstractEnvironment e =  env.clone();
 
 
-			if (previous.equals(s))
+			if (previous.equals(e))
 				break;
 			else
-				previous = s.clone();
+				previous = e.clone();
 		} while (true);
 
 
 		if (printInvariants) {
 			KeyAbstractState key = new KeyAbstractState(ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine());
-			state.add(key, memory.clone());
+			state.add(key, env.clone());
 		}
 
 		return domain.makeBottom();
@@ -265,8 +266,8 @@ public class AbstractInterpreter extends MuJsBaseVisitor<AbstractValue> {
 	public AbstractValue visitIdAExp(MuJsParser.IdAExpContext ctx) { 
 		Variable v = new Variable(ctx.ID().getText());
 
-		if (memory.containsKey(v))
-			return memory.get(v);
+		if (env.getStore().containsKey(v))
+			return env.getStore().get(v);
 		else
 			return domain.makeBottom();
 	}
@@ -287,11 +288,11 @@ public class AbstractInterpreter extends MuJsBaseVisitor<AbstractValue> {
 	@Override 
 	public AbstractValue visitAssignmentStmt(MuJsParser.AssignmentStmtContext ctx) { 
 		Variable v = new Variable(ctx.getChild(0).getText());
-		memory.put(v, visit(ctx.exp()));
+		env.put(v, visit(ctx.exp()));
 
 		if (printInvariants) {
 			KeyAbstractState key = new KeyAbstractState(ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine());
-			state.add(key, memory.clone());
+			state.add(key, env.clone());
 		}
 		return domain.makeBottom();
 	}
@@ -300,8 +301,8 @@ public class AbstractInterpreter extends MuJsBaseVisitor<AbstractValue> {
 	public AbstractValue visitIdSExp(MuJsParser.IdSExpContext ctx) {
 		Variable v = new Variable(ctx.ID().getText());
 
-		if (memory.containsKey(v))
-			return memory.get(v);
+		if (env.getStore().containsKey(v))
+			return env.getStore().get(v);
 		else
 			return domain.makeBottom();
 	}

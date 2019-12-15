@@ -13,6 +13,7 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import it.univr.domain.AbstractDomain;
 import it.univr.domain.tajs.original.SAFEAbstractDomain;
 import it.univr.state.AbstractStore;
+import it.univr.state.AbstractEnvironment;
 import it.univr.state.AbstractState;
 
 public class Analyzer {
@@ -41,7 +42,7 @@ public class Analyzer {
 			}
 		}
 
-		AbstractStore memory = null;
+		AbstractEnvironment env = null;
 		AbstractState state = null;
 		
 		try {
@@ -50,16 +51,16 @@ public class Analyzer {
 				System.out.println("\n\n\n");
 				System.out.println(state);
 			} else {
-				memory = Analyzer.analyze(file, domain, narrowing);
+				env = Analyzer.analyze(file, domain, narrowing);
 				System.out.println("\n\n\n");
-				System.out.println(memory);
+				System.out.println(env);
 			}
 		} catch (FileNotFoundException f) {
 			System.out.println(printHelp());
 		}
 	}
 
-	public static AbstractStore analyze(String file, AbstractDomain domain, boolean narrowing) throws IOException {
+	public static AbstractEnvironment analyze(String file, AbstractDomain domain, boolean narrowing) throws IOException {
 		AbstractInterpreter interpreter = new AbstractInterpreter(domain, narrowing, false);
 
 		interpreter.setAbstractDomain(domain);
