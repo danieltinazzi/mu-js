@@ -4,8 +4,9 @@ import java.util.HashMap;
 
 import it.univr.domain.AbstractDomain;
 import it.univr.domain.AbstractValue;
+import it.univr.domain.AllocationSite;
 
-public class AbstractHeap extends HashMap<Variable, AbstractValue> {
+public class AbstractHeap extends HashMap<AllocationSite, AbstractValue> {
 
 	private static final long serialVersionUID = 1L;
 	private AbstractDomain domain;
@@ -25,10 +26,10 @@ public class AbstractHeap extends HashMap<Variable, AbstractValue> {
 	public AbstractHeap leastUpperBound(AbstractHeap other) {
 		AbstractHeap lub = new AbstractHeap(domain);
 
-		for (Variable v: keySet()) 
+		for (AllocationSite v: keySet()) 
 			lub.put(v, domain.leastUpperBound(getValue(v),other.getValue(v)));
 
-		for (Variable v: other.keySet()) 
+		for (AllocationSite v: other.keySet()) 
 			if (!containsKey(v))
 				lub.put(v, domain.leastUpperBound(getValue(v),other.getValue(v)));
 
@@ -45,17 +46,17 @@ public class AbstractHeap extends HashMap<Variable, AbstractValue> {
 	public AbstractHeap widening(AbstractHeap other) {
 		AbstractHeap lub = new AbstractHeap(domain);
 
-		for (Variable v: keySet()) 
+		for (AllocationSite v: keySet()) 
 			lub.put(v, domain.widening(getValue(v),other.getValue(v)));
 
-		for (Variable v: other.keySet()) 
+		for (AllocationSite v: other.keySet()) 
 			if (!containsKey(v))
 				lub.put(v, domain.widening(getValue(v),other.getValue(v)));
 
 		return lub; 
 	}
 
-	public AbstractValue getValue(Variable v) {
+	public AbstractValue getValue(AllocationSite v) {
 		if (containsKey(v))
 			return get(v);
 		return domain.makeBottom();
@@ -63,7 +64,7 @@ public class AbstractHeap extends HashMap<Variable, AbstractValue> {
 
 
 	public void intersect(AbstractHeap other) {
-		for (Variable v : other.keySet()) 
+		for (AllocationSite v : other.keySet()) 
 			put(v, domain.greatestLowerBound(getValue(v),(other.getValue(v))));
 	}
 
@@ -71,7 +72,7 @@ public class AbstractHeap extends HashMap<Variable, AbstractValue> {
 	public String toString() {
 		String result = "*******************\n";
 
-		for (Variable v : keySet())
+		for (AllocationSite v : keySet())
 			result += v.toString() + " -> " + getValue(v) + "\n";
 
 		if (isEmpty())
@@ -87,7 +88,7 @@ public class AbstractHeap extends HashMap<Variable, AbstractValue> {
 	}
 
 	@Override
-	public AbstractValue put(Variable key, AbstractValue v) {		
+	public AbstractValue put(AllocationSite key, AbstractValue v) {		
 		super.put(key, v);
 		return v;
 	}
