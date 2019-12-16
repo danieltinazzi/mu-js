@@ -379,4 +379,161 @@ public class SAFEShellLeastUpperBoundTest {
 		assertEquals(new SAFEShellStrings(SAFEShellStrings.UINT_EPSILON).leastUpperBound(new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY)), new SAFEShellStrings(SAFEShellStrings.TOP));
 		assertEquals(new SAFEShellStrings(SAFEShellStrings.UINT_EPSILON).leastUpperBound(new SAFEShellStrings(SAFEShellStrings.NUMERIC)), new SAFEShellStrings(SAFEShellStrings.TOP));
 	}
+
+	@Test
+	public void testLubUNum() throws Exception {
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.UNUM).leastUpperBound(new SAFEShellStrings(SAFEShellStrings.UINT)), new SAFEShellStrings(SAFEShellStrings.UNUM));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.UNUM).leastUpperBound(new SAFEShellStrings(SAFEShellStrings.UNUM)), new SAFEShellStrings(SAFEShellStrings.UNUM));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.UNUM).leastUpperBound(new SAFEShellStrings(SAFEShellStrings.UNUM_EPSILON)), new SAFEShellStrings(SAFEShellStrings.UNUM_EPSILON));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.UNUM).leastUpperBound(new SAFEShellStrings(SAFEShellStrings.UINT_EPSILON)), new SAFEShellStrings(SAFEShellStrings.UNUM_EPSILON));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.UNUM).leastUpperBound(new SAFEShellStrings(SAFEShellStrings.UFLOAT)), new SAFEShellStrings(SAFEShellStrings.UNUM));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.UNUM).leastUpperBound(new SAFEShellStrings(SAFEShellStrings.SIGNED_NUM)), new SAFEShellStrings(SAFEShellStrings.NUMERIC));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.UNUM).leastUpperBound(new SAFEShellStrings(SAFEShellStrings.NOTNUM_NOTEMPTY)), new SAFEShellStrings(SAFEShellStrings.TOP));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.UNUM).leastUpperBound(new SAFEShellStrings(SAFEShellStrings.NOTUNSIGNED_NOTEMPTY)), new SAFEShellStrings(SAFEShellStrings.TOP));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.UNUM).leastUpperBound(new SAFEShellStrings(SAFEShellStrings.NOT_NUMERIC)), new SAFEShellStrings(SAFEShellStrings.TOP));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.UNUM).leastUpperBound(new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY)), new SAFEShellStrings(SAFEShellStrings.TOP));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.UNUM).leastUpperBound(new SAFEShellStrings(SAFEShellStrings.NUMERIC)), new SAFEShellStrings(SAFEShellStrings.NUMERIC));
+	}
+	
+	@Test
+	public void testLubUNumEpsilon() throws Exception {
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.UNUM_EPSILON).leastUpperBound(new SAFEShellStrings(SAFEShellStrings.UINT)), new SAFEShellStrings(SAFEShellStrings.UNUM_EPSILON));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.UNUM_EPSILON).leastUpperBound(new SAFEShellStrings(SAFEShellStrings.UNUM)), new SAFEShellStrings(SAFEShellStrings.UNUM_EPSILON));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.UNUM_EPSILON).leastUpperBound(new SAFEShellStrings(SAFEShellStrings.UNUM_EPSILON)), new SAFEShellStrings(SAFEShellStrings.UNUM_EPSILON));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.UNUM_EPSILON).leastUpperBound(new SAFEShellStrings(SAFEShellStrings.UINT_EPSILON)), new SAFEShellStrings(SAFEShellStrings.UNUM_EPSILON));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.UNUM_EPSILON).leastUpperBound(new SAFEShellStrings(SAFEShellStrings.UFLOAT)), new SAFEShellStrings(SAFEShellStrings.UNUM_EPSILON));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.UNUM_EPSILON).leastUpperBound(new SAFEShellStrings(SAFEShellStrings.SIGNED_NUM)), new SAFEShellStrings(SAFEShellStrings.TOP));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.UNUM_EPSILON).leastUpperBound(new SAFEShellStrings(SAFEShellStrings.NOTNUM_NOTEMPTY)), new SAFEShellStrings(SAFEShellStrings.TOP));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.UNUM_EPSILON).leastUpperBound(new SAFEShellStrings(SAFEShellStrings.NOTUNSIGNED_NOTEMPTY)), new SAFEShellStrings(SAFEShellStrings.TOP));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.UNUM_EPSILON).leastUpperBound(new SAFEShellStrings(SAFEShellStrings.NOT_NUMERIC)), new SAFEShellStrings(SAFEShellStrings.TOP));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.UNUM_EPSILON).leastUpperBound(new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY)), new SAFEShellStrings(SAFEShellStrings.TOP));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.UNUM_EPSILON).leastUpperBound(new SAFEShellStrings(SAFEShellStrings.NUMERIC)), new SAFEShellStrings(SAFEShellStrings.TOP));
+	}
+	
+
+	@Test
+	public void testLubUFloat() throws Exception {
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.UFLOAT).leastUpperBound(new SAFEShellStrings(SAFEShellStrings.UINT)), new SAFEShellStrings(SAFEShellStrings.UNUM));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.UFLOAT).leastUpperBound(new SAFEShellStrings(SAFEShellStrings.UNUM)), new SAFEShellStrings(SAFEShellStrings.UNUM));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.UFLOAT).leastUpperBound(new SAFEShellStrings(SAFEShellStrings.UNUM_EPSILON)), new SAFEShellStrings(SAFEShellStrings.UNUM_EPSILON));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.UFLOAT).leastUpperBound(new SAFEShellStrings(SAFEShellStrings.UINT_EPSILON)), new SAFEShellStrings(SAFEShellStrings.UNUM_EPSILON));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.UFLOAT).leastUpperBound(new SAFEShellStrings(SAFEShellStrings.UFLOAT)), new SAFEShellStrings(SAFEShellStrings.UFLOAT));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.UFLOAT).leastUpperBound(new SAFEShellStrings(SAFEShellStrings.SIGNED_NUM)), new SAFEShellStrings(SAFEShellStrings.NUMERIC));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.UFLOAT).leastUpperBound(new SAFEShellStrings(SAFEShellStrings.NOTNUM_NOTEMPTY)), new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.UFLOAT).leastUpperBound(new SAFEShellStrings(SAFEShellStrings.NOTUNSIGNED_NOTEMPTY)), new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.UFLOAT).leastUpperBound(new SAFEShellStrings(SAFEShellStrings.NOT_NUMERIC)), new SAFEShellStrings(SAFEShellStrings.TOP));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.UFLOAT).leastUpperBound(new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY)), new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.UFLOAT).leastUpperBound(new SAFEShellStrings(SAFEShellStrings.NUMERIC)), new SAFEShellStrings(SAFEShellStrings.NUMERIC));
+	}
+
+	@Test
+	public void testLubNumeric() throws Exception {
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.NUMERIC).leastUpperBound(new SAFEShellStrings(SAFEShellStrings.UINT)), new SAFEShellStrings(SAFEShellStrings.NUMERIC));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.NUMERIC).leastUpperBound(new SAFEShellStrings(SAFEShellStrings.UNUM)), new SAFEShellStrings(SAFEShellStrings.NUMERIC));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.NUMERIC).leastUpperBound(new SAFEShellStrings(SAFEShellStrings.UNUM_EPSILON)), new SAFEShellStrings(SAFEShellStrings.TOP));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.NUMERIC).leastUpperBound(new SAFEShellStrings(SAFEShellStrings.UINT_EPSILON)), new SAFEShellStrings(SAFEShellStrings.TOP));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.NUMERIC).leastUpperBound(new SAFEShellStrings(SAFEShellStrings.UFLOAT)), new SAFEShellStrings(SAFEShellStrings.NUMERIC));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.NUMERIC).leastUpperBound(new SAFEShellStrings(SAFEShellStrings.SIGNED_NUM)), new SAFEShellStrings(SAFEShellStrings.NUMERIC));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.NUMERIC).leastUpperBound(new SAFEShellStrings(SAFEShellStrings.NOTNUM_NOTEMPTY)), new SAFEShellStrings(SAFEShellStrings.TOP));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.NUMERIC).leastUpperBound(new SAFEShellStrings(SAFEShellStrings.NOTUNSIGNED_NOTEMPTY)), new SAFEShellStrings(SAFEShellStrings.TOP));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.NUMERIC).leastUpperBound(new SAFEShellStrings(SAFEShellStrings.NOT_NUMERIC)), new SAFEShellStrings(SAFEShellStrings.TOP));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.NUMERIC).leastUpperBound(new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY)), new SAFEShellStrings(SAFEShellStrings.TOP));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.NUMERIC).leastUpperBound(new SAFEShellStrings(SAFEShellStrings.NUMERIC)), new SAFEShellStrings(SAFEShellStrings.NUMERIC));
+	}
+	
+	@Test
+	public void testLubSignedNum() throws Exception {
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.SIGNED_NUM).leastUpperBound(new SAFEShellStrings(SAFEShellStrings.UINT)), new SAFEShellStrings(SAFEShellStrings.NUMERIC));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.SIGNED_NUM).leastUpperBound(new SAFEShellStrings(SAFEShellStrings.UNUM)), new SAFEShellStrings(SAFEShellStrings.NUMERIC));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.SIGNED_NUM).leastUpperBound(new SAFEShellStrings(SAFEShellStrings.UNUM_EPSILON)), new SAFEShellStrings(SAFEShellStrings.TOP));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.SIGNED_NUM).leastUpperBound(new SAFEShellStrings(SAFEShellStrings.UINT_EPSILON)), new SAFEShellStrings(SAFEShellStrings.TOP));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.SIGNED_NUM).leastUpperBound(new SAFEShellStrings(SAFEShellStrings.UFLOAT)), new SAFEShellStrings(SAFEShellStrings.NUMERIC));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.SIGNED_NUM).leastUpperBound(new SAFEShellStrings(SAFEShellStrings.SIGNED_NUM)), new SAFEShellStrings(SAFEShellStrings.SIGNED_NUM));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.SIGNED_NUM).leastUpperBound(new SAFEShellStrings(SAFEShellStrings.NOTNUM_NOTEMPTY)), new SAFEShellStrings(SAFEShellStrings.NOTUNSIGNED_NOTEMPTY));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.SIGNED_NUM).leastUpperBound(new SAFEShellStrings(SAFEShellStrings.NOTUNSIGNED_NOTEMPTY)), new SAFEShellStrings(SAFEShellStrings.NOTUNSIGNED_NOTEMPTY));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.SIGNED_NUM).leastUpperBound(new SAFEShellStrings(SAFEShellStrings.NOT_NUMERIC)), new SAFEShellStrings(SAFEShellStrings.TOP));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.SIGNED_NUM).leastUpperBound(new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY)), new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.SIGNED_NUM).leastUpperBound(new SAFEShellStrings(SAFEShellStrings.NUMERIC)), new SAFEShellStrings(SAFEShellStrings.NUMERIC));
+	}
+
+
+	@Test
+	public void testLubNotNumNotEmpty() throws Exception {
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOTNUM_NOTEMPTY).leastUpperBound(new SAFEShellStrings(SAFEShellStrings.UINT)), new SAFEShellStrings(SAFEShellStrings.TOP));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOTNUM_NOTEMPTY).leastUpperBound(new SAFEShellStrings(SAFEShellStrings.UNUM)), new SAFEShellStrings(SAFEShellStrings.TOP));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOTNUM_NOTEMPTY).leastUpperBound(new SAFEShellStrings(SAFEShellStrings.UNUM_EPSILON)), new SAFEShellStrings(SAFEShellStrings.TOP));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOTNUM_NOTEMPTY).leastUpperBound(new SAFEShellStrings(SAFEShellStrings.UINT_EPSILON)), new SAFEShellStrings(SAFEShellStrings.TOP));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOTNUM_NOTEMPTY).leastUpperBound(new SAFEShellStrings(SAFEShellStrings.UFLOAT)), new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOTNUM_NOTEMPTY).leastUpperBound(new SAFEShellStrings(SAFEShellStrings.SIGNED_NUM)), new SAFEShellStrings(SAFEShellStrings.NOTUNSIGNED_NOTEMPTY));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOTNUM_NOTEMPTY).leastUpperBound(new SAFEShellStrings(SAFEShellStrings.NOTNUM_NOTEMPTY)), new SAFEShellStrings(SAFEShellStrings.NOTNUM_NOTEMPTY));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOTNUM_NOTEMPTY).leastUpperBound(new SAFEShellStrings(SAFEShellStrings.NOTUNSIGNED_NOTEMPTY)), new SAFEShellStrings(SAFEShellStrings.NOTUNSIGNED_NOTEMPTY));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOTNUM_NOTEMPTY).leastUpperBound(new SAFEShellStrings(SAFEShellStrings.NOT_NUMERIC)), new SAFEShellStrings(SAFEShellStrings.NOT_NUMERIC));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOTNUM_NOTEMPTY).leastUpperBound(new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY)), new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOTNUM_NOTEMPTY).leastUpperBound(new SAFEShellStrings(SAFEShellStrings.NUMERIC)), new SAFEShellStrings(SAFEShellStrings.TOP));
+	}
+
+	@Test
+	public void testLubNotUnsignedNotEmpty() throws Exception {
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOTUNSIGNED_NOTEMPTY).leastUpperBound(new SAFEShellStrings(SAFEShellStrings.UINT)), new SAFEShellStrings(SAFEShellStrings.TOP));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOTUNSIGNED_NOTEMPTY).leastUpperBound(new SAFEShellStrings(SAFEShellStrings.UNUM)), new SAFEShellStrings(SAFEShellStrings.TOP));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOTUNSIGNED_NOTEMPTY).leastUpperBound(new SAFEShellStrings(SAFEShellStrings.UNUM_EPSILON)), new SAFEShellStrings(SAFEShellStrings.TOP));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOTUNSIGNED_NOTEMPTY).leastUpperBound(new SAFEShellStrings(SAFEShellStrings.UINT_EPSILON)), new SAFEShellStrings(SAFEShellStrings.TOP));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOTUNSIGNED_NOTEMPTY).leastUpperBound(new SAFEShellStrings(SAFEShellStrings.UFLOAT)), new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOTUNSIGNED_NOTEMPTY).leastUpperBound(new SAFEShellStrings(SAFEShellStrings.SIGNED_NUM)), new SAFEShellStrings(SAFEShellStrings.NOTUNSIGNED_NOTEMPTY));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOTUNSIGNED_NOTEMPTY).leastUpperBound(new SAFEShellStrings(SAFEShellStrings.NOTNUM_NOTEMPTY)), new SAFEShellStrings(SAFEShellStrings.NOTUNSIGNED_NOTEMPTY));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOTUNSIGNED_NOTEMPTY).leastUpperBound(new SAFEShellStrings(SAFEShellStrings.NOTUNSIGNED_NOTEMPTY)), new SAFEShellStrings(SAFEShellStrings.NOTUNSIGNED_NOTEMPTY));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOTUNSIGNED_NOTEMPTY).leastUpperBound(new SAFEShellStrings(SAFEShellStrings.NOT_NUMERIC)), new SAFEShellStrings(SAFEShellStrings.TOP));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOTUNSIGNED_NOTEMPTY).leastUpperBound(new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY)), new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOTUNSIGNED_NOTEMPTY).leastUpperBound(new SAFEShellStrings(SAFEShellStrings.NUMERIC)), new SAFEShellStrings(SAFEShellStrings.TOP));
+	}
+	
+	@Test
+	public void testLubNotNumeric() throws Exception {
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOT_NUMERIC).leastUpperBound(new SAFEShellStrings(SAFEShellStrings.UINT)), new SAFEShellStrings(SAFEShellStrings.TOP));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOT_NUMERIC).leastUpperBound(new SAFEShellStrings(SAFEShellStrings.UNUM)), new SAFEShellStrings(SAFEShellStrings.TOP));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOT_NUMERIC).leastUpperBound(new SAFEShellStrings(SAFEShellStrings.UNUM_EPSILON)), new SAFEShellStrings(SAFEShellStrings.TOP));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOT_NUMERIC).leastUpperBound(new SAFEShellStrings(SAFEShellStrings.UINT_EPSILON)), new SAFEShellStrings(SAFEShellStrings.TOP));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOT_NUMERIC).leastUpperBound(new SAFEShellStrings(SAFEShellStrings.UFLOAT)), new SAFEShellStrings(SAFEShellStrings.TOP));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOT_NUMERIC).leastUpperBound(new SAFEShellStrings(SAFEShellStrings.SIGNED_NUM)), new SAFEShellStrings(SAFEShellStrings.TOP));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOT_NUMERIC).leastUpperBound(new SAFEShellStrings(SAFEShellStrings.NOTNUM_NOTEMPTY)), new SAFEShellStrings(SAFEShellStrings.NOT_NUMERIC));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOT_NUMERIC).leastUpperBound(new SAFEShellStrings(SAFEShellStrings.NOTUNSIGNED_NOTEMPTY)), new SAFEShellStrings(SAFEShellStrings.TOP));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOT_NUMERIC).leastUpperBound(new SAFEShellStrings(SAFEShellStrings.NOT_NUMERIC)), new SAFEShellStrings(SAFEShellStrings.NOT_NUMERIC));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOT_NUMERIC).leastUpperBound(new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY)), new SAFEShellStrings(SAFEShellStrings.TOP));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOT_NUMERIC).leastUpperBound(new SAFEShellStrings(SAFEShellStrings.NUMERIC)), new SAFEShellStrings(SAFEShellStrings.TOP));
+	}
+	
+
+	@Test
+	public void testLubNotUIntNotEmpty() throws Exception {
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY).leastUpperBound(new SAFEShellStrings(SAFEShellStrings.UINT)), new SAFEShellStrings(SAFEShellStrings.TOP));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY).leastUpperBound(new SAFEShellStrings(SAFEShellStrings.UNUM)), new SAFEShellStrings(SAFEShellStrings.TOP));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY).leastUpperBound(new SAFEShellStrings(SAFEShellStrings.UNUM_EPSILON)), new SAFEShellStrings(SAFEShellStrings.TOP));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY).leastUpperBound(new SAFEShellStrings(SAFEShellStrings.UINT_EPSILON)), new SAFEShellStrings(SAFEShellStrings.TOP));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY).leastUpperBound(new SAFEShellStrings(SAFEShellStrings.UFLOAT)), new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY).leastUpperBound(new SAFEShellStrings(SAFEShellStrings.SIGNED_NUM)), new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY).leastUpperBound(new SAFEShellStrings(SAFEShellStrings.NOTNUM_NOTEMPTY)), new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY).leastUpperBound(new SAFEShellStrings(SAFEShellStrings.NOTUNSIGNED_NOTEMPTY)), new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY).leastUpperBound(new SAFEShellStrings(SAFEShellStrings.NOT_NUMERIC)), new SAFEShellStrings(SAFEShellStrings.TOP));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY).leastUpperBound(new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY)), new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY).leastUpperBound(new SAFEShellStrings(SAFEShellStrings.NUMERIC)), new SAFEShellStrings(SAFEShellStrings.TOP));
+	}
+	
+
+	@Test
+	public void testLubTop() throws Exception {
+		
+		for (SAFEShellStrings v : SAFEShellStrings.toSet()) {
+			assertEquals(v.leastUpperBound(new SAFEShellStrings(SAFEShellStrings.TOP)), new SAFEShellStrings(SAFEShellStrings.TOP));
+			assertEquals(new SAFEShellStrings(SAFEShellStrings.TOP).leastUpperBound(v), new SAFEShellStrings(SAFEShellStrings.TOP));
+		}
+	}
+	
+	@Test
+	public void testLubBot() throws Exception {
+		
+		for (SAFEShellStrings v : SAFEShellStrings.toSet()) {
+			assertEquals(v.leastUpperBound(new SAFEShellStrings(SAFEShellStrings.BOT)), v);
+			assertEquals(new SAFEShellStrings(SAFEShellStrings.BOT).leastUpperBound(v), v);
+		}
+	}
 }

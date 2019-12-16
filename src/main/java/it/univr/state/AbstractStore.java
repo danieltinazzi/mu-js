@@ -8,7 +8,7 @@ import it.univr.domain.AbstractValue;
 /**
  * Abstract state class. It is a partial map from Variable to AbstractValue.
  * 
- * @author  * @author <a href="vincenzo.arceri@univr.it">Vincenzo Arceri</a>
+ *  @author <a href="vincenzo.arceri@univr.it">Vincenzo Arceri</a>
  */
 public class AbstractStore extends HashMap<Variable, AbstractValue> {
 

@@ -2,6 +2,7 @@ package it.univr.domain.tajs.shell;
 
 import static org.junit.Assert.assertTrue;
 
+import java.util.HashSet;
 import java.util.regex.Pattern;
 
 import it.univr.domain.AbstractValue;
@@ -605,7 +606,7 @@ public class SAFEShellStrings implements AbstractValue {
 					return new SAFEShellStrings(NUMERIC);
 				
 				else if (that.getAbstractValue() == SIGNED_NUM)
-					return new SAFEShellStrings(NUMERIC);
+					return new SAFEShellStrings(SIGNED_NUM);
 				
 				else if (that.getAbstractValue() == NOTNUM_NOTEMPTY)
 					return new SAFEShellStrings(NOTUNSIGNED_NOTEMPTY);
@@ -652,7 +653,7 @@ public class SAFEShellStrings implements AbstractValue {
 					return new SAFEShellStrings(NOTUINT_NOTEMPTY);
 				
 				else if (that.getAbstractValue() == NOT_NUMERIC)
-					return new SAFEShellStrings(TOP);
+					return new SAFEShellStrings(NOT_NUMERIC);
 			}
 
 			else if (v == NOTUNSIGNED_NOTEMPTY) {
@@ -678,7 +679,7 @@ public class SAFEShellStrings implements AbstractValue {
 					return new SAFEShellStrings(NOTUNSIGNED_NOTEMPTY);
 				
 				else if (that.getAbstractValue() == NOTNUM_NOTEMPTY)
-					return new SAFEShellStrings(NOTNUM_NOTEMPTY);
+					return new SAFEShellStrings(NOTUNSIGNED_NOTEMPTY);
 				
 				else if (that.getAbstractValue() == NOTUNSIGNED_NOTEMPTY)
 					return new SAFEShellStrings(NOTUNSIGNED_NOTEMPTY);
@@ -713,7 +714,7 @@ public class SAFEShellStrings implements AbstractValue {
 					return new SAFEShellStrings(TOP);
 				
 				else if (that.getAbstractValue() == NOTNUM_NOTEMPTY)
-					return new SAFEShellStrings(NOTNUM_NOTEMPTY);
+					return new SAFEShellStrings(NOT_NUMERIC);
 				
 				else if (that.getAbstractValue() == NOTUNSIGNED_NOTEMPTY)
 					return new SAFEShellStrings(TOP);
@@ -757,7 +758,7 @@ public class SAFEShellStrings implements AbstractValue {
 					return new SAFEShellStrings(NOTUINT_NOTEMPTY);
 				
 				else if (that.getAbstractValue() == NOT_NUMERIC)
-					return new SAFEShellStrings(NOTUINT_NOTEMPTY);
+					return new SAFEShellStrings(TOP);
 			}
 
 		}
@@ -939,6 +940,25 @@ public class SAFEShellStrings implements AbstractValue {
 		return v == NOTNUM_NOTEMPTY || v == NOTUNSIGNED_NOTEMPTY || v == NOTUINT_NOTEMPTY || v == TOP;
 	}
 
+	
+	public static HashSet<SAFEShellStrings> toSet() {
+		HashSet<SAFEShellStrings> set = new HashSet<SAFEShellStrings>();
+
+		set.add(new SAFEShellStrings(SAFEShellStrings.BOT));
+		set.add(new SAFEShellStrings(SAFEShellStrings.UINT));
+		set.add(new SAFEShellStrings(SAFEShellStrings.UINT_EPSILON));
+		set.add(new SAFEShellStrings(SAFEShellStrings.UNUM));
+		set.add(new SAFEShellStrings(SAFEShellStrings.UNUM_EPSILON));
+		set.add(new SAFEShellStrings(SAFEShellStrings.UFLOAT));
+		set.add(new SAFEShellStrings(SAFEShellStrings.NUMERIC));
+		set.add(new SAFEShellStrings(SAFEShellStrings.TOP));
+		set.add(new SAFEShellStrings(SAFEShellStrings.NOT_NUMERIC));
+		set.add(new SAFEShellStrings(SAFEShellStrings.SIGNED_NUM));
+		set.add(new SAFEShellStrings(SAFEShellStrings.NOTNUM_NOTEMPTY));
+		set.add(new SAFEShellStrings(SAFEShellStrings.NOTUNSIGNED_NOTEMPTY));
+		set.add(new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY));
+		return set;
+	}
 
 
 }
