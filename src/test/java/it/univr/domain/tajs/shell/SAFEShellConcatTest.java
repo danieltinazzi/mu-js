@@ -258,200 +258,205 @@ public class SAFEShellConcatTest {
 	}
 
 	@Test
-	public void testLubSecondSingleString() throws Exception {
+	public void testConcatSecondSingleString() throws Exception {
 
 		/*
 		 * Second parameter single unsigned integer string
 		 */
 		assertEquals(new SAFEShellStrings(SAFEShellStrings.UINT).concat(new SAFEShellStrings("1")), new SAFEShellStrings(SAFEShellStrings.UINT));
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.UINT_EPSILON).concat(new SAFEShellStrings("1")), new SAFEShellStrings(SAFEShellStrings.UINT_EPSILON));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.UINT_EPSILON).concat(new SAFEShellStrings("1")), new SAFEShellStrings(SAFEShellStrings.UINT));
 		assertEquals(new SAFEShellStrings(SAFEShellStrings.UNUM).concat(new SAFEShellStrings("1")), new SAFEShellStrings(SAFEShellStrings.UNUM));
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.UNUM_EPSILON).concat(new SAFEShellStrings("1")), new SAFEShellStrings(SAFEShellStrings.UNUM_EPSILON));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.UNUM_EPSILON).concat(new SAFEShellStrings("1")), new SAFEShellStrings(SAFEShellStrings.UNUM));
 		assertEquals(new SAFEShellStrings(SAFEShellStrings.NUMERIC).concat(new SAFEShellStrings("1")), new SAFEShellStrings(SAFEShellStrings.NUMERIC));
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.UFLOAT).concat(new SAFEShellStrings("1")), new SAFEShellStrings(SAFEShellStrings.UNUM));
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.SIGNED_NUM).concat(new SAFEShellStrings("1")), new SAFEShellStrings(SAFEShellStrings.NUMERIC));	
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOTNUM_NOTEMPTY).concat(new SAFEShellStrings("1")), new SAFEShellStrings(SAFEShellStrings.TOP));	
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOTUNSIGNED_NOTEMPTY).concat(new SAFEShellStrings("1")), new SAFEShellStrings(SAFEShellStrings.TOP));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.UFLOAT).concat(new SAFEShellStrings("1")), new SAFEShellStrings(SAFEShellStrings.UFLOAT));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.SIGNED_NUM).concat(new SAFEShellStrings("1")), new SAFEShellStrings(SAFEShellStrings.SIGNED_NUM));	
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOTNUM_NOTEMPTY).concat(new SAFEShellStrings("1")), new SAFEShellStrings(SAFEShellStrings.NOTNUM_NOTEMPTY));	
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOTUNSIGNED_NOTEMPTY).concat(new SAFEShellStrings("1")), new SAFEShellStrings(SAFEShellStrings.NOTUNSIGNED_NOTEMPTY));
 		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOT_NUMERIC).concat(new SAFEShellStrings("1")), new SAFEShellStrings(SAFEShellStrings.TOP));	
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY).concat(new SAFEShellStrings("1")), new SAFEShellStrings(SAFEShellStrings.TOP));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY).concat(new SAFEShellStrings("1")), new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY));
 		assertEquals(new SAFEShellStrings(SAFEShellStrings.TOP).concat(new SAFEShellStrings("1")), new SAFEShellStrings(SAFEShellStrings.TOP));		
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.BOT).concat(new SAFEShellStrings("1")), new SAFEShellStrings("1"));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.BOT).concat(new SAFEShellStrings("1")), new SAFEShellStrings(SAFEShellStrings.BOT));
 
 		/*
 		 * Second parameter is the empty string
 		 */
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.UINT).concat(new SAFEShellStrings("")), new SAFEShellStrings(SAFEShellStrings.UINT_EPSILON));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.UINT).concat(new SAFEShellStrings("")), new SAFEShellStrings(SAFEShellStrings.UINT));
 		assertEquals(new SAFEShellStrings(SAFEShellStrings.UINT_EPSILON).concat(new SAFEShellStrings("")), new SAFEShellStrings(SAFEShellStrings.UINT_EPSILON));
-		assertEquals(new SAFEShellStrings("").concat(new SAFEShellStrings(SAFEShellStrings.UNUM)), new SAFEShellStrings(SAFEShellStrings.UNUM_EPSILON));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.UNUM).concat(new SAFEShellStrings("")), new SAFEShellStrings(SAFEShellStrings.UNUM));
 		assertEquals(new SAFEShellStrings(SAFEShellStrings.UNUM_EPSILON).concat(new SAFEShellStrings("")), new SAFEShellStrings(SAFEShellStrings.UNUM_EPSILON));
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.NUMERIC).concat(new SAFEShellStrings("")), new SAFEShellStrings(SAFEShellStrings.TOP));
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.UFLOAT).concat(new SAFEShellStrings("")), new SAFEShellStrings(SAFEShellStrings.UNUM_EPSILON));
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.SIGNED_NUM).concat(new SAFEShellStrings("")), new SAFEShellStrings(SAFEShellStrings.TOP));	
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOTNUM_NOTEMPTY).concat(new SAFEShellStrings("")), new SAFEShellStrings(SAFEShellStrings.NOT_NUMERIC));	
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOTUNSIGNED_NOTEMPTY).concat(new SAFEShellStrings("")), new SAFEShellStrings(SAFEShellStrings.TOP));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.NUMERIC).concat(new SAFEShellStrings("")), new SAFEShellStrings(SAFEShellStrings.NUMERIC));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.UFLOAT).concat(new SAFEShellStrings("")), new SAFEShellStrings(SAFEShellStrings.UFLOAT));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.SIGNED_NUM).concat(new SAFEShellStrings("")), new SAFEShellStrings(SAFEShellStrings.SIGNED_NUM));	
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOTNUM_NOTEMPTY).concat(new SAFEShellStrings("")), new SAFEShellStrings(SAFEShellStrings.NOTNUM_NOTEMPTY));	
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOTUNSIGNED_NOTEMPTY).concat(new SAFEShellStrings("")), new SAFEShellStrings(SAFEShellStrings.NOTUNSIGNED_NOTEMPTY));
 		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOT_NUMERIC).concat(new SAFEShellStrings("")), new SAFEShellStrings(SAFEShellStrings.NOT_NUMERIC));	
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY).concat(new SAFEShellStrings("")), new SAFEShellStrings(SAFEShellStrings.TOP));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY).concat(new SAFEShellStrings("")), new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY));
 		assertEquals(new SAFEShellStrings(SAFEShellStrings.TOP).concat(new SAFEShellStrings("")), new SAFEShellStrings(SAFEShellStrings.TOP));		
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.BOT).concat(new SAFEShellStrings("")), new SAFEShellStrings(""));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.BOT).concat(new SAFEShellStrings("")), new SAFEShellStrings(SAFEShellStrings.BOT));
 
 
 		/*
 		 * Second parameter is unsigned float string
 		 */
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.UINT).concat(new SAFEShellStrings("1.1")), new SAFEShellStrings(SAFEShellStrings.UNUM));
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.UINT_EPSILON).concat(new SAFEShellStrings("1.1")), new SAFEShellStrings(SAFEShellStrings.UNUM_EPSILON));
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.UNUM).concat(new SAFEShellStrings("1.1")), new SAFEShellStrings(SAFEShellStrings.UNUM));
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.UNUM_EPSILON).concat(new SAFEShellStrings("1.1")), new SAFEShellStrings(SAFEShellStrings.UNUM_EPSILON));
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.NUMERIC).concat(new SAFEShellStrings("1.1")), new SAFEShellStrings(SAFEShellStrings.NUMERIC));
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.UFLOAT).concat(new SAFEShellStrings("1.1")), new SAFEShellStrings(SAFEShellStrings.UFLOAT));
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.SIGNED_NUM).concat(new SAFEShellStrings("1.1")), new SAFEShellStrings(SAFEShellStrings.NUMERIC));	
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOTNUM_NOTEMPTY).concat(new SAFEShellStrings("1.1")), new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY));	
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOTUNSIGNED_NOTEMPTY).concat(new SAFEShellStrings("1.1")), new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY));
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOT_NUMERIC).concat(new SAFEShellStrings("1.1")), new SAFEShellStrings(SAFEShellStrings.TOP));	
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY).concat(new SAFEShellStrings("1.1")), new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY));
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.TOP).concat(new SAFEShellStrings("1.1")), new SAFEShellStrings(SAFEShellStrings.TOP));		
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.BOT).concat(new SAFEShellStrings("1.1")), new SAFEShellStrings("1.1"));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.UINT).concat(new SAFEShellStrings("1.1")), new SAFEShellStrings(SAFEShellStrings.UFLOAT));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.UINT_EPSILON).concat(new SAFEShellStrings("1.1")), new SAFEShellStrings(SAFEShellStrings.UFLOAT));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.UNUM).concat(new SAFEShellStrings("1.1")), new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.UNUM_EPSILON).concat(new SAFEShellStrings("1.1")), new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.NUMERIC).concat(new SAFEShellStrings("1.1")), new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.UFLOAT).concat(new SAFEShellStrings("1.1")), new SAFEShellStrings(SAFEShellStrings.NOTNUM_NOTEMPTY));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.SIGNED_NUM).concat(new SAFEShellStrings("1.1")), new SAFEShellStrings(SAFEShellStrings.NOTNUM_NOTEMPTY));	
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOTNUM_NOTEMPTY).concat(new SAFEShellStrings("1.1")), new SAFEShellStrings(SAFEShellStrings.NOTNUM_NOTEMPTY));	
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOTUNSIGNED_NOTEMPTY).concat(new SAFEShellStrings("1.1")), new SAFEShellStrings(SAFEShellStrings.NOTNUM_NOTEMPTY));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOT_NUMERIC).concat(new SAFEShellStrings("1.1")), new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY));	
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY).concat(new SAFEShellStrings("1.1")), new SAFEShellStrings(SAFEShellStrings.NOTNUM_NOTEMPTY));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.TOP).concat(new SAFEShellStrings("1.1")), new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY));		
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.BOT).concat(new SAFEShellStrings("1.1")), new SAFEShellStrings(SAFEShellStrings.BOT));
 
 
 		/*
 		 * Second parameter is signed number
 		 */
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.UINT).concat(new SAFEShellStrings("+1.1")), new SAFEShellStrings(SAFEShellStrings.NUMERIC));
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.UINT_EPSILON).concat(new SAFEShellStrings("-1.1")), new SAFEShellStrings(SAFEShellStrings.TOP));
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.UNUM).concat(new SAFEShellStrings("+1")), new SAFEShellStrings(SAFEShellStrings.NUMERIC));
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.UNUM_EPSILON).concat(new SAFEShellStrings("+11")), new SAFEShellStrings(SAFEShellStrings.TOP));
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.NUMERIC).concat(new SAFEShellStrings("-1.1")), new SAFEShellStrings(SAFEShellStrings.NUMERIC));
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.UFLOAT).concat(new SAFEShellStrings("+1.1")), new SAFEShellStrings(SAFEShellStrings.NUMERIC));
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.SIGNED_NUM).concat(new SAFEShellStrings("+1")), new SAFEShellStrings(SAFEShellStrings.SIGNED_NUM));	
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOTNUM_NOTEMPTY).concat(new SAFEShellStrings("+1.1")), new SAFEShellStrings(SAFEShellStrings.NOTUNSIGNED_NOTEMPTY));	
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOTUNSIGNED_NOTEMPTY).concat(new SAFEShellStrings("+1.1")), new SAFEShellStrings(SAFEShellStrings.NOTUNSIGNED_NOTEMPTY));
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOT_NUMERIC).concat(new SAFEShellStrings("+1.1")), new SAFEShellStrings(SAFEShellStrings.TOP));	
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY).concat(new SAFEShellStrings("-1.1")), new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY));
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.TOP).concat(new SAFEShellStrings("-1.1")), new SAFEShellStrings(SAFEShellStrings.TOP));		
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.BOT).concat(new SAFEShellStrings("-1.1")), new SAFEShellStrings("-1.1"));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.UINT).concat(new SAFEShellStrings("+1.1")), new SAFEShellStrings(SAFEShellStrings.NOTNUM_NOTEMPTY));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.UINT_EPSILON).concat(new SAFEShellStrings("-1.1")), new SAFEShellStrings(SAFEShellStrings.NOTUNSIGNED_NOTEMPTY));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.UNUM).concat(new SAFEShellStrings("+1")), new SAFEShellStrings(SAFEShellStrings.NOTNUM_NOTEMPTY));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.UNUM_EPSILON).concat(new SAFEShellStrings("+11")), new SAFEShellStrings(SAFEShellStrings.NOTUNSIGNED_NOTEMPTY));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.NUMERIC).concat(new SAFEShellStrings("-1.1")), new SAFEShellStrings(SAFEShellStrings.NOTNUM_NOTEMPTY));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.UFLOAT).concat(new SAFEShellStrings("+1.1")), new SAFEShellStrings(SAFEShellStrings.NOTNUM_NOTEMPTY));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.SIGNED_NUM).concat(new SAFEShellStrings("+1")), new SAFEShellStrings(SAFEShellStrings.NOTNUM_NOTEMPTY));	
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOTNUM_NOTEMPTY).concat(new SAFEShellStrings("+1.1")), new SAFEShellStrings(SAFEShellStrings.NOTNUM_NOTEMPTY));	
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOTUNSIGNED_NOTEMPTY).concat(new SAFEShellStrings("+1.1")), new SAFEShellStrings(SAFEShellStrings.NOTNUM_NOTEMPTY));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOT_NUMERIC).concat(new SAFEShellStrings("+1.1")), new SAFEShellStrings(SAFEShellStrings.NOTUNSIGNED_NOTEMPTY));	
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY).concat(new SAFEShellStrings("-1.1")), new SAFEShellStrings(SAFEShellStrings.NOTNUM_NOTEMPTY));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.TOP).concat(new SAFEShellStrings("-1.1")), new SAFEShellStrings(SAFEShellStrings.NOTUNSIGNED_NOTEMPTY));		
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.BOT).concat(new SAFEShellStrings("-1.1")), new SAFEShellStrings(SAFEShellStrings.BOT));
 
 		/*
 		 * Second parameter is not numeric and not empty
 		 */
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.UINT).concat(new SAFEShellStrings("foo")), new SAFEShellStrings(SAFEShellStrings.TOP));
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.UINT_EPSILON).concat(new SAFEShellStrings("foo")), new SAFEShellStrings(SAFEShellStrings.TOP));
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.UNUM).concat(new SAFEShellStrings("bar")), new SAFEShellStrings(SAFEShellStrings.TOP));
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.UNUM_EPSILON).concat(new SAFEShellStrings("hello")), new SAFEShellStrings(SAFEShellStrings.TOP));
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.NUMERIC).concat(new SAFEShellStrings("here")), new SAFEShellStrings(SAFEShellStrings.TOP));
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.UFLOAT).concat(new SAFEShellStrings("fff")), new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY));
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.SIGNED_NUM).concat(new SAFEShellStrings("aaa")), new SAFEShellStrings(SAFEShellStrings.NOTUNSIGNED_NOTEMPTY));	
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.UINT).concat(new SAFEShellStrings("foo")), new SAFEShellStrings(SAFEShellStrings.NOTNUM_NOTEMPTY));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.UINT_EPSILON).concat(new SAFEShellStrings("foo")), new SAFEShellStrings(SAFEShellStrings.NOTNUM_NOTEMPTY));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.UNUM).concat(new SAFEShellStrings("bar")), new SAFEShellStrings(SAFEShellStrings.NOTNUM_NOTEMPTY));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.UNUM_EPSILON).concat(new SAFEShellStrings("hello")), new SAFEShellStrings(SAFEShellStrings.NOTNUM_NOTEMPTY));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.NUMERIC).concat(new SAFEShellStrings("here")), new SAFEShellStrings(SAFEShellStrings.NOTNUM_NOTEMPTY));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.UFLOAT).concat(new SAFEShellStrings("fff")), new SAFEShellStrings(SAFEShellStrings.NOTNUM_NOTEMPTY));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.SIGNED_NUM).concat(new SAFEShellStrings("aaa")), new SAFEShellStrings(SAFEShellStrings.NOTNUM_NOTEMPTY));	
 		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOTNUM_NOTEMPTY).concat(new SAFEShellStrings("helloworol")), new SAFEShellStrings(SAFEShellStrings.NOTNUM_NOTEMPTY));	
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOTUNSIGNED_NOTEMPTY).concat(new SAFEShellStrings("andy")), new SAFEShellStrings(SAFEShellStrings.NOTUNSIGNED_NOTEMPTY));
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOT_NUMERIC).concat(new SAFEShellStrings("gff")), new SAFEShellStrings(SAFEShellStrings.TOP));	
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY).concat(new SAFEShellStrings("asd")), new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY));
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.TOP).concat(new SAFEShellStrings("-ddd")), new SAFEShellStrings(SAFEShellStrings.TOP));		
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.BOT).concat(new SAFEShellStrings("-bbb")), new SAFEShellStrings("-bbb"));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOTUNSIGNED_NOTEMPTY).concat(new SAFEShellStrings("andy")), new SAFEShellStrings(SAFEShellStrings.NOTNUM_NOTEMPTY));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOT_NUMERIC).concat(new SAFEShellStrings("gff")), new SAFEShellStrings(SAFEShellStrings.NOTNUM_NOTEMPTY));	
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY).concat(new SAFEShellStrings("asd")), new SAFEShellStrings(SAFEShellStrings.NOTNUM_NOTEMPTY));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.TOP).concat(new SAFEShellStrings("-ddd")), new SAFEShellStrings(SAFEShellStrings.NOTNUM_NOTEMPTY));		
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.BOT).concat(new SAFEShellStrings("-bbb")), new SAFEShellStrings(SAFEShellStrings.BOT));
 	}
 
 	@Test
-	public void testLubUInt() throws Exception {
+	public void testConcatUInt() throws Exception {
 		assertEquals(new SAFEShellStrings(SAFEShellStrings.UINT).concat(new SAFEShellStrings(SAFEShellStrings.UINT)), new SAFEShellStrings(SAFEShellStrings.UINT));
 		assertEquals(new SAFEShellStrings(SAFEShellStrings.UINT).concat(new SAFEShellStrings(SAFEShellStrings.UNUM)), new SAFEShellStrings(SAFEShellStrings.UNUM));
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.UINT).concat(new SAFEShellStrings(SAFEShellStrings.UNUM_EPSILON)), new SAFEShellStrings(SAFEShellStrings.UNUM_EPSILON));
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.UINT).concat(new SAFEShellStrings(SAFEShellStrings.UINT_EPSILON)), new SAFEShellStrings(SAFEShellStrings.UINT_EPSILON));
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.UINT).concat(new SAFEShellStrings(SAFEShellStrings.UFLOAT)), new SAFEShellStrings(SAFEShellStrings.UNUM));
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.UINT).concat(new SAFEShellStrings(SAFEShellStrings.SIGNED_NUM)), new SAFEShellStrings(SAFEShellStrings.NUMERIC));
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.UINT).concat(new SAFEShellStrings(SAFEShellStrings.NOTNUM_NOTEMPTY)), new SAFEShellStrings(SAFEShellStrings.TOP));
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.UINT).concat(new SAFEShellStrings(SAFEShellStrings.NOTUNSIGNED_NOTEMPTY)), new SAFEShellStrings(SAFEShellStrings.TOP));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.UINT).concat(new SAFEShellStrings(SAFEShellStrings.UNUM_EPSILON)), new SAFEShellStrings(SAFEShellStrings.UNUM));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.UINT).concat(new SAFEShellStrings(SAFEShellStrings.UINT_EPSILON)), new SAFEShellStrings(SAFEShellStrings.UINT));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.UINT).concat(new SAFEShellStrings(SAFEShellStrings.UFLOAT)), new SAFEShellStrings(SAFEShellStrings.UFLOAT));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.UINT).concat(new SAFEShellStrings(SAFEShellStrings.SIGNED_NUM)), new SAFEShellStrings(SAFEShellStrings.NOTNUM_NOTEMPTY));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.UINT).concat(new SAFEShellStrings(SAFEShellStrings.NOTNUM_NOTEMPTY)), new SAFEShellStrings(SAFEShellStrings.NOTNUM_NOTEMPTY));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.UINT).concat(new SAFEShellStrings(SAFEShellStrings.NOTUNSIGNED_NOTEMPTY)), new SAFEShellStrings(SAFEShellStrings.NOTNUM_NOTEMPTY));
 		assertEquals(new SAFEShellStrings(SAFEShellStrings.UINT).concat(new SAFEShellStrings(SAFEShellStrings.NOT_NUMERIC)), new SAFEShellStrings(SAFEShellStrings.TOP));
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.UINT).concat(new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY)), new SAFEShellStrings(SAFEShellStrings.TOP));
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.UINT).concat(new SAFEShellStrings(SAFEShellStrings.NUMERIC)), new SAFEShellStrings(SAFEShellStrings.NUMERIC));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.UINT).concat(new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY)), new SAFEShellStrings(SAFEShellStrings.NOTNUM_NOTEMPTY));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.UINT).concat(new SAFEShellStrings(SAFEShellStrings.NUMERIC)), new SAFEShellStrings(SAFEShellStrings.TOP));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.UINT).concat(new SAFEShellStrings(SAFEShellStrings.TOP)), new SAFEShellStrings(SAFEShellStrings.TOP));
 	}
 	
 	@Test
-	public void testLubUIntEpsilon() throws Exception {
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.UINT_EPSILON).concat(new SAFEShellStrings(SAFEShellStrings.UINT)), new SAFEShellStrings(SAFEShellStrings.UINT_EPSILON));
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.UINT_EPSILON).concat(new SAFEShellStrings(SAFEShellStrings.UNUM)), new SAFEShellStrings(SAFEShellStrings.UNUM_EPSILON));
+	public void testConcatUIntEpsilon() throws Exception {
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.UINT_EPSILON).concat(new SAFEShellStrings(SAFEShellStrings.UINT)), new SAFEShellStrings(SAFEShellStrings.UINT));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.UINT_EPSILON).concat(new SAFEShellStrings(SAFEShellStrings.UNUM)), new SAFEShellStrings(SAFEShellStrings.UNUM));
 		assertEquals(new SAFEShellStrings(SAFEShellStrings.UINT_EPSILON).concat(new SAFEShellStrings(SAFEShellStrings.UNUM_EPSILON)), new SAFEShellStrings(SAFEShellStrings.UNUM_EPSILON));
 		assertEquals(new SAFEShellStrings(SAFEShellStrings.UINT_EPSILON).concat(new SAFEShellStrings(SAFEShellStrings.UINT_EPSILON)), new SAFEShellStrings(SAFEShellStrings.UINT_EPSILON));
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.UINT_EPSILON).concat(new SAFEShellStrings(SAFEShellStrings.UFLOAT)), new SAFEShellStrings(SAFEShellStrings.UNUM_EPSILON));
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.UINT_EPSILON).concat(new SAFEShellStrings(SAFEShellStrings.SIGNED_NUM)), new SAFEShellStrings(SAFEShellStrings.TOP));
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.UINT_EPSILON).concat(new SAFEShellStrings(SAFEShellStrings.NOTNUM_NOTEMPTY)), new SAFEShellStrings(SAFEShellStrings.TOP));
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.UINT_EPSILON).concat(new SAFEShellStrings(SAFEShellStrings.NOTUNSIGNED_NOTEMPTY)), new SAFEShellStrings(SAFEShellStrings.TOP));
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.UINT_EPSILON).concat(new SAFEShellStrings(SAFEShellStrings.NOT_NUMERIC)), new SAFEShellStrings(SAFEShellStrings.TOP));
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.UINT_EPSILON).concat(new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY)), new SAFEShellStrings(SAFEShellStrings.TOP));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.UINT_EPSILON).concat(new SAFEShellStrings(SAFEShellStrings.UFLOAT)), new SAFEShellStrings(SAFEShellStrings.UFLOAT));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.UINT_EPSILON).concat(new SAFEShellStrings(SAFEShellStrings.SIGNED_NUM)), new SAFEShellStrings(SAFEShellStrings.NOTUNSIGNED_NOTEMPTY));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.UINT_EPSILON).concat(new SAFEShellStrings(SAFEShellStrings.NOTNUM_NOTEMPTY)), new SAFEShellStrings(SAFEShellStrings.NOTNUM_NOTEMPTY));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.UINT_EPSILON).concat(new SAFEShellStrings(SAFEShellStrings.NOTUNSIGNED_NOTEMPTY)), new SAFEShellStrings(SAFEShellStrings.NOTUNSIGNED_NOTEMPTY));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.UINT_EPSILON).concat(new SAFEShellStrings(SAFEShellStrings.NOT_NUMERIC)), new SAFEShellStrings(SAFEShellStrings.NOT_NUMERIC));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.UINT_EPSILON).concat(new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY)), new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY));
 		assertEquals(new SAFEShellStrings(SAFEShellStrings.UINT_EPSILON).concat(new SAFEShellStrings(SAFEShellStrings.NUMERIC)), new SAFEShellStrings(SAFEShellStrings.TOP));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.UINT_EPSILON).concat(new SAFEShellStrings(SAFEShellStrings.TOP)), new SAFEShellStrings(SAFEShellStrings.TOP));
 	}
 
 	@Test
-	public void testLubUNum() throws Exception {
+	public void testConcatUNum() throws Exception {
 		assertEquals(new SAFEShellStrings(SAFEShellStrings.UNUM).concat(new SAFEShellStrings(SAFEShellStrings.UINT)), new SAFEShellStrings(SAFEShellStrings.UNUM));
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.UNUM).concat(new SAFEShellStrings(SAFEShellStrings.UNUM)), new SAFEShellStrings(SAFEShellStrings.UNUM));
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.UNUM).concat(new SAFEShellStrings(SAFEShellStrings.UNUM_EPSILON)), new SAFEShellStrings(SAFEShellStrings.UNUM_EPSILON));
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.UNUM).concat(new SAFEShellStrings(SAFEShellStrings.UINT_EPSILON)), new SAFEShellStrings(SAFEShellStrings.UNUM_EPSILON));
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.UNUM).concat(new SAFEShellStrings(SAFEShellStrings.UFLOAT)), new SAFEShellStrings(SAFEShellStrings.UNUM));
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.UNUM).concat(new SAFEShellStrings(SAFEShellStrings.SIGNED_NUM)), new SAFEShellStrings(SAFEShellStrings.NUMERIC));
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.UNUM).concat(new SAFEShellStrings(SAFEShellStrings.NOTNUM_NOTEMPTY)), new SAFEShellStrings(SAFEShellStrings.TOP));
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.UNUM).concat(new SAFEShellStrings(SAFEShellStrings.NOTUNSIGNED_NOTEMPTY)), new SAFEShellStrings(SAFEShellStrings.TOP));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.UNUM).concat(new SAFEShellStrings(SAFEShellStrings.UNUM)), new SAFEShellStrings(SAFEShellStrings.TOP));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.UNUM).concat(new SAFEShellStrings(SAFEShellStrings.UNUM_EPSILON)), new SAFEShellStrings(SAFEShellStrings.TOP));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.UNUM).concat(new SAFEShellStrings(SAFEShellStrings.UINT_EPSILON)), new SAFEShellStrings(SAFEShellStrings.UNUM));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.UNUM).concat(new SAFEShellStrings(SAFEShellStrings.UFLOAT)), new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.UNUM).concat(new SAFEShellStrings(SAFEShellStrings.SIGNED_NUM)), new SAFEShellStrings(SAFEShellStrings.NOTNUM_NOTEMPTY));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.UNUM).concat(new SAFEShellStrings(SAFEShellStrings.NOTNUM_NOTEMPTY)), new SAFEShellStrings(SAFEShellStrings.NOTNUM_NOTEMPTY));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.UNUM).concat(new SAFEShellStrings(SAFEShellStrings.NOTUNSIGNED_NOTEMPTY)), new SAFEShellStrings(SAFEShellStrings.NOTNUM_NOTEMPTY));
 		assertEquals(new SAFEShellStrings(SAFEShellStrings.UNUM).concat(new SAFEShellStrings(SAFEShellStrings.NOT_NUMERIC)), new SAFEShellStrings(SAFEShellStrings.TOP));
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.UNUM).concat(new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY)), new SAFEShellStrings(SAFEShellStrings.TOP));
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.UNUM).concat(new SAFEShellStrings(SAFEShellStrings.NUMERIC)), new SAFEShellStrings(SAFEShellStrings.NUMERIC));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.UNUM).concat(new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY)), new SAFEShellStrings(SAFEShellStrings.NOTNUM_NOTEMPTY));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.UNUM).concat(new SAFEShellStrings(SAFEShellStrings.NUMERIC)), new SAFEShellStrings(SAFEShellStrings.TOP));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.UNUM).concat(new SAFEShellStrings(SAFEShellStrings.TOP)), new SAFEShellStrings(SAFEShellStrings.TOP));
 	}
 	
 	@Test
-	public void testLubUNumEpsilon() throws Exception {
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.UNUM_EPSILON).concat(new SAFEShellStrings(SAFEShellStrings.UINT)), new SAFEShellStrings(SAFEShellStrings.UNUM_EPSILON));
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.UNUM_EPSILON).concat(new SAFEShellStrings(SAFEShellStrings.UNUM)), new SAFEShellStrings(SAFEShellStrings.UNUM_EPSILON));
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.UNUM_EPSILON).concat(new SAFEShellStrings(SAFEShellStrings.UNUM_EPSILON)), new SAFEShellStrings(SAFEShellStrings.UNUM_EPSILON));
+	public void testConcatUNumEpsilon() throws Exception {
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.UNUM_EPSILON).concat(new SAFEShellStrings(SAFEShellStrings.UINT)), new SAFEShellStrings(SAFEShellStrings.UNUM));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.UNUM_EPSILON).concat(new SAFEShellStrings(SAFEShellStrings.UNUM)), new SAFEShellStrings(SAFEShellStrings.TOP));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.UNUM_EPSILON).concat(new SAFEShellStrings(SAFEShellStrings.UNUM_EPSILON)), new SAFEShellStrings(SAFEShellStrings.TOP));
 		assertEquals(new SAFEShellStrings(SAFEShellStrings.UNUM_EPSILON).concat(new SAFEShellStrings(SAFEShellStrings.UINT_EPSILON)), new SAFEShellStrings(SAFEShellStrings.UNUM_EPSILON));
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.UNUM_EPSILON).concat(new SAFEShellStrings(SAFEShellStrings.UFLOAT)), new SAFEShellStrings(SAFEShellStrings.UNUM_EPSILON));
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.UNUM_EPSILON).concat(new SAFEShellStrings(SAFEShellStrings.SIGNED_NUM)), new SAFEShellStrings(SAFEShellStrings.TOP));
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.UNUM_EPSILON).concat(new SAFEShellStrings(SAFEShellStrings.NOTNUM_NOTEMPTY)), new SAFEShellStrings(SAFEShellStrings.TOP));
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.UNUM_EPSILON).concat(new SAFEShellStrings(SAFEShellStrings.NOTUNSIGNED_NOTEMPTY)), new SAFEShellStrings(SAFEShellStrings.TOP));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.UNUM_EPSILON).concat(new SAFEShellStrings(SAFEShellStrings.UFLOAT)), new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.UNUM_EPSILON).concat(new SAFEShellStrings(SAFEShellStrings.SIGNED_NUM)), new SAFEShellStrings(SAFEShellStrings.NOTUNSIGNED_NOTEMPTY));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.UNUM_EPSILON).concat(new SAFEShellStrings(SAFEShellStrings.NOTNUM_NOTEMPTY)), new SAFEShellStrings(SAFEShellStrings.NOTNUM_NOTEMPTY));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.UNUM_EPSILON).concat(new SAFEShellStrings(SAFEShellStrings.NOTUNSIGNED_NOTEMPTY)), new SAFEShellStrings(SAFEShellStrings.NOTUNSIGNED_NOTEMPTY));
 		assertEquals(new SAFEShellStrings(SAFEShellStrings.UNUM_EPSILON).concat(new SAFEShellStrings(SAFEShellStrings.NOT_NUMERIC)), new SAFEShellStrings(SAFEShellStrings.TOP));
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.UNUM_EPSILON).concat(new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY)), new SAFEShellStrings(SAFEShellStrings.TOP));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.UNUM_EPSILON).concat(new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY)), new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY));
 		assertEquals(new SAFEShellStrings(SAFEShellStrings.UNUM_EPSILON).concat(new SAFEShellStrings(SAFEShellStrings.NUMERIC)), new SAFEShellStrings(SAFEShellStrings.TOP));
 	}
 	
-
 	@Test
-	public void testLubUFloat() throws Exception {
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.UFLOAT).concat(new SAFEShellStrings(SAFEShellStrings.UINT)), new SAFEShellStrings(SAFEShellStrings.UNUM));
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.UFLOAT).concat(new SAFEShellStrings(SAFEShellStrings.UNUM)), new SAFEShellStrings(SAFEShellStrings.UNUM));
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.UFLOAT).concat(new SAFEShellStrings(SAFEShellStrings.UNUM_EPSILON)), new SAFEShellStrings(SAFEShellStrings.UNUM_EPSILON));
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.UFLOAT).concat(new SAFEShellStrings(SAFEShellStrings.UINT_EPSILON)), new SAFEShellStrings(SAFEShellStrings.UNUM_EPSILON));
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.UFLOAT).concat(new SAFEShellStrings(SAFEShellStrings.UFLOAT)), new SAFEShellStrings(SAFEShellStrings.UFLOAT));
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.UFLOAT).concat(new SAFEShellStrings(SAFEShellStrings.SIGNED_NUM)), new SAFEShellStrings(SAFEShellStrings.NUMERIC));
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.UFLOAT).concat(new SAFEShellStrings(SAFEShellStrings.NOTNUM_NOTEMPTY)), new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY));
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.UFLOAT).concat(new SAFEShellStrings(SAFEShellStrings.NOTUNSIGNED_NOTEMPTY)), new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY));
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.UFLOAT).concat(new SAFEShellStrings(SAFEShellStrings.NOT_NUMERIC)), new SAFEShellStrings(SAFEShellStrings.TOP));
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.UFLOAT).concat(new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY)), new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY));
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.UFLOAT).concat(new SAFEShellStrings(SAFEShellStrings.NUMERIC)), new SAFEShellStrings(SAFEShellStrings.NUMERIC));
+	public void testConcatUFloat() throws Exception {
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.UFLOAT).concat(new SAFEShellStrings(SAFEShellStrings.UINT)), new SAFEShellStrings(SAFEShellStrings.UFLOAT));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.UFLOAT).concat(new SAFEShellStrings(SAFEShellStrings.UNUM)), new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.UFLOAT).concat(new SAFEShellStrings(SAFEShellStrings.UNUM_EPSILON)), new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.UFLOAT).concat(new SAFEShellStrings(SAFEShellStrings.UINT_EPSILON)), new SAFEShellStrings(SAFEShellStrings.UFLOAT));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.UFLOAT).concat(new SAFEShellStrings(SAFEShellStrings.UFLOAT)), new SAFEShellStrings(SAFEShellStrings.NOTNUM_NOTEMPTY));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.UFLOAT).concat(new SAFEShellStrings(SAFEShellStrings.SIGNED_NUM)), new SAFEShellStrings(SAFEShellStrings.NOTNUM_NOTEMPTY));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.UFLOAT).concat(new SAFEShellStrings(SAFEShellStrings.NOTNUM_NOTEMPTY)), new SAFEShellStrings(SAFEShellStrings.NOTNUM_NOTEMPTY));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.UFLOAT).concat(new SAFEShellStrings(SAFEShellStrings.NOTUNSIGNED_NOTEMPTY)), new SAFEShellStrings(SAFEShellStrings.NOTNUM_NOTEMPTY));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.UFLOAT).concat(new SAFEShellStrings(SAFEShellStrings.NOT_NUMERIC)), new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.UFLOAT).concat(new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY)), new SAFEShellStrings(SAFEShellStrings.NOTNUM_NOTEMPTY));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.UFLOAT).concat(new SAFEShellStrings(SAFEShellStrings.NUMERIC)), new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.UFLOAT).concat(new SAFEShellStrings(SAFEShellStrings.TOP)), new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY));
 	}
 
 	@Test
-	public void testLubNumeric() throws Exception {
+	public void testConcatNumeric() throws Exception {
 		assertEquals(new SAFEShellStrings(SAFEShellStrings.NUMERIC).concat(new SAFEShellStrings(SAFEShellStrings.UINT)), new SAFEShellStrings(SAFEShellStrings.NUMERIC));
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.NUMERIC).concat(new SAFEShellStrings(SAFEShellStrings.UNUM)), new SAFEShellStrings(SAFEShellStrings.NUMERIC));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.NUMERIC).concat(new SAFEShellStrings(SAFEShellStrings.UNUM)), new SAFEShellStrings(SAFEShellStrings.TOP));
 		assertEquals(new SAFEShellStrings(SAFEShellStrings.NUMERIC).concat(new SAFEShellStrings(SAFEShellStrings.UNUM_EPSILON)), new SAFEShellStrings(SAFEShellStrings.TOP));
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.NUMERIC).concat(new SAFEShellStrings(SAFEShellStrings.UINT_EPSILON)), new SAFEShellStrings(SAFEShellStrings.TOP));
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.NUMERIC).concat(new SAFEShellStrings(SAFEShellStrings.UFLOAT)), new SAFEShellStrings(SAFEShellStrings.NUMERIC));
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.NUMERIC).concat(new SAFEShellStrings(SAFEShellStrings.SIGNED_NUM)), new SAFEShellStrings(SAFEShellStrings.NUMERIC));
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.NUMERIC).concat(new SAFEShellStrings(SAFEShellStrings.NOTNUM_NOTEMPTY)), new SAFEShellStrings(SAFEShellStrings.TOP));
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.NUMERIC).concat(new SAFEShellStrings(SAFEShellStrings.NOTUNSIGNED_NOTEMPTY)), new SAFEShellStrings(SAFEShellStrings.TOP));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.NUMERIC).concat(new SAFEShellStrings(SAFEShellStrings.UINT_EPSILON)), new SAFEShellStrings(SAFEShellStrings.NUMERIC));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.NUMERIC).concat(new SAFEShellStrings(SAFEShellStrings.UFLOAT)), new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.NUMERIC).concat(new SAFEShellStrings(SAFEShellStrings.SIGNED_NUM)), new SAFEShellStrings(SAFEShellStrings.NOTNUM_NOTEMPTY));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.NUMERIC).concat(new SAFEShellStrings(SAFEShellStrings.NOTNUM_NOTEMPTY)), new SAFEShellStrings(SAFEShellStrings.NOTNUM_NOTEMPTY));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.NUMERIC).concat(new SAFEShellStrings(SAFEShellStrings.NOTUNSIGNED_NOTEMPTY)), new SAFEShellStrings(SAFEShellStrings.NOTNUM_NOTEMPTY));
 		assertEquals(new SAFEShellStrings(SAFEShellStrings.NUMERIC).concat(new SAFEShellStrings(SAFEShellStrings.NOT_NUMERIC)), new SAFEShellStrings(SAFEShellStrings.TOP));
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.NUMERIC).concat(new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY)), new SAFEShellStrings(SAFEShellStrings.TOP));
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.NUMERIC).concat(new SAFEShellStrings(SAFEShellStrings.NUMERIC)), new SAFEShellStrings(SAFEShellStrings.NUMERIC));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.NUMERIC).concat(new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY)), new SAFEShellStrings(SAFEShellStrings.NOTNUM_NOTEMPTY));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.NUMERIC).concat(new SAFEShellStrings(SAFEShellStrings.NUMERIC)), new SAFEShellStrings(SAFEShellStrings.TOP));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.NUMERIC).concat(new SAFEShellStrings(SAFEShellStrings.TOP)), new SAFEShellStrings(SAFEShellStrings.TOP));
 	}
 	
 	@Test
-	public void testLubSignedNum() throws Exception {
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.SIGNED_NUM).concat(new SAFEShellStrings(SAFEShellStrings.UINT)), new SAFEShellStrings(SAFEShellStrings.NUMERIC));
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.SIGNED_NUM).concat(new SAFEShellStrings(SAFEShellStrings.UNUM)), new SAFEShellStrings(SAFEShellStrings.NUMERIC));
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.SIGNED_NUM).concat(new SAFEShellStrings(SAFEShellStrings.UNUM_EPSILON)), new SAFEShellStrings(SAFEShellStrings.TOP));
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.SIGNED_NUM).concat(new SAFEShellStrings(SAFEShellStrings.UINT_EPSILON)), new SAFEShellStrings(SAFEShellStrings.TOP));
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.SIGNED_NUM).concat(new SAFEShellStrings(SAFEShellStrings.UFLOAT)), new SAFEShellStrings(SAFEShellStrings.NUMERIC));
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.SIGNED_NUM).concat(new SAFEShellStrings(SAFEShellStrings.SIGNED_NUM)), new SAFEShellStrings(SAFEShellStrings.SIGNED_NUM));
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.SIGNED_NUM).concat(new SAFEShellStrings(SAFEShellStrings.NOTNUM_NOTEMPTY)), new SAFEShellStrings(SAFEShellStrings.NOTUNSIGNED_NOTEMPTY));
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.SIGNED_NUM).concat(new SAFEShellStrings(SAFEShellStrings.NOTUNSIGNED_NOTEMPTY)), new SAFEShellStrings(SAFEShellStrings.NOTUNSIGNED_NOTEMPTY));
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.SIGNED_NUM).concat(new SAFEShellStrings(SAFEShellStrings.NOT_NUMERIC)), new SAFEShellStrings(SAFEShellStrings.TOP));
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.SIGNED_NUM).concat(new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY)), new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY));
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.SIGNED_NUM).concat(new SAFEShellStrings(SAFEShellStrings.NUMERIC)), new SAFEShellStrings(SAFEShellStrings.NUMERIC));
+	public void testConcatSignedNum() throws Exception {
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.SIGNED_NUM).concat(new SAFEShellStrings(SAFEShellStrings.UINT)), new SAFEShellStrings(SAFEShellStrings.SIGNED_NUM));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.SIGNED_NUM).concat(new SAFEShellStrings(SAFEShellStrings.UNUM)), new SAFEShellStrings(SAFEShellStrings.NOTUNSIGNED_NOTEMPTY));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.SIGNED_NUM).concat(new SAFEShellStrings(SAFEShellStrings.UNUM_EPSILON)), new SAFEShellStrings(SAFEShellStrings.NOTUNSIGNED_NOTEMPTY));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.SIGNED_NUM).concat(new SAFEShellStrings(SAFEShellStrings.UINT_EPSILON)), new SAFEShellStrings(SAFEShellStrings.SIGNED_NUM));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.SIGNED_NUM).concat(new SAFEShellStrings(SAFEShellStrings.UFLOAT)), new SAFEShellStrings(SAFEShellStrings.NOTUNSIGNED_NOTEMPTY));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.SIGNED_NUM).concat(new SAFEShellStrings(SAFEShellStrings.SIGNED_NUM)), new SAFEShellStrings(SAFEShellStrings.NOTNUM_NOTEMPTY));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.SIGNED_NUM).concat(new SAFEShellStrings(SAFEShellStrings.NOTNUM_NOTEMPTY)), new SAFEShellStrings(SAFEShellStrings.NOTNUM_NOTEMPTY));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.SIGNED_NUM).concat(new SAFEShellStrings(SAFEShellStrings.NOTUNSIGNED_NOTEMPTY)), new SAFEShellStrings(SAFEShellStrings.NOTNUM_NOTEMPTY));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.SIGNED_NUM).concat(new SAFEShellStrings(SAFEShellStrings.NOT_NUMERIC)), new SAFEShellStrings(SAFEShellStrings.NOTUNSIGNED_NOTEMPTY));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.SIGNED_NUM).concat(new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY)), new SAFEShellStrings(SAFEShellStrings.NOTNUM_NOTEMPTY));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.SIGNED_NUM).concat(new SAFEShellStrings(SAFEShellStrings.NUMERIC)), new SAFEShellStrings(SAFEShellStrings.NOTUNSIGNED_NOTEMPTY));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.SIGNED_NUM).concat(new SAFEShellStrings(SAFEShellStrings.TOP)), new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY));
 	}
 
 
@@ -486,44 +491,54 @@ public class SAFEShellConcatTest {
 	}
 	
 	@Test
-	public void testLubNotNumeric() throws Exception {
+	public void testConcatNotNumeric() throws Exception {
 		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOT_NUMERIC).concat(new SAFEShellStrings(SAFEShellStrings.UINT)), new SAFEShellStrings(SAFEShellStrings.TOP));
 		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOT_NUMERIC).concat(new SAFEShellStrings(SAFEShellStrings.UNUM)), new SAFEShellStrings(SAFEShellStrings.TOP));
 		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOT_NUMERIC).concat(new SAFEShellStrings(SAFEShellStrings.UNUM_EPSILON)), new SAFEShellStrings(SAFEShellStrings.TOP));
 		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOT_NUMERIC).concat(new SAFEShellStrings(SAFEShellStrings.UINT_EPSILON)), new SAFEShellStrings(SAFEShellStrings.TOP));
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOT_NUMERIC).concat(new SAFEShellStrings(SAFEShellStrings.UFLOAT)), new SAFEShellStrings(SAFEShellStrings.TOP));
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOT_NUMERIC).concat(new SAFEShellStrings(SAFEShellStrings.SIGNED_NUM)), new SAFEShellStrings(SAFEShellStrings.TOP));
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOT_NUMERIC).concat(new SAFEShellStrings(SAFEShellStrings.NOTNUM_NOTEMPTY)), new SAFEShellStrings(SAFEShellStrings.NOT_NUMERIC));
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOT_NUMERIC).concat(new SAFEShellStrings(SAFEShellStrings.NOTUNSIGNED_NOTEMPTY)), new SAFEShellStrings(SAFEShellStrings.TOP));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOT_NUMERIC).concat(new SAFEShellStrings(SAFEShellStrings.UFLOAT)), new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOT_NUMERIC).concat(new SAFEShellStrings(SAFEShellStrings.SIGNED_NUM)), new SAFEShellStrings(SAFEShellStrings.NOTUNSIGNED_NOTEMPTY));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOT_NUMERIC).concat(new SAFEShellStrings(SAFEShellStrings.NOTNUM_NOTEMPTY)), new SAFEShellStrings(SAFEShellStrings.NOTNUM_NOTEMPTY));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOT_NUMERIC).concat(new SAFEShellStrings(SAFEShellStrings.NOTUNSIGNED_NOTEMPTY)), new SAFEShellStrings(SAFEShellStrings.NOTUNSIGNED_NOTEMPTY));
 		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOT_NUMERIC).concat(new SAFEShellStrings(SAFEShellStrings.NOT_NUMERIC)), new SAFEShellStrings(SAFEShellStrings.NOT_NUMERIC));
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOT_NUMERIC).concat(new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY)), new SAFEShellStrings(SAFEShellStrings.TOP));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOT_NUMERIC).concat(new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY)), new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY));
 		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOT_NUMERIC).concat(new SAFEShellStrings(SAFEShellStrings.NUMERIC)), new SAFEShellStrings(SAFEShellStrings.TOP));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOT_NUMERIC).concat(new SAFEShellStrings(SAFEShellStrings.TOP)), new SAFEShellStrings(SAFEShellStrings.TOP));
 	}
 	
 
 	@Test
-	public void testLubNotUIntNotEmpty() throws Exception {
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY).concat(new SAFEShellStrings(SAFEShellStrings.UINT)), new SAFEShellStrings(SAFEShellStrings.TOP));
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY).concat(new SAFEShellStrings(SAFEShellStrings.UNUM)), new SAFEShellStrings(SAFEShellStrings.TOP));
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY).concat(new SAFEShellStrings(SAFEShellStrings.UNUM_EPSILON)), new SAFEShellStrings(SAFEShellStrings.TOP));
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY).concat(new SAFEShellStrings(SAFEShellStrings.UINT_EPSILON)), new SAFEShellStrings(SAFEShellStrings.TOP));
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY).concat(new SAFEShellStrings(SAFEShellStrings.UFLOAT)), new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY));
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY).concat(new SAFEShellStrings(SAFEShellStrings.SIGNED_NUM)), new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY));
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY).concat(new SAFEShellStrings(SAFEShellStrings.NOTNUM_NOTEMPTY)), new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY));
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY).concat(new SAFEShellStrings(SAFEShellStrings.NOTUNSIGNED_NOTEMPTY)), new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY));
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY).concat(new SAFEShellStrings(SAFEShellStrings.NOT_NUMERIC)), new SAFEShellStrings(SAFEShellStrings.TOP));
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY).concat(new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY)), new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY));
-		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY).concat(new SAFEShellStrings(SAFEShellStrings.NUMERIC)), new SAFEShellStrings(SAFEShellStrings.TOP));
+	public void testConcatNotUIntNotEmpty() throws Exception {
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY).concat(new SAFEShellStrings(SAFEShellStrings.UINT)), new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY).concat(new SAFEShellStrings(SAFEShellStrings.UNUM)), new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY).concat(new SAFEShellStrings(SAFEShellStrings.UNUM_EPSILON)), new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY).concat(new SAFEShellStrings(SAFEShellStrings.UINT_EPSILON)), new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY).concat(new SAFEShellStrings(SAFEShellStrings.UFLOAT)), new SAFEShellStrings(SAFEShellStrings.NOTNUM_NOTEMPTY));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY).concat(new SAFEShellStrings(SAFEShellStrings.SIGNED_NUM)), new SAFEShellStrings(SAFEShellStrings.NOTNUM_NOTEMPTY));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY).concat(new SAFEShellStrings(SAFEShellStrings.NOTNUM_NOTEMPTY)), new SAFEShellStrings(SAFEShellStrings.NOTNUM_NOTEMPTY));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY).concat(new SAFEShellStrings(SAFEShellStrings.NOTUNSIGNED_NOTEMPTY)), new SAFEShellStrings(SAFEShellStrings.NOTNUM_NOTEMPTY));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY).concat(new SAFEShellStrings(SAFEShellStrings.NOT_NUMERIC)), new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY).concat(new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY)), new SAFEShellStrings(SAFEShellStrings.NOTNUM_NOTEMPTY));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY).concat(new SAFEShellStrings(SAFEShellStrings.NUMERIC)), new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY).concat(new SAFEShellStrings(SAFEShellStrings.TOP)), new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY));
 	}
 	
 
 	@Test
-	public void testLubTop() throws Exception {
-		
-		for (SAFEShellStrings v : SAFEShellStrings.toSet()) {
-			assertEquals(v.concat(new SAFEShellStrings(SAFEShellStrings.TOP)), new SAFEShellStrings(SAFEShellStrings.TOP));
-			assertEquals(new SAFEShellStrings(SAFEShellStrings.TOP).concat(v), new SAFEShellStrings(SAFEShellStrings.TOP));
-		}
+	public void testConcatTop() throws Exception {
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.TOP).concat(new SAFEShellStrings(SAFEShellStrings.UINT)), new SAFEShellStrings(SAFEShellStrings.TOP));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.TOP).concat(new SAFEShellStrings(SAFEShellStrings.UNUM)), new SAFEShellStrings(SAFEShellStrings.TOP));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.TOP).concat(new SAFEShellStrings(SAFEShellStrings.UNUM_EPSILON)), new SAFEShellStrings(SAFEShellStrings.TOP));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.TOP).concat(new SAFEShellStrings(SAFEShellStrings.UINT_EPSILON)), new SAFEShellStrings(SAFEShellStrings.TOP));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.TOP).concat(new SAFEShellStrings(SAFEShellStrings.UFLOAT)), new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.TOP).concat(new SAFEShellStrings(SAFEShellStrings.SIGNED_NUM)), new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.TOP).concat(new SAFEShellStrings(SAFEShellStrings.NOTNUM_NOTEMPTY)), new SAFEShellStrings(SAFEShellStrings.NOTNUM_NOTEMPTY));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.TOP).concat(new SAFEShellStrings(SAFEShellStrings.NOTUNSIGNED_NOTEMPTY)), new SAFEShellStrings(SAFEShellStrings.NOTUNSIGNED_NOTEMPTY));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.TOP).concat(new SAFEShellStrings(SAFEShellStrings.NOT_NUMERIC)), new SAFEShellStrings(SAFEShellStrings.TOP));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.TOP).concat(new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY)), new SAFEShellStrings(SAFEShellStrings.NOTUINT_NOTEMPTY));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.TOP).concat(new SAFEShellStrings(SAFEShellStrings.NUMERIC)), new SAFEShellStrings(SAFEShellStrings.TOP));
+		assertEquals(new SAFEShellStrings(SAFEShellStrings.TOP).concat(new SAFEShellStrings(SAFEShellStrings.TOP)), new SAFEShellStrings(SAFEShellStrings.TOP));
+	
 	}
 	
 	@Test
