@@ -11,7 +11,7 @@ import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 
 import it.univr.domain.AbstractDomain;
-import it.univr.domain.tajs.original.SAFEAbstractDomain;
+import it.univr.domain.safe.original.SAFEAbstractDomain;
 import it.univr.state.AbstractStore;
 import it.univr.state.AbstractEnvironment;
 import it.univr.state.AbstractState;

@@ -1,4 +1,4 @@
-package it.univr.domain.tajs.original;
+package it.univr.domain.safe.original;
 
 import static org.junit.Assert.assertTrue;
 

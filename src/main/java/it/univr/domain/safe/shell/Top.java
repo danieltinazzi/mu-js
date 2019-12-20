@@ -1,4 +1,4 @@
-package it.univr.domain.tajs.original;
+package it.univr.domain.safe.shell;
 
 import it.univr.domain.AbstractValue;
 
@@ -36,9 +36,9 @@ public class Top implements AbstractValue {
 
 	@Override
 	public AbstractValue greatestLowerBound(AbstractValue value) {
-		if (value instanceof TAJSIntegers) return ((TAJSIntegers) value).clone();
+		if (value instanceof Interval) return ((Interval) value).clone();
 		if (value instanceof Bottom) return new Bottom();
-		if (value instanceof TAJSStrings) return ((TAJSStrings) value).clone();
+		if (value instanceof SAFEShellStrings) return ((SAFEShellStrings) value).clone();
 		if (value instanceof Bool) return ((Bool) value).clone();
 		
 		return new Top();

@@ -1,14 +1,14 @@
-package it.univr.domain.tajs.shell;
+package it.univr.domain.tajs.original;
 
 import it.univr.domain.AbstractDomain;
 import it.univr.domain.AbstractValue;
-import it.univr.domain.tajs.original.Bool;
-import it.univr.domain.tajs.original.Bottom;
-import it.univr.domain.tajs.original.Interval;
-import it.univr.domain.tajs.original.SAFEStrings;
-import it.univr.domain.tajs.original.Top;
+import it.univr.domain.safe.original.Bool;
+import it.univr.domain.safe.original.Bottom;
+import it.univr.domain.safe.original.Interval;
+import it.univr.domain.safe.original.SAFEStrings;
+import it.univr.domain.safe.original.Top;
 
-public class SAFEShellAbstractDomain extends AbstractDomain {
+public class TAJSAbstractDomain extends AbstractDomain {
 
 	@Override
 	public AbstractValue leastUpperBound(AbstractValue v1, AbstractValue v2) {

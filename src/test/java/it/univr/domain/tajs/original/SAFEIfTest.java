@@ -3,10 +3,10 @@ package it.univr.domain.tajs.original;
 import org.junit.Assert;
 import org.junit.Test;
 
-import it.univr.domain.tajs.original.Interval;
-import it.univr.domain.tajs.original.SAFEAbstractDomain;
-import it.univr.domain.tajs.original.SAFEStrings;
-import it.univr.domain.tajs.original.Top;
+import it.univr.domain.safe.original.Interval;
+import it.univr.domain.safe.original.SAFEAbstractDomain;
+import it.univr.domain.safe.original.SAFEStrings;
+import it.univr.domain.safe.original.Top;
 import it.univr.main.Analyzer;
 import it.univr.state.AbstractEnvironment;
 import it.univr.state.Variable;

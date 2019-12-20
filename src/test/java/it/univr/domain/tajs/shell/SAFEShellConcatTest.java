@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
+import it.univr.domain.safe.shell.SAFEShellStrings;
+
 public class SAFEShellConcatTest {
 	@Test
 	public void testConcatSingleStrings() throws Exception {
