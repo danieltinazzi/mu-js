@@ -1,4 +1,4 @@
-package it.univr.domain.tajs.shell;
+package it.univr.domain.safe.shell;
 
 import static org.junit.Assert.assertEquals;
 

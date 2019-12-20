@@ -1,4 +1,4 @@
-package it.univr.domain.tajs.original;
+package it.univr.domain.safe.original;
 
 import org.junit.Assert;
 import org.junit.Test;
