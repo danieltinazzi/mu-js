@@ -36,6 +36,11 @@ public class Bool implements AbstractValue {
 	public Bool(int value) {
 		this.value = (byte) value;
 	}
+	
+	public Bool(boolean value) {
+		this.value = value ? (byte) 1 : (byte) 0;
+	}
+
 
 	/**
 	 * Returns the abstract boolean value.

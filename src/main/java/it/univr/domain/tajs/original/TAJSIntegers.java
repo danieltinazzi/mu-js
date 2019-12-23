@@ -440,8 +440,12 @@ public class TAJSIntegers implements AbstractValue {
 	}
 
 	public Bool greater(TAJSIntegers other) {
-		// TODO
-		return null;
+			
+		if (isTop() || other.isTop())
+				return new Bool(2);
+		
+		// TODO: finish greater
+		return new Bool(2);
 	}
 
 	@Override
