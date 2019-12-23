@@ -58,9 +58,9 @@ sexp: STRING												#Str
 	|	'(' sexp ')'										#SExpPar
 	;
 
-exp : aexp 													#AExp
-	| sexp 													#SExp
-	| bexp 													#BExp
+exp : aexp 													#AeExp
+	| sexp 													#SeExp
+	| bexp 													#BeExp
 	;
 	
 stmt:
