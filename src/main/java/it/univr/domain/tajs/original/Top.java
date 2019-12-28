@@ -36,7 +36,7 @@ public class Top implements AbstractValue {
 
 	@Override
 	public AbstractValue greatestLowerBound(AbstractValue value) {
-		if (value instanceof TAJSIntegers) return ((TAJSIntegers) value).clone();
+		if (value instanceof TAJSNumbers) return ((TAJSNumbers) value).clone();
 		if (value instanceof Bottom) return new Bottom();
 		if (value instanceof TAJSStrings) return ((TAJSStrings) value).clone();
 		if (value instanceof Bool) return ((Bool) value).clone();

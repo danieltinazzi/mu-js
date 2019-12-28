@@ -5,11 +5,11 @@ import static org.junit.Assert.assertTrue;
 import it.univr.domain.AbstractValue;
 
 /**
- * Interval abstract domain.
+ * TAJS numbers abstract domain.
  * 
  *  @author <a href="vincenzo.arceri@univr.it">Vincenzo Arceri</a>
  */
-public class TAJSIntegers implements AbstractValue {
+public class TAJSNumbers implements AbstractValue {
 
 	public final static int BOT = 0x00000001; 
 	public final static int UNSIGNED_INT = 0x00000002;
@@ -20,44 +20,44 @@ public class TAJSIntegers implements AbstractValue {
 	private Float i;
 	private int v;
 
-	public TAJSIntegers(Float i) {
+	public TAJSNumbers(Float i) {
 		this.i = i;
 		this.v = SINGLE_NUM;
 	}
 
-	public TAJSIntegers(double i) {
+	public TAJSNumbers(double i) {
 		this.i = (float) i;
 		this.v = SINGLE_NUM;
 	}
-	
-	public TAJSIntegers(int i) {
+
+	public TAJSNumbers(int i) {
 		this.i = (float) i;
 		this.v = SINGLE_NUM;
 	}
-	
-	public TAJSIntegers(int v, boolean b) {
+
+	public TAJSNumbers(int v, boolean b) {
 		this.i = null;
 		this.v = v;
 	}
 
-	public static TAJSIntegers createUnsigned() {
-		return new TAJSIntegers(UNSIGNED_INT, true);
+	public static TAJSNumbers createUnsigned() {
+		return new TAJSNumbers(UNSIGNED_INT, true);
 	}
 
-	public static TAJSIntegers createNotUnsignedInt() {
-		return new TAJSIntegers(NOT_UNSIGNED_INT, true);
+	public static TAJSNumbers createNotUnsignedInt() {
+		return new TAJSNumbers(NOT_UNSIGNED_INT, true);
 	}
 
 	public int getAbstractValue() {
 		return v;
 	}
 
-	public static TAJSIntegers createTopString() {
-		return new TAJSIntegers(TOP, true);
+	public static TAJSNumbers createTopString() {
+		return new TAJSNumbers(TOP, true);
 	}
 
-	public static TAJSIntegers createBotString() {
-		return new TAJSIntegers(BOT, true);
+	public static TAJSNumbers createBotString() {
+		return new TAJSNumbers(BOT, true);
 	}
 
 	public boolean isBot() {
@@ -88,13 +88,13 @@ public class TAJSIntegers implements AbstractValue {
 	@Override
 	public AbstractValue leastUpperBound(AbstractValue other) {
 
-		if (other instanceof TAJSIntegers) {
+		if (other instanceof TAJSNumbers) {
 
-			TAJSIntegers that = (TAJSIntegers) other;
+			TAJSNumbers that = (TAJSNumbers) other;
 
 
 			if (isTop() || that.isTop()) 
-				return new TAJSIntegers(TOP, true);
+				return new TAJSNumbers(TOP, true);
 			else if (that.isBot())
 				return clone();
 			else if (isBot())
@@ -104,27 +104,27 @@ public class TAJSIntegers implements AbstractValue {
 				if (getSingleNumber() == that.getSingleNumber())
 					return clone();
 				else if (isSingleNumberNotUnsignedInt() && that.isSingleNumberNotUnsignedInt())
-					return new TAJSIntegers(NOT_UNSIGNED_INT, true);
+					return new TAJSNumbers(NOT_UNSIGNED_INT, true);
 				else if (isSingleNumberUnsignedInt() && that.isSingleNumberUnsignedInt())
-					return new TAJSIntegers(UNSIGNED_INT, true);
+					return new TAJSNumbers(UNSIGNED_INT, true);
 				else
-					return new TAJSIntegers(TOP, true);
+					return new TAJSNumbers(TOP, true);
 			}
 
 			else if (isSingleNumber()) {
 
 				if (isSingleNumberUnsignedInt()) {
 					if (that.isUnsignedInt())
-						return new TAJSIntegers(UNSIGNED_INT, true);
+						return new TAJSNumbers(UNSIGNED_INT, true);
 					else if (that.isNotUnsignedInt())
-						return new TAJSIntegers(TOP, true);
+						return new TAJSNumbers(TOP, true);
 				}
 
 				else if (isSingleNumberNotUnsignedInt()) {
 					if (that.isUnsignedInt())
-						return new TAJSIntegers(TOP, true);
+						return new TAJSNumbers(TOP, true);
 					else if (that.isNotUnsignedInt())
-						return new TAJSIntegers(NOT_UNSIGNED_INT, true);
+						return new TAJSNumbers(NOT_UNSIGNED_INT, true);
 				}
 			}
 
@@ -132,47 +132,47 @@ public class TAJSIntegers implements AbstractValue {
 
 				if (that.isSingleNumberUnsignedInt()) {
 					if (isUnsignedInt())
-						return new TAJSIntegers(UNSIGNED_INT, true);
+						return new TAJSNumbers(UNSIGNED_INT, true);
 					else if (isNotUnsignedInt())
-						return new TAJSIntegers(TOP, true);
+						return new TAJSNumbers(TOP, true);
 				}
 
 				else if (that.isSingleNumberNotUnsignedInt()) {
 					if (isUnsignedInt())
-						return new TAJSIntegers(TOP, true);
+						return new TAJSNumbers(TOP, true);
 					else if (isNotUnsignedInt())
-						return new TAJSIntegers(NOT_UNSIGNED_INT, true);
+						return new TAJSNumbers(NOT_UNSIGNED_INT, true);
 				}
 			}
 
 			else if (isNotUnsignedInt()) {
 
 				if (that.getAbstractValue() == UNSIGNED_INT)
-					return new TAJSIntegers(TOP, true);
+					return new TAJSNumbers(TOP, true);
 				else if (that.getAbstractValue() == NOT_UNSIGNED_INT)
-					return new TAJSIntegers(NOT_UNSIGNED_INT, true);
+					return new TAJSNumbers(NOT_UNSIGNED_INT, true);
 			}
 
 			else if (isUnsignedInt()) {
 				if (that.getAbstractValue() == NOT_UNSIGNED_INT)
-					return new TAJSIntegers(TOP, true);
+					return new TAJSNumbers(TOP, true);
 				else if (that.getAbstractValue() == UNSIGNED_INT)
-					return new TAJSIntegers(UNSIGNED_INT, true);
+					return new TAJSNumbers(UNSIGNED_INT, true);
 			}
-			
+
 			else if (that.isNotUnsignedInt()) {
 
 				if (getAbstractValue() == UNSIGNED_INT)
-					return new TAJSIntegers(TOP, true);
+					return new TAJSNumbers(TOP, true);
 				else if (getAbstractValue() == NOT_UNSIGNED_INT)
-					return new TAJSIntegers(NOT_UNSIGNED_INT, true);
+					return new TAJSNumbers(NOT_UNSIGNED_INT, true);
 			}
 
 			else if (that.isUnsignedInt()) {
 				if (getAbstractValue() == NOT_UNSIGNED_INT)
-					return new TAJSIntegers(TOP, true);
+					return new TAJSNumbers(TOP, true);
 				else if (getAbstractValue() == UNSIGNED_INT)
-					return new TAJSIntegers(UNSIGNED_INT, true);
+					return new TAJSNumbers(UNSIGNED_INT, true);
 			}
 		} 
 
@@ -207,68 +207,68 @@ public class TAJSIntegers implements AbstractValue {
 	 * @param other second operand
 	 * @return the sum between TAJS integers
 	 */
-	public TAJSIntegers plus(TAJSIntegers other) {
-		
+	public TAJSNumbers plus(TAJSNumbers other) {
+
 		if (isBot() || other.isBot())
-			return new TAJSIntegers(BOT, true);	
-		
+			return new TAJSNumbers(BOT, true);	
+
 		if (isTop() || other.isTop())
-				return new TAJSIntegers(TOP, true);
-		
+			return new TAJSNumbers(TOP, true);
+
 		if (isSingleNumber() && other.isSingleNumber()) {
-			return new TAJSIntegers(getSingleNumber() +  other.getSingleNumber());
+			return new TAJSNumbers(getSingleNumber() +  other.getSingleNumber());
 		}
-		
+
 		else if (isSingleNumber()) {
-			
+
 			if (isSingleNumberUnsignedInt()) {
 				if (other.isUnsignedInt())
-					return new TAJSIntegers(UNSIGNED_INT, true);
+					return new TAJSNumbers(UNSIGNED_INT, true);
 				else if (other.isNotUnsignedInt())
-					return new TAJSIntegers(NOT_UNSIGNED_INT, true);
+					return new TAJSNumbers(NOT_UNSIGNED_INT, true);
 			}
-			
+
 			if (isSingleNumberNotUnsignedInt()) {
 				if (other.isUnsignedInt())
-					return new TAJSIntegers(NOT_UNSIGNED_INT, true);
+					return new TAJSNumbers(NOT_UNSIGNED_INT, true);
 				else if (other.isNotUnsignedInt())
-					return new TAJSIntegers(TOP, true);
+					return new TAJSNumbers(TOP, true);
 			}
 		}
-		
+
 		else if (other.isSingleNumber()) {
-			
+
 			if (other.isSingleNumberUnsignedInt()) {
 				if (isUnsignedInt())
-					return new TAJSIntegers(UNSIGNED_INT, true);
+					return new TAJSNumbers(UNSIGNED_INT, true);
 				else if (isNotUnsignedInt())
-					return new TAJSIntegers(NOT_UNSIGNED_INT, true);
+					return new TAJSNumbers(NOT_UNSIGNED_INT, true);
 			}
-			
+
 			if (other.isSingleNumberNotUnsignedInt()) {
 				if (isUnsignedInt())
-					return new TAJSIntegers(NOT_UNSIGNED_INT, true);
+					return new TAJSNumbers(NOT_UNSIGNED_INT, true);
 				else if (isNotUnsignedInt())
-					return new TAJSIntegers(TOP, true);
+					return new TAJSNumbers(TOP, true);
 			}
 		}
-		
+
 		else if (other.isUnsignedInt()) {
 			if (isUnsignedInt())
-				return new TAJSIntegers(UNSIGNED_INT, true);
+				return new TAJSNumbers(UNSIGNED_INT, true);
 			else if (isNotUnsignedInt())
-				return new TAJSIntegers(NOT_UNSIGNED_INT, true);
-			
+				return new TAJSNumbers(NOT_UNSIGNED_INT, true);
+
 		}
-		
+
 		else if (other.isNotUnsignedInt()) {
 			if (isUnsignedInt())
-				return new TAJSIntegers(NOT_UNSIGNED_INT, true);
+				return new TAJSNumbers(NOT_UNSIGNED_INT, true);
 			else if (isNotUnsignedInt())
-				return new TAJSIntegers(TOP, true);
+				return new TAJSNumbers(TOP, true);
 		}
-		
-		return new TAJSIntegers(TOP, true);
+
+		return new TAJSNumbers(TOP, true);
 	}
 
 	/**
@@ -277,68 +277,68 @@ public class TAJSIntegers implements AbstractValue {
 	 * @param other second operand
 	 * @return the minus between TAJS integers
 	 */
-	public TAJSIntegers diff(TAJSIntegers other) {
-		
+	public TAJSNumbers diff(TAJSNumbers other) {
+
 		if (isBot() || other.isBot())
-			return new TAJSIntegers(BOT, true);	
-		
+			return new TAJSNumbers(BOT, true);	
+
 		if (isTop() || other.isTop())
-				return new TAJSIntegers(TOP, true);
-		
+			return new TAJSNumbers(TOP, true);
+
 		if (isSingleNumber() && other.isSingleNumber()) {
-			return new TAJSIntegers((double) getSingleNumber() -  other.getSingleNumber());
+			return new TAJSNumbers((double) getSingleNumber() -  other.getSingleNumber());
 		}
-		
+
 		else if (isSingleNumber()) {
-			
+
 			if (isSingleNumberUnsignedInt()) {
 				if (other.isUnsignedInt())
-					return new TAJSIntegers(UNSIGNED_INT, true);
+					return new TAJSNumbers(UNSIGNED_INT, true);
 				else if (other.isNotUnsignedInt())
-					return new TAJSIntegers(NOT_UNSIGNED_INT, true);
+					return new TAJSNumbers(NOT_UNSIGNED_INT, true);
 			}
-			
+
 			if (isSingleNumberNotUnsignedInt()) {
 				if (other.isUnsignedInt())
-					return new TAJSIntegers(NOT_UNSIGNED_INT, true);
+					return new TAJSNumbers(NOT_UNSIGNED_INT, true);
 				else if (other.isNotUnsignedInt())
-					return new TAJSIntegers(TOP, true);
+					return new TAJSNumbers(TOP, true);
 			}
 		}
-		
+
 		else if (other.isSingleNumber()) {
-			
+
 			if (other.isSingleNumberUnsignedInt()) {
 				if (isUnsignedInt())
-					return new TAJSIntegers(UNSIGNED_INT, true);
+					return new TAJSNumbers(UNSIGNED_INT, true);
 				else if (isNotUnsignedInt())
-					return new TAJSIntegers(NOT_UNSIGNED_INT, true);
+					return new TAJSNumbers(NOT_UNSIGNED_INT, true);
 			}
-			
+
 			if (other.isSingleNumberNotUnsignedInt()) {
 				if (isUnsignedInt())
-					return new TAJSIntegers(NOT_UNSIGNED_INT, true);
+					return new TAJSNumbers(NOT_UNSIGNED_INT, true);
 				else if (isNotUnsignedInt())
-					return new TAJSIntegers(TOP, true);
+					return new TAJSNumbers(TOP, true);
 			}
 		}
-		
+
 		else if (other.isUnsignedInt()) {
 			if (isUnsignedInt())
-				return new TAJSIntegers(UNSIGNED_INT, true);
+				return new TAJSNumbers(UNSIGNED_INT, true);
 			else if (isNotUnsignedInt())
-				return new TAJSIntegers(NOT_UNSIGNED_INT, true);
-			
+				return new TAJSNumbers(NOT_UNSIGNED_INT, true);
+
 		}
-		
+
 		else if (other.isNotUnsignedInt()) {
 			if (isUnsignedInt())
-				return new TAJSIntegers(NOT_UNSIGNED_INT, true);
+				return new TAJSNumbers(NOT_UNSIGNED_INT, true);
 			else if (isNotUnsignedInt())
-				return new TAJSIntegers(TOP, true);
+				return new TAJSNumbers(TOP, true);
 		}
-		
-		return new TAJSIntegers(TOP, true);
+
+		return new TAJSNumbers(TOP, true);
 	}
 
 	/**
@@ -347,90 +347,90 @@ public class TAJSIntegers implements AbstractValue {
 	 * @param other second operand
 	 * @return the multiplication between the intervals, i,e. [l1,h1] * [l2,h2].
 	 */
-	public TAJSIntegers mul(TAJSIntegers other) {
+	public TAJSNumbers mul(TAJSNumbers other) {
 		if (isBot() || other.isBot())
-			return new TAJSIntegers(BOT, true);	
-		
+			return new TAJSNumbers(BOT, true);	
+
 		if (isTop() || other.isTop())
-				return new TAJSIntegers(TOP, true);
-		
+			return new TAJSNumbers(TOP, true);
+
 		if (isSingleNumber() && other.isSingleNumber()) {
-			return new TAJSIntegers((double) getSingleNumber() *  other.getSingleNumber());
+			return new TAJSNumbers((double) getSingleNumber() *  other.getSingleNumber());
 		}
-		
+
 		if (isSingleNumber() && getSingleNumber() == 0)
-			return new TAJSIntegers(0);
-		
+			return new TAJSNumbers(0);
+
 		else if (isSingleNumber()) {
-			
+
 			if (isSingleNumberUnsignedInt()) {
 				if (other.isUnsignedInt())
-					return new TAJSIntegers(UNSIGNED_INT, true);
+					return new TAJSNumbers(UNSIGNED_INT, true);
 				else if (other.isNotUnsignedInt())
-					return new TAJSIntegers(TOP, true);
+					return new TAJSNumbers(TOP, true);
 			}
-			
+
 			if (isSingleNumberNotUnsignedInt()) {
 				if (other.isUnsignedInt())
-					return new TAJSIntegers(TOP, true);
+					return new TAJSNumbers(TOP, true);
 				else if (other.isNotUnsignedInt())
-					return new TAJSIntegers(TOP, true);
+					return new TAJSNumbers(TOP, true);
 			}
 		}
-		
+
 		else if (other.isSingleNumber()) {
-			
+
 			if (other.isSingleNumberUnsignedInt()) {
 				if (isUnsignedInt())
-					return new TAJSIntegers(UNSIGNED_INT, true);
+					return new TAJSNumbers(UNSIGNED_INT, true);
 				else if (isNotUnsignedInt())
-					return new TAJSIntegers(TOP, true);
+					return new TAJSNumbers(TOP, true);
 			}
-			
+
 			if (other.isSingleNumberNotUnsignedInt()) {
 				if (isUnsignedInt())
-					return new TAJSIntegers(TOP, true);
+					return new TAJSNumbers(TOP, true);
 				else if (isNotUnsignedInt())
-					return new TAJSIntegers(TOP, true);
+					return new TAJSNumbers(TOP, true);
 			}
 		}
-		
+
 		// Both the abstract values are not single integers
-		
+
 		else if (other.isUnsignedInt()) {
 			if (isUnsignedInt())
-				return new TAJSIntegers(UNSIGNED_INT, true);
+				return new TAJSNumbers(UNSIGNED_INT, true);
 			else if (isNotUnsignedInt())
-				return new TAJSIntegers(TOP, true);
-			
+				return new TAJSNumbers(TOP, true);
+
 		}
-		
+
 		else if (other.isNotUnsignedInt()) {
 			if (isUnsignedInt())
-				return new TAJSIntegers(TOP, true);
+				return new TAJSNumbers(TOP, true);
 			else if (isNotUnsignedInt())
-				return new TAJSIntegers(TOP, true);
+				return new TAJSNumbers(TOP, true);
 		}
-		
-		return new TAJSIntegers(TOP, true);
+
+		return new TAJSNumbers(TOP, true);
 	}
 
 	@Override
-	public TAJSIntegers clone() {
-		return isSingleNumber() ? new TAJSIntegers(getSingleNumber()) : new TAJSIntegers(getAbstractValue(), true);
+	public TAJSNumbers clone() {
+		return isSingleNumber() ? new TAJSNumbers(getSingleNumber()) : new TAJSNumbers(getAbstractValue(), true);
 	}
 
 	@Override
 	public boolean equals(Object other) {
-		if (other instanceof TAJSIntegers) {
-			if (isSingleNumber() && ((TAJSIntegers) other).isSingleNumber()) {
-				if (getSingleNumber() == ((TAJSIntegers) other).getSingleNumber())
+		if (other instanceof TAJSNumbers) {
+			if (isSingleNumber() && ((TAJSNumbers) other).isSingleNumber()) {
+				if (getSingleNumber() == ((TAJSNumbers) other).getSingleNumber())
 					return true;
 				else return false;
 			}
 
-			else if (!isSingleNumber() && !((TAJSIntegers) other).isSingleNumber()) {
-				if (getAbstractValue() == ((TAJSIntegers) other).getAbstractValue())
+			else if (!isSingleNumber() && !((TAJSNumbers) other).isSingleNumber()) {
+				if (getAbstractValue() == ((TAJSNumbers) other).getAbstractValue())
 					return true;
 				else 
 					return false;
@@ -439,12 +439,33 @@ public class TAJSIntegers implements AbstractValue {
 		return false;
 	}
 
-	public Bool greater(TAJSIntegers other) {
-			
-		if (isTop() || other.isTop())
-				return new Bool(2);
-		
-		// TODO: finish greater
+	public Bool greater(TAJSNumbers other) {
+
+		if (v == TOP || other.getAbstractValue() == TOP)
+			return new Bool(2);
+
+		else if (isSingleNumber() && other.isSingleNumber()) {
+			if (getSingleNumber() > other.getSingleNumber())
+				return new Bool(1);
+			else
+				return new Bool(0);
+		}
+
+		return new Bool(2);
+	}
+
+	public Bool less(TAJSNumbers other) {
+
+		if (v == TOP || other.getAbstractValue() == TOP)
+			return new Bool(2);
+
+		else if (isSingleNumber() && other.isSingleNumber()) {
+			if (getSingleNumber() < other.getSingleNumber())
+				return new Bool(1);
+			else
+				return new Bool(0);
+		}
+
 		return new Bool(2);
 	}
 
@@ -454,9 +475,16 @@ public class TAJSIntegers implements AbstractValue {
 		return null;
 	}
 
-	public Bool isEqual(TAJSIntegers other) {
-		// TODO
-		return null;
+	public Bool isEqual(TAJSNumbers other) {
+
+		if (isSingleNumber() && other.isSingleNumber()) {
+			if (getSingleNumber() == other.getSingleNumber())
+				return new Bool(1);
+			else
+				return new Bool(0);
+		}
+		
+		return new Bool(2);
 	}
 
 	@Override

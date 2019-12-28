@@ -2,11 +2,9 @@ package it.univr.domain.tajs.original;
 
 import it.univr.domain.AbstractDomain;
 import it.univr.domain.AbstractValue;
-import it.univr.domain.safe.original.Bool;
-import it.univr.domain.safe.original.Bottom;
-import it.univr.domain.safe.original.Interval;
-import it.univr.domain.safe.original.SAFEStrings;
-import it.univr.domain.safe.original.Top;
+import it.univr.domain.tajs.original.Bool;
+import it.univr.domain.tajs.original.Bottom;
+import it.univr.domain.tajs.original.Top;
 
 public class TAJSAbstractDomain extends AbstractDomain {
 
@@ -33,34 +31,32 @@ public class TAJSAbstractDomain extends AbstractDomain {
 		return new Top();
 	}
 
-
-
 	@Override
 	public AbstractValue less(AbstractValue left, AbstractValue right) {
-		if (left instanceof Interval && right instanceof Interval ) 
-			return ((Interval) left).less((Interval) right);		
+		if (left instanceof TAJSNumbers && right instanceof TAJSNumbers) 
+			return ((TAJSNumbers) left).less((TAJSNumbers) right);		
 
 		return new Top();
 	}
 
 	@Override
 	public AbstractValue sum(AbstractValue left, AbstractValue right) {
-		if (left instanceof Interval && right instanceof Interval ) 
-			return ((Interval) left).plus((Interval) right);		
+		if (left instanceof TAJSNumbers && right instanceof TAJSNumbers ) 
+			return ((TAJSNumbers) left).plus((TAJSNumbers) right);		
 		return new Top();
 	}
 
 	@Override
 	public AbstractValue diff(AbstractValue left, AbstractValue right) {
-		if (left instanceof Interval && right instanceof Interval ) 
-			return ((Interval) left).diff((Interval) right);		
+		if (left instanceof TAJSNumbers && right instanceof TAJSNumbers ) 
+			return ((TAJSNumbers) left).diff((TAJSNumbers) right);		
 		return new Top();
 	}
 
 	@Override
 	public AbstractValue mul(AbstractValue left, AbstractValue right) {
-		if (left instanceof Interval && right instanceof Interval ) 
-			return ((Interval) left).mul((Interval) right);		
+		if (left instanceof TAJSNumbers && right instanceof TAJSNumbers) 
+			return ((TAJSNumbers) left).mul((TAJSNumbers) right);		
 		return new Top();
 	}
 
@@ -71,12 +67,12 @@ public class TAJSAbstractDomain extends AbstractDomain {
 
 	@Override
 	public AbstractValue makeIntegerAbstractValue(Integer v) {
-		return new Interval(v.toString(), v.toString());
+		return new TAJSNumbers(v);
 	}
 
 	@Override
 	public  AbstractValue makeStringAbstractValue(String v) {
-		return new SAFEStrings(v);
+		return new TAJSStrings(v);
 	}
 	
 	@Override
@@ -86,8 +82,9 @@ public class TAJSAbstractDomain extends AbstractDomain {
 
 	@Override
 	public AbstractValue equals(AbstractValue left, AbstractValue right) {
-		if (left instanceof Interval && right instanceof Interval)
-			return ((Interval) left).isEqual((Interval) right);
+		if (left instanceof TAJSNumbers && right instanceof TAJSNumbers) 
+			return ((TAJSNumbers) left).isEqual((TAJSNumbers) right);
+		
 		return new Top();
 	}
 
@@ -113,8 +110,8 @@ public class TAJSAbstractDomain extends AbstractDomain {
 
 	@Override
 	public AbstractValue concat(AbstractValue left, AbstractValue right) {
-		if (left instanceof SAFEStrings && right instanceof SAFEStrings) 
-			return ((SAFEStrings) left).concat((SAFEStrings) right);		
+		if (left instanceof TAJSStrings && right instanceof TAJSStrings) 
+			return ((TAJSStrings) left).concat((TAJSStrings) right);		
 		return new Bottom();
 	}
 

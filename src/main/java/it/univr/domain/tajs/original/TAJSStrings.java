@@ -2,31 +2,20 @@ package it.univr.domain.tajs.original;
 
 import static org.junit.Assert.assertTrue;
 
-import java.util.regex.Pattern;
-
 import it.univr.domain.AbstractValue;
 
 public class TAJSStrings implements AbstractValue {
 
-	static private final Pattern NUMBER = Pattern.compile("-?(([0-9]+(\\.[0-9]*)?|\\.[0-9]+)([eE][-+][0-9]+)?)"); // TODO: check that this over-approximates the possible output of Number.toString
-
-
 	private final static int BOT = 0x00000001; 
 	private final static int SINGLE_STRING = 0x00000002;
-	private final static int NUMERIC = 0x00000003;
-	private final static int NOT_NUMERIC = 0x00000004;
+	private final static int UNSIGNED_STR = 0x00000003;
+	private final static int NOT_UNSIGNED_STR = 0x00000004;
 	private final static int TOP = 0x00000005;
 
 
 	private String str;
 	private int v;
 
-
-	public static void main(String args[]) {
-		System.err.println(NUMBER.matcher("").matches());
-		System.err.println("\n\n" + new TAJSStrings("").leastUpperBound(new TAJSStrings("a")));
-	}
-	
 	public TAJSStrings(String str) {
 		this.str = str;
 		this.v = SINGLE_STRING;
@@ -37,18 +26,18 @@ public class TAJSStrings implements AbstractValue {
 		this.v = v;
 	}
 
-	public static TAJSStrings createNotNumeric() {
-		return new TAJSStrings(NOT_NUMERIC);
+	public static TAJSStrings createUnsignedString() {
+		return new TAJSStrings(UNSIGNED_STR);
 	}
 
-	public static TAJSStrings createNumeric() {
-		return new TAJSStrings(NUMERIC);
+	public static TAJSStrings createNotUnsignedString() {
+		return new TAJSStrings(NOT_UNSIGNED_STR);
 	}
 
 	public int getAbstractValue() {
 		return v;
 	}
-	
+
 	public static TAJSStrings createTopString() {
 		return new TAJSStrings(TOP);
 	}
@@ -65,12 +54,12 @@ public class TAJSStrings implements AbstractValue {
 		return v == TOP;
 	}
 
-	public boolean isNumeric() {
-		return v == NUMERIC;
+	public boolean isUnsignedString() {
+		return v == UNSIGNED_STR;
 	}
 
-	public boolean isNotNumeric() {
-		return v == NOT_NUMERIC;
+	public boolean isNotUnsignedString() {
+		return v == NOT_UNSIGNED_STR;
 	}
 
 	public boolean isString() {
@@ -97,25 +86,25 @@ public class TAJSStrings implements AbstractValue {
 				if (getSingleString().equals(that.getSingleString())) // if strings are equals returns this
 					return clone();
 				else 
-					return isNumericString() && that.isNumericString() ? createNumeric() 
-							: (!isNumericString() && !that.isNumericString() ? createNotNumeric() : createTopString());
+					return isUnsignedInteger() && that.isUnsignedInteger() ? createUnsignedString() 
+							: (!isUnsignedInteger() && !that.isUnsignedInteger() ? createNotUnsignedString() : createTopString());
 			}
 
 			else if (isString()) {
 				// this is single string and it is numeric
-				if (isNumericString()) {
-					if (that.isNotNumeric())
+				if (isUnsignedInteger()) {
+					if (that.isNotUnsignedString())
 						return createTopString();
 
-					if (that.isNumeric())
+					if (that.isUnsignedString())
 						return that;
 				} 
 				// this is single string and it is not numeric
 				else {
-					if (that.isNotNumeric())
+					if (that.isNotUnsignedString())
 						return that;
 
-					if (that.isNumeric())
+					if (that.isUnsignedString())
 						return createTopString();
 
 				}	
@@ -124,27 +113,27 @@ public class TAJSStrings implements AbstractValue {
 			else if (that.isString()) {
 
 				// that is single string and it is numeric
-				if (that.isNumericString()) {
-					if (isNotNumeric())
+				if (that.isUnsignedInteger()) {
+					if (isNotUnsignedString())
 						return createTopString();
 
-					if (isNumeric())
+					if (isUnsignedString())
 						return clone();
 				} 
 				// that is single string and it is not numeric
 				else {
-					if (isNotNumeric())
+					if (isNotUnsignedString())
 						return clone();
 
-					if (isNumeric())
+					if (isUnsignedString())
 						return createTopString();
 
 				}	
 			}
 
-			else if (isNumeric() && that.isNumeric() || isNotNumeric() && that.isNotNumeric())
+			else if (isUnsignedString() && that.isUnsignedString() || isNotUnsignedString() && that.isNotUnsignedString())
 				return that;
-			else if (isNumeric() && that.isNotNumeric() || isNotNumeric() && that.isNumeric())
+			else if (isUnsignedString() && that.isNotUnsignedString() || isNotUnsignedString() && that.isUnsignedString())
 				return createTopString();
 		} 
 
@@ -173,76 +162,69 @@ public class TAJSStrings implements AbstractValue {
 		return isString() ?  new TAJSStrings(str) :  new TAJSStrings(v);
 	}
 
-	private boolean isNumericString() {
-		assertTrue(isString());
-		return NUMBER.matcher(str).matches();
-	}
-	
 	@Override
 	public String toString() {
 		if (isString())
 			return "\"" + getSingleString() + "\"";
-		else if (isNotNumeric())
-			return "NotNumeric";
-		else if (isNumeric())
-			return "Numeric";
+		else if (isUnsignedString())
+			return "UnsignedString";
+		else if (isNotUnsignedString())
+			return "NotUnsignedString";
 		else
 			return "String";
 	}
-	
+
 	@Override
 	public boolean equals(Object other) {
 		if (other instanceof TAJSStrings) {
 			return isString() && ((TAJSStrings) other).isString() ? getSingleString().equals(((TAJSStrings) other).getSingleString()) : v == ((TAJSStrings) other).getAbstractValue();
 		}
-		
+
 		return false;
 	}
 
 	public TAJSStrings concat(TAJSStrings that) {
+
 		if (isBot() || that.isBot()) // bottom cases
 			return new TAJSStrings(BOT);
 
-		else if (isString()) { // second row
+		if (isString() && that.isString())
+			return new TAJSStrings(getSingleString() + that.getSingleString());
 
-			if (that.isString())
-				return new TAJSStrings(getSingleString() + that.getSingleString());
-			else if (that.isNumeric()) {
-				if (isUnsignedInteger() || getSingleString().isEmpty())
-					return new TAJSStrings(NUMERIC);
+		if (isString()) {
+
+			if (isUnsignedInteger()) {
+
+				if (that.isUnsignedString())
+					return TAJSStrings.createUnsignedString();
 				else
-					return new TAJSStrings(NOT_NUMERIC);
+					return TAJSStrings.createNotUnsignedString();
+			} else {
+				return TAJSStrings.createNotUnsignedString();
 			}
-			else if (that.isNotNumeric()) 
-				return that.clone();
-			else
-				return new TAJSStrings(TOP);
-		} 
 
-		else if (isNumeric()) { // third row
-
-			if (that.isString()) {
-				if (that.isUnsignedInteger() || that.getSingleString().isEmpty())
-					return new TAJSStrings(NUMERIC);
-				else
-					return new TAJSStrings(NOT_NUMERIC);
-			} else if (that.isNumeric())
-				return new TAJSStrings(TOP);
-			else if (that.isNotNumeric())
-				return new TAJSStrings(NOT_NUMERIC);
-			else
-				return new TAJSStrings(TOP);
 		}
 
-		else if (isNotNumeric()) { // forth row
-			if (that.isString() || that.isNumeric() || that.isNotNumeric())
-				return new TAJSStrings(NOT_NUMERIC);
-			else
-				return new TAJSStrings(TOP);
+		if (that.isString()) {
+
+			if (that.isUnsignedInteger()) {
+
+				if (isUnsignedString())
+					return TAJSStrings.createUnsignedString();
+				else 
+					return TAJSStrings.createNotUnsignedString();
+			} else {
+				return TAJSStrings.createNotUnsignedString();
+			}
 		}
 
-		else // fifth row
-			return new TAJSStrings(TOP);
+		if (isUnsignedString() && that.isUnsignedString())
+			return TAJSStrings.createUnsignedString();
+
+		if (isNotUnsignedString() && that.isNotUnsignedString())
+			return TAJSStrings.createNotUnsignedString();
+
+		return TAJSStrings.createNotUnsignedString();		
 	}
 
 	private  boolean isUnsignedInteger() {

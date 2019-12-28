@@ -8,34 +8,34 @@ public class TAJSNumericDiff {
 	
 	@Test
 	public void testTAJSNumericUnsignedInt() throws Exception {
-		assertEquals(new TAJSIntegers(TAJSIntegers.UNSIGNED_INT, true).diff(new TAJSIntegers(2)), new TAJSIntegers(TAJSIntegers.UNSIGNED_INT, true));
-		assertEquals(new TAJSIntegers(TAJSIntegers.UNSIGNED_INT, true).diff(new TAJSIntegers(1.1)), new TAJSIntegers(TAJSIntegers.NOT_UNSIGNED_INT, true));
-		assertEquals(new TAJSIntegers(TAJSIntegers.UNSIGNED_INT, true).diff(new TAJSIntegers(-2.2)), new TAJSIntegers(TAJSIntegers.NOT_UNSIGNED_INT, true));
-		assertEquals(new TAJSIntegers(TAJSIntegers.UNSIGNED_INT, true).diff(new TAJSIntegers(TAJSIntegers.UNSIGNED_INT, true)), new TAJSIntegers(TAJSIntegers.UNSIGNED_INT, true));
-		assertEquals(new TAJSIntegers(TAJSIntegers.UNSIGNED_INT, true).diff(new TAJSIntegers(TAJSIntegers.NOT_UNSIGNED_INT, true)), new TAJSIntegers(TAJSIntegers.NOT_UNSIGNED_INT, true));
-		assertEquals(new TAJSIntegers(TAJSIntegers.UNSIGNED_INT, true).diff(new TAJSIntegers(TAJSIntegers.TOP, true)), new TAJSIntegers(TAJSIntegers.TOP, true));
-		assertEquals(new TAJSIntegers(TAJSIntegers.UNSIGNED_INT, true).diff(new TAJSIntegers(TAJSIntegers.BOT, true)), new TAJSIntegers(TAJSIntegers.BOT, true));
+		assertEquals(new TAJSNumbers(TAJSNumbers.UNSIGNED_INT, true).diff(new TAJSNumbers(2)), new TAJSNumbers(TAJSNumbers.UNSIGNED_INT, true));
+		assertEquals(new TAJSNumbers(TAJSNumbers.UNSIGNED_INT, true).diff(new TAJSNumbers(1.1)), new TAJSNumbers(TAJSNumbers.NOT_UNSIGNED_INT, true));
+		assertEquals(new TAJSNumbers(TAJSNumbers.UNSIGNED_INT, true).diff(new TAJSNumbers(-2.2)), new TAJSNumbers(TAJSNumbers.NOT_UNSIGNED_INT, true));
+		assertEquals(new TAJSNumbers(TAJSNumbers.UNSIGNED_INT, true).diff(new TAJSNumbers(TAJSNumbers.UNSIGNED_INT, true)), new TAJSNumbers(TAJSNumbers.UNSIGNED_INT, true));
+		assertEquals(new TAJSNumbers(TAJSNumbers.UNSIGNED_INT, true).diff(new TAJSNumbers(TAJSNumbers.NOT_UNSIGNED_INT, true)), new TAJSNumbers(TAJSNumbers.NOT_UNSIGNED_INT, true));
+		assertEquals(new TAJSNumbers(TAJSNumbers.UNSIGNED_INT, true).diff(new TAJSNumbers(TAJSNumbers.TOP, true)), new TAJSNumbers(TAJSNumbers.TOP, true));
+		assertEquals(new TAJSNumbers(TAJSNumbers.UNSIGNED_INT, true).diff(new TAJSNumbers(TAJSNumbers.BOT, true)), new TAJSNumbers(TAJSNumbers.BOT, true));
 	}
 	
 	@Test
 	public void testTAJSNumericNotUnsignedInt() throws Exception {
-		assertEquals(new TAJSIntegers(TAJSIntegers.NOT_UNSIGNED_INT, true).diff(new TAJSIntegers(2)), new TAJSIntegers(TAJSIntegers.NOT_UNSIGNED_INT, true));
-		assertEquals(new TAJSIntegers(TAJSIntegers.NOT_UNSIGNED_INT, true).diff(new TAJSIntegers(1.1)), new TAJSIntegers(TAJSIntegers.TOP, true));
-		assertEquals(new TAJSIntegers(TAJSIntegers.NOT_UNSIGNED_INT, true).diff(new TAJSIntegers(-2.2)), new TAJSIntegers(TAJSIntegers.TOP, true));
-		assertEquals(new TAJSIntegers(TAJSIntegers.NOT_UNSIGNED_INT, true).diff(new TAJSIntegers(TAJSIntegers.UNSIGNED_INT, true)), new TAJSIntegers(TAJSIntegers.NOT_UNSIGNED_INT, true));
-		assertEquals(new TAJSIntegers(TAJSIntegers.NOT_UNSIGNED_INT, true).diff(new TAJSIntegers(TAJSIntegers.NOT_UNSIGNED_INT, true)), new TAJSIntegers(TAJSIntegers.TOP, true));
-		assertEquals(new TAJSIntegers(TAJSIntegers.NOT_UNSIGNED_INT, true).diff(new TAJSIntegers(TAJSIntegers.TOP, true)), new TAJSIntegers(TAJSIntegers.TOP, true));
-		assertEquals(new TAJSIntegers(TAJSIntegers.NOT_UNSIGNED_INT, true).diff(new TAJSIntegers(TAJSIntegers.BOT, true)), new TAJSIntegers(TAJSIntegers.BOT, true));
+		assertEquals(new TAJSNumbers(TAJSNumbers.NOT_UNSIGNED_INT, true).diff(new TAJSNumbers(2)), new TAJSNumbers(TAJSNumbers.NOT_UNSIGNED_INT, true));
+		assertEquals(new TAJSNumbers(TAJSNumbers.NOT_UNSIGNED_INT, true).diff(new TAJSNumbers(1.1)), new TAJSNumbers(TAJSNumbers.TOP, true));
+		assertEquals(new TAJSNumbers(TAJSNumbers.NOT_UNSIGNED_INT, true).diff(new TAJSNumbers(-2.2)), new TAJSNumbers(TAJSNumbers.TOP, true));
+		assertEquals(new TAJSNumbers(TAJSNumbers.NOT_UNSIGNED_INT, true).diff(new TAJSNumbers(TAJSNumbers.UNSIGNED_INT, true)), new TAJSNumbers(TAJSNumbers.NOT_UNSIGNED_INT, true));
+		assertEquals(new TAJSNumbers(TAJSNumbers.NOT_UNSIGNED_INT, true).diff(new TAJSNumbers(TAJSNumbers.NOT_UNSIGNED_INT, true)), new TAJSNumbers(TAJSNumbers.TOP, true));
+		assertEquals(new TAJSNumbers(TAJSNumbers.NOT_UNSIGNED_INT, true).diff(new TAJSNumbers(TAJSNumbers.TOP, true)), new TAJSNumbers(TAJSNumbers.TOP, true));
+		assertEquals(new TAJSNumbers(TAJSNumbers.NOT_UNSIGNED_INT, true).diff(new TAJSNumbers(TAJSNumbers.BOT, true)), new TAJSNumbers(TAJSNumbers.BOT, true));
 	}
 	
 	@Test
 	public void testTAJSNumericTop() throws Exception {
-		assertEquals(new TAJSIntegers(TAJSIntegers.TOP, true).diff(new TAJSIntegers(2)), new TAJSIntegers(TAJSIntegers.TOP, true));
-		assertEquals(new TAJSIntegers(TAJSIntegers.TOP, true).diff(new TAJSIntegers(1.1)), new TAJSIntegers(TAJSIntegers.TOP, true));
-		assertEquals(new TAJSIntegers(TAJSIntegers.TOP, true).diff(new TAJSIntegers(-2.2)), new TAJSIntegers(TAJSIntegers.TOP, true));
-		assertEquals(new TAJSIntegers(TAJSIntegers.TOP, true).diff(new TAJSIntegers(TAJSIntegers.UNSIGNED_INT, true)), new TAJSIntegers(TAJSIntegers.TOP, true));
-		assertEquals(new TAJSIntegers(TAJSIntegers.TOP, true).diff(new TAJSIntegers(TAJSIntegers.NOT_UNSIGNED_INT, true)), new TAJSIntegers(TAJSIntegers.TOP, true));
-		assertEquals(new TAJSIntegers(TAJSIntegers.TOP, true).diff(new TAJSIntegers(TAJSIntegers.TOP, true)), new TAJSIntegers(TAJSIntegers.TOP, true));
-		assertEquals(new TAJSIntegers(TAJSIntegers.TOP, true).diff(new TAJSIntegers(TAJSIntegers.BOT, true)), new TAJSIntegers(TAJSIntegers.BOT, true));
+		assertEquals(new TAJSNumbers(TAJSNumbers.TOP, true).diff(new TAJSNumbers(2)), new TAJSNumbers(TAJSNumbers.TOP, true));
+		assertEquals(new TAJSNumbers(TAJSNumbers.TOP, true).diff(new TAJSNumbers(1.1)), new TAJSNumbers(TAJSNumbers.TOP, true));
+		assertEquals(new TAJSNumbers(TAJSNumbers.TOP, true).diff(new TAJSNumbers(-2.2)), new TAJSNumbers(TAJSNumbers.TOP, true));
+		assertEquals(new TAJSNumbers(TAJSNumbers.TOP, true).diff(new TAJSNumbers(TAJSNumbers.UNSIGNED_INT, true)), new TAJSNumbers(TAJSNumbers.TOP, true));
+		assertEquals(new TAJSNumbers(TAJSNumbers.TOP, true).diff(new TAJSNumbers(TAJSNumbers.NOT_UNSIGNED_INT, true)), new TAJSNumbers(TAJSNumbers.TOP, true));
+		assertEquals(new TAJSNumbers(TAJSNumbers.TOP, true).diff(new TAJSNumbers(TAJSNumbers.TOP, true)), new TAJSNumbers(TAJSNumbers.TOP, true));
+		assertEquals(new TAJSNumbers(TAJSNumbers.TOP, true).diff(new TAJSNumbers(TAJSNumbers.BOT, true)), new TAJSNumbers(TAJSNumbers.BOT, true));
 	}
 }

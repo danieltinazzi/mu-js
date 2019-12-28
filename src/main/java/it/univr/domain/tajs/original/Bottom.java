@@ -9,7 +9,7 @@ public class Bottom implements AbstractValue {
 		if (other instanceof Bottom) return clone();
 		if (other instanceof TAJSStrings) return ((TAJSStrings) other).clone();
 		if (other instanceof Bool) return ((Bool) other).clone();
-		if (other instanceof TAJSIntegers) return ((TAJSIntegers) other).clone();
+		if (other instanceof TAJSNumbers) return ((TAJSNumbers) other).clone();
 		
 		return (AbstractValue) ((Top) other).clone();
 	}
