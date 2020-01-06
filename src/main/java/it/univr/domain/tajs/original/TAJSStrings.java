@@ -183,6 +183,11 @@ public class TAJSStrings implements AbstractValue {
 		return false;
 	}
 
+	public TAJSNumbers toNum() {
+		//TODO
+		return TAJSNumbers.createTopString();
+	}
+	
 	public TAJSStrings concat(TAJSStrings that) {
 
 		if (isBot() || that.isBot()) // bottom cases

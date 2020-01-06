@@ -135,5 +135,15 @@ public class SAFEShellAbstractDomain extends AbstractDomain {
 	public boolean isTopBool(AbstractValue v) {
 		return v instanceof Bool && ((Bool) v).isTopBool();
 	}
+	
+	@Override
+	public AbstractValue toNum(AbstractValue par) {
+
+		if (par instanceof SAFEShellStrings) {
+			return ((SAFEShellStrings) par).toNum();
+		}
+
+		return new Bottom();
+	}
 
 }

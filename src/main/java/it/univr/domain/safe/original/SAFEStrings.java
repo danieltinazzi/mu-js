@@ -26,7 +26,7 @@ public class SAFEStrings implements AbstractValue {
 		System.err.println(NUMBER.matcher("").matches());
 		System.err.println("\n\n" + new SAFEStrings("").leastUpperBound(new SAFEStrings("a")));
 	}
-	
+
 	public SAFEStrings(String str) {
 		this.str = str;
 		this.v = SINGLE_STRING;
@@ -48,7 +48,7 @@ public class SAFEStrings implements AbstractValue {
 	public int getAbstractValue() {
 		return v;
 	}
-	
+
 	public static SAFEStrings createTopString() {
 		return new SAFEStrings(TOP);
 	}
@@ -157,6 +157,30 @@ public class SAFEStrings implements AbstractValue {
 		return leastUpperBound(other);
 	}
 
+	public Interval toNum() {
+		if (isNumeric()) 
+			return Interval.makeTopInterval();
+		else if (isNotNumeric())
+			return new Interval("0", "0");
+		else if (isTop())
+			return Interval.makeTopInterval();
+		else {
+
+			try {
+				Integer i = Integer.parseInt(str);
+				return new Interval(String.valueOf(i), String.valueOf(i));
+			} catch (Exception e) {
+
+				try {
+					Float f = Float.parseFloat(getSingleString());
+					return new Interval(String.valueOf(f), String.valueOf(f));
+				} catch (Exception e1) {
+					return new Interval("0", "0");
+				}
+			}
+		}
+	}
+
 	@Override
 	public AbstractValue greatestLowerBound(AbstractValue value) {
 		// TODO Auto-generated method stub
@@ -177,7 +201,7 @@ public class SAFEStrings implements AbstractValue {
 		assertTrue(isString());
 		return NUMBER.matcher(str).matches();
 	}
-	
+
 	@Override
 	public String toString() {
 		if (isString())
@@ -189,13 +213,13 @@ public class SAFEStrings implements AbstractValue {
 		else
 			return "String";
 	}
-	
+
 	@Override
 	public boolean equals(Object other) {
 		if (other instanceof SAFEStrings) {
 			return isString() && ((SAFEStrings) other).isString() ? getSingleString().equals(((SAFEStrings) other).getSingleString()) : v == ((SAFEStrings) other).getAbstractValue();
 		}
-		
+
 		return false;
 	}
 

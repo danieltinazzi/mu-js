@@ -835,6 +835,13 @@ public class SAFEShellStrings implements AbstractValue {
 		return false;
 	}
 
+	
+	public Interval toNum() {
+		//TODO
+		return Interval.makeTopInterval();
+	}
+
+	
 	public SAFEShellStrings concat(SAFEShellStrings that) {
 
 		if (isBot() || that.isBot()) // bottom cases

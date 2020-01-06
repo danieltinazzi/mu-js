@@ -15,6 +15,7 @@ public abstract class AbstractDomain {
 	public abstract AbstractValue and(AbstractValue first, AbstractValue second);
 	public abstract AbstractValue or(AbstractValue first, AbstractValue second);
 	public abstract AbstractValue div(AbstractValue left, AbstractValue right);
+	public abstract AbstractValue toNum(AbstractValue par);
 
 
 	public abstract AbstractValue makeIntegerAbstractValue(Integer v);

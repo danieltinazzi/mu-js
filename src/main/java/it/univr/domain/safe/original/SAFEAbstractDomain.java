@@ -78,7 +78,7 @@ public class SAFEAbstractDomain extends AbstractDomain {
 	public  AbstractValue makeStringAbstractValue(String v) {
 		return new SAFEStrings(v);
 	}
-	
+
 	@Override
 	public  AbstractValue makeBooleanAbstractValue(int v) {
 		return new Bool(v);
@@ -122,7 +122,7 @@ public class SAFEAbstractDomain extends AbstractDomain {
 	public AbstractValue makeBottom() {
 		return new Bottom();
 	}
-	
+
 	@Override
 	public boolean isTrue(AbstractValue v) {
 		return v instanceof Bool && ((Bool) v).isTrue();
@@ -134,6 +134,15 @@ public class SAFEAbstractDomain extends AbstractDomain {
 
 	public boolean isTopBool(AbstractValue v) {
 		return v instanceof Bool && ((Bool) v).isTopBool();
+	}
+
+	@Override
+	public AbstractValue toNum(AbstractValue par) {
+
+		if (par instanceof SAFEStrings) 
+			return ((SAFEStrings) par).toNum();
+			
+		return new Bottom();
 	}
 
 }

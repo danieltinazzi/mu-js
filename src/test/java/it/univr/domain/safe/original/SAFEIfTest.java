@@ -152,4 +152,19 @@ public class SAFEIfTest {
 		Assert.assertEquals(state.getValue(new Variable("i")), new Interval("0", "+Inf"));
 		Assert.assertEquals(state.getValue(new Variable("str")),  SAFEStrings.createNotNumeric());
 	}
+	
+	@Test
+	public void testIf011() throws Exception {
+		String file = "src/test/resources/if/if011.js";
+		AbstractEnvironment state = Analyzer.analyze(file, domain, false);
+
+		// State size
+		Assert.assertEquals(state.sizeStore(), 3);
+		Assert.assertEquals(state.sizeHeap(), 0);
+		
+		// State values
+		Assert.assertEquals(state.getValue(new Variable("i")), new Interval("0", "+Inf"));
+		Assert.assertEquals(state.getValue(new Variable("str")),  SAFEStrings.createNotNumeric());
+		Assert.assertEquals(state.getValue(new Variable("z")),  new Interval("0", "0"));
+	}
 }

@@ -280,7 +280,8 @@ public class AbstractInterpreter extends MuJsBaseVisitor<AbstractValue> {
 	
 	@Override 
 	public AbstractValue visitToNum(MuJsParser.ToNumContext ctx) { 
-		return visitChildren(ctx); 
+		AbstractValue par = visit(ctx.sexp());
+		return domain.toNum(par);
 	}
 
 	@Override 
