@@ -52,7 +52,7 @@ public class TAJSNumbers implements AbstractValue {
 		return v;
 	}
 
-	public static TAJSNumbers createTopString() {
+	public static TAJSNumbers createTopTAJSNumber() {
 		return new TAJSNumbers(TOP, true);
 	}
 

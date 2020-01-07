@@ -11,4 +11,4 @@ if (i < 2) {
 	str = concat(str , "c");
 }
 
-z = toNum("hello");
+z = toNum(str);

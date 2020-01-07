@@ -3,6 +3,7 @@ package it.univr.domain.tajs.original;
 import static org.junit.Assert.assertTrue;
 
 import it.univr.domain.AbstractValue;
+import it.univr.domain.safe.original.Interval;
 
 public class TAJSStrings implements AbstractValue {
 
@@ -38,7 +39,7 @@ public class TAJSStrings implements AbstractValue {
 		return v;
 	}
 
-	public static TAJSStrings createTopString() {
+	public static TAJSStrings createTopTAJSString() {
 		return new TAJSStrings(TOP);
 	}
 
@@ -77,7 +78,7 @@ public class TAJSStrings implements AbstractValue {
 			TAJSStrings that = ((TAJSStrings) other).clone();
 
 			if (isTop() || that.isTop())
-				return createTopString();
+				return createTopTAJSString();
 			else if (isBot()) // if this is bot return that
 				return that; 
 			else if (that.isBot()) // if that is bot return this
@@ -87,14 +88,14 @@ public class TAJSStrings implements AbstractValue {
 					return clone();
 				else 
 					return isUnsignedInteger() && that.isUnsignedInteger() ? createUnsignedString() 
-							: (!isUnsignedInteger() && !that.isUnsignedInteger() ? createNotUnsignedString() : createTopString());
+							: (!isUnsignedInteger() && !that.isUnsignedInteger() ? createNotUnsignedString() : createTopTAJSString());
 			}
 
 			else if (isString()) {
 				// this is single string and it is numeric
 				if (isUnsignedInteger()) {
 					if (that.isNotUnsignedString())
-						return createTopString();
+						return createTopTAJSString();
 
 					if (that.isUnsignedString())
 						return that;
@@ -105,7 +106,7 @@ public class TAJSStrings implements AbstractValue {
 						return that;
 
 					if (that.isUnsignedString())
-						return createTopString();
+						return createTopTAJSString();
 
 				}	
 			}
@@ -115,7 +116,7 @@ public class TAJSStrings implements AbstractValue {
 				// that is single string and it is numeric
 				if (that.isUnsignedInteger()) {
 					if (isNotUnsignedString())
-						return createTopString();
+						return createTopTAJSString();
 
 					if (isUnsignedString())
 						return clone();
@@ -126,7 +127,7 @@ public class TAJSStrings implements AbstractValue {
 						return clone();
 
 					if (isUnsignedString())
-						return createTopString();
+						return createTopTAJSString();
 
 				}	
 			}
@@ -134,7 +135,7 @@ public class TAJSStrings implements AbstractValue {
 			else if (isUnsignedString() && that.isUnsignedString() || isNotUnsignedString() && that.isNotUnsignedString())
 				return that;
 			else if (isUnsignedString() && that.isNotUnsignedString() || isNotUnsignedString() && that.isUnsignedString())
-				return createTopString();
+				return createTopTAJSString();
 		} 
 
 		return new Top();
@@ -184,10 +185,29 @@ public class TAJSStrings implements AbstractValue {
 	}
 
 	public TAJSNumbers toNum() {
-		//TODO
-		return TAJSNumbers.createTopString();
+
+		if (isUnsignedString())
+			return TAJSNumbers.createUnsigned();
+		else if (isNotUnsignedString() || isTop())
+			return TAJSNumbers.createTopTAJSNumber();
+		else {
+
+			try {
+				Integer i = Integer.parseInt(str);
+				return new TAJSNumbers(i);
+			} catch (Exception e) {
+
+				try {
+					Float f = Float.parseFloat(getSingleString());
+					return new TAJSNumbers(f);
+				} catch (Exception e1) {
+					return new TAJSNumbers(0);
+
+				}
+			}
+		}
 	}
-	
+
 	public TAJSStrings concat(TAJSStrings that) {
 
 		if (isBot() || that.isBot()) // bottom cases

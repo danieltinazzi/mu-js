@@ -3,6 +3,8 @@ package it.univr.domain.tajs.original;
 import org.junit.Assert;
 import org.junit.Test;
 
+import it.univr.domain.safe.original.Interval;
+import it.univr.domain.safe.original.SAFEStrings;
 import it.univr.main.Analyzer;
 import it.univr.state.AbstractEnvironment;
 import it.univr.state.Variable;
@@ -147,5 +149,20 @@ public class TAJSIfTest {
 		// State values
 		Assert.assertEquals(state.getValue(new Variable("i")), TAJSNumbers.createUnsigned());
 		Assert.assertEquals(state.getValue(new Variable("str")),  TAJSStrings.createNotUnsignedString());
+	}
+	
+	@Test
+	public void testIf011() throws Exception {
+		String file = "src/test/resources/if/if011.js";
+		AbstractEnvironment state = Analyzer.analyze(file, domain, false);
+
+		// State size
+		Assert.assertEquals(state.sizeStore(), 3);
+		Assert.assertEquals(state.sizeHeap(), 0);
+		
+		// State values
+		Assert.assertEquals(state.getValue(new Variable("i")), TAJSNumbers.createUnsigned());
+		Assert.assertEquals(state.getValue(new Variable("str")),  TAJSStrings.createNotUnsignedString());
+		Assert.assertEquals(state.getValue(new Variable("z")),  TAJSNumbers.createTopTAJSNumber());
 	}
 }
