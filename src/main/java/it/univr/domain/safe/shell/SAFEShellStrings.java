@@ -835,13 +835,43 @@ public class SAFEShellStrings implements AbstractValue {
 		return false;
 	}
 
-	
+
 	public Interval toNum() {
-		//TODO
-		return Interval.makeTopInterval();
+
+		if (getAbstractValue() == NUMERIC
+				|| getAbstractValue() == SIGNED_NUM
+				|| getAbstractValue() == NOTUNSIGNED_NOTEMPTY
+				|| getAbstractValue() == NOTUINT_NOTEMPTY
+				|| getAbstractValue() == TOP)
+			return Interval.makeTopInterval();
+
+		else if (getAbstractValue() == UINT
+				|| getAbstractValue() == UINT_EPSILON
+				|| getAbstractValue() == UNUM
+				|| getAbstractValue() == UNUM_EPSILON
+				|| getAbstractValue() == UFLOAT)
+			return new Interval("0", "+Inf");
+
+		else if (getAbstractValue() == NOT_NUMERIC || getAbstractValue() == NOTNUM_NOTEMPTY)
+			return new Interval("0", "0");
+		else {
+
+			try {
+				Integer i = Integer.parseInt(str);
+				return new Interval(String.valueOf(i), String.valueOf(i));
+			} catch (Exception e) {
+
+				try {
+					Float f = Float.parseFloat(getSingleString());
+					return new Interval(String.valueOf(f), String.valueOf(f));
+				} catch (Exception e1) {
+					return new Interval("0", "0");
+				}
+			}
+		}
 	}
 
-	
+
 	public SAFEShellStrings concat(SAFEShellStrings that) {
 
 		if (isBot() || that.isBot()) // bottom cases
@@ -1008,7 +1038,7 @@ public class SAFEShellStrings implements AbstractValue {
 					return new SAFEShellStrings(NOTNUM_NOTEMPTY);
 			}
 		}
-		
+
 		else if (that.isString()) { 
 
 			if (that.isUnsignedInteger()) { // that is unsigned integer
@@ -1202,7 +1232,7 @@ public class SAFEShellStrings implements AbstractValue {
 
 			else if (that.getAbstractValue() == NOT_NUMERIC)
 				return new SAFEShellStrings(TOP);
-			
+
 			else if (that.getAbstractValue() == TOP)
 				return new SAFEShellStrings(TOP);
 		}
@@ -1240,7 +1270,7 @@ public class SAFEShellStrings implements AbstractValue {
 
 			else if (that.getAbstractValue() == NOT_NUMERIC)
 				return new SAFEShellStrings(NOT_NUMERIC);
-			
+
 			else if (that.getAbstractValue() == TOP)
 				return new SAFEShellStrings(TOP);
 		}
@@ -1278,7 +1308,7 @@ public class SAFEShellStrings implements AbstractValue {
 
 			else if (that.getAbstractValue() == NOT_NUMERIC)
 				return new SAFEShellStrings(TOP);
-			
+
 			else if (that.getAbstractValue() == TOP)
 				return new SAFEShellStrings(TOP);
 		}
@@ -1316,7 +1346,7 @@ public class SAFEShellStrings implements AbstractValue {
 
 			else if (that.getAbstractValue() == NOT_NUMERIC)
 				return new SAFEShellStrings(TOP);
-			
+
 			else if (that.getAbstractValue() == TOP)
 				return new SAFEShellStrings(TOP);
 		}
@@ -1354,7 +1384,7 @@ public class SAFEShellStrings implements AbstractValue {
 
 			else if (that.getAbstractValue() == NOT_NUMERIC)
 				return new SAFEShellStrings(NOTUINT_NOTEMPTY);
-			
+
 			else if (that.getAbstractValue() == TOP)
 				return new SAFEShellStrings(NOTUINT_NOTEMPTY);
 		}
@@ -1392,7 +1422,7 @@ public class SAFEShellStrings implements AbstractValue {
 
 			else if (that.getAbstractValue() == NOT_NUMERIC)
 				return new SAFEShellStrings(TOP);
-			
+
 			else if (that.getAbstractValue() == TOP)
 				return new SAFEShellStrings(TOP);
 		}
@@ -1430,7 +1460,7 @@ public class SAFEShellStrings implements AbstractValue {
 
 			else if (that.getAbstractValue() == NOT_NUMERIC)
 				return new SAFEShellStrings(NOTUNSIGNED_NOTEMPTY);
-			
+
 			else if (that.getAbstractValue() == TOP)
 				return new SAFEShellStrings(NOTUINT_NOTEMPTY);
 		}
@@ -1468,7 +1498,7 @@ public class SAFEShellStrings implements AbstractValue {
 
 			else if (that.getAbstractValue() == NOT_NUMERIC)
 				return new SAFEShellStrings(NOTNUM_NOTEMPTY);
-			
+
 			else if (that.getAbstractValue() == TOP)
 				return new SAFEShellStrings(NOTNUM_NOTEMPTY);
 		}
@@ -1506,7 +1536,7 @@ public class SAFEShellStrings implements AbstractValue {
 
 			else if (that.getAbstractValue() == NOT_NUMERIC)
 				return new SAFEShellStrings(NOTUNSIGNED_NOTEMPTY);
-			
+
 			else if (that.getAbstractValue() == TOP)
 				return new SAFEShellStrings(NOTUNSIGNED_NOTEMPTY);
 		} 
@@ -1544,7 +1574,7 @@ public class SAFEShellStrings implements AbstractValue {
 
 			else if (that.getAbstractValue() == NOT_NUMERIC)
 				return new SAFEShellStrings(NOT_NUMERIC);
-			
+
 			else if (that.getAbstractValue() == TOP)
 				return new SAFEShellStrings(TOP);
 		}
@@ -1582,7 +1612,7 @@ public class SAFEShellStrings implements AbstractValue {
 
 			else if (that.getAbstractValue() == NOT_NUMERIC)
 				return new SAFEShellStrings(NOTUINT_NOTEMPTY);
-			
+
 			else if (that.getAbstractValue() == TOP)
 				return new SAFEShellStrings(NOTUINT_NOTEMPTY);
 		}
@@ -1620,7 +1650,7 @@ public class SAFEShellStrings implements AbstractValue {
 
 			else if (that.getAbstractValue() == NOT_NUMERIC)
 				return new SAFEShellStrings(TOP);
-			
+
 			else if (that.getAbstractValue() == TOP)
 				return new SAFEShellStrings(TOP);
 		}
