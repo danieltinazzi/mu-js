@@ -2,23 +2,32 @@ package it.univr.domain.tajs.shell;
 
 import static org.junit.Assert.assertTrue;
 
+import java.util.regex.Pattern;
+
 import it.univr.domain.AbstractValue;
 
 public class TAJSShellStrings implements AbstractValue {
 
-	private final static int BOT = 0x00000001; 
-	private final static int SINGLE_STRING = 0x00000002;
-	private final static int UNSIGNED_STR = 0x00000003;
-	private final static int NOT_UNSIGNED_STR = 0x00000004;
-	private final static int NOT_NUMERIC = 0x00000006;
-	private final static int SIGNED_OR_FLOATS = 0x00000007;
-	private final static int UNSIGNED_OR_NOT_NUMERIC = 0x00000008;
-	private final static int TOP = 0x00000005;
+	static private final Pattern UNSIGNED_FLOAT = Pattern.compile("[0-9]+\\.([0-9]*)"); 
+	static private final Pattern NUMBER = Pattern.compile("((-|\\+)?)(([0-9]+(\\.[0-9]*)?)([eE][-+][0-9]+)?)"); 
+
+	public final static int BOT = 0x00000001; 
+	public final static int SINGLE_STRING = 0x00000002;
+	public final static int UNSIGNED_STR = 0x00000003;
+	public final static int NOT_UNSIGNED_STR = 0x00000004;
+	public final static int NOT_NUMERIC = 0x00000006;
+	public final static int SIGNED_OR_FLOATS = 0x00000007;
+	public final static int UNSIGNED_OR_NOT_NUMERIC = 0x00000008;
+	public final static int TOP = 0x00000005;
 
 
 	private String str;
 	private int v;
 
+	public static void main(String args[]) {
+		System.err.println(new TAJSShellStrings("1.5").isSignedOrFloatsString());
+	}
+	
 	public TAJSShellStrings(String str) {
 		this.str = str;
 		this.v = SINGLE_STRING;
@@ -90,60 +99,262 @@ public class TAJSShellStrings implements AbstractValue {
 			else if (isString() && that.isString())	{ // both abstract value are single strings
 				if (getSingleString().equals(that.getSingleString())) // if strings are equals returns this
 					return clone();
-				else 
-					return isUnsignedInteger() && that.isUnsignedInteger() ? createUnsignedString() 
-							: (!isUnsignedInteger() && !that.isUnsignedInteger() ? createNotUnsignedString() : createTopTAJSString());
+				else {
+					if (isUnsignedInteger() && that.isUnsignedInteger())
+						return new TAJSShellStrings(UNSIGNED_STR);
+					else if (isNotNumericString() && that.isNotNumericString())
+						return new TAJSShellStrings(NOT_NUMERIC);
+					else if (isSignedOrFloatsString() && that.isSignedOrFloatsString())
+						return new TAJSShellStrings(SIGNED_OR_FLOATS);
+
+					// Unsigned integer
+					else if (isUnsignedInteger() && that.isNotNumericString())
+						return new TAJSShellStrings(UNSIGNED_OR_NOT_NUMERIC);
+					else if (that.isUnsignedInteger() && isNotNumericString())
+						return new TAJSShellStrings(UNSIGNED_OR_NOT_NUMERIC);
+					
+
+					else if (isUnsignedInteger() && that.isSignedOrFloatsString())
+						return new TAJSShellStrings(TOP);
+					else if (that.isUnsignedInteger() && isSignedOrFloatsString())
+						return new TAJSShellStrings(TOP);
+
+					// Not numeric
+					else if (isNotNumericString() && that.isSignedOrFloatsString())
+						return new TAJSShellStrings(NOT_UNSIGNED_STR);
+					else if (that.isNotNumericString() && isSignedOrFloatsString())
+							return new TAJSShellStrings(NOT_UNSIGNED_STR);
+					
+					else if (isNotNumericString() && that.isUnsignedInteger())
+						return new TAJSShellStrings(UNSIGNED_OR_NOT_NUMERIC);
+					else if (that.isNotNumericString() && isUnsignedInteger())
+							return new TAJSShellStrings(UNSIGNED_OR_NOT_NUMERIC);
+					
+					// Signed float
+					else if (isSignedOrFloatsString() && that.isNotNumericString())
+						return new TAJSShellStrings(NOT_UNSIGNED_STR);
+					else if (that.isSignedOrFloatsString() && isNotNumericString())
+						return new TAJSShellStrings(NOT_UNSIGNED_STR);
+					
+					else if (isSignedOrFloatsString() && that.isUnsignedInteger())
+						return new TAJSShellStrings(TOP);
+					else if (that.isSignedOrFloatsString() && isUnsignedInteger())
+						return new TAJSShellStrings(TOP);
+					
+				}
 			}
 
 			else if (isString()) {
-				// this is single string and it is numeric
+
 				if (isUnsignedInteger()) {
-					if (that.isNotUnsignedString())
-						return createTopTAJSString();
 
-					if (that.isUnsignedString())
-						return that;
-				} 
-				// this is single string and it is not numeric
-				else {
-					if (that.isNotUnsignedString())
-						return that;
+					if (that.getAbstractValue() == UNSIGNED_STR)
+						return new TAJSShellStrings(UNSIGNED_STR);
 
-					if (that.isUnsignedString())
-						return createTopTAJSString();
+					else if (that.getAbstractValue() == NOT_NUMERIC)
+						return new TAJSShellStrings(UNSIGNED_OR_NOT_NUMERIC);
 
-				}	
+					else if (that.getAbstractValue() == UNSIGNED_OR_NOT_NUMERIC)
+						return new TAJSShellStrings(UNSIGNED_OR_NOT_NUMERIC);
+
+
+					else if (that.getAbstractValue() == SIGNED_OR_FLOATS)
+						return new TAJSShellStrings(TOP);
+					
+					else if (that.getAbstractValue() == NOT_UNSIGNED_STR)
+						return new TAJSShellStrings(TOP);
+
+					else if (that.getAbstractValue() == UNSIGNED_OR_NOT_NUMERIC)
+						return new TAJSShellStrings(UNSIGNED_OR_NOT_NUMERIC);
+
+				} else if (isNotNumericString()) {
+
+					if (that.getAbstractValue() == UNSIGNED_STR)
+						return new TAJSShellStrings(UNSIGNED_OR_NOT_NUMERIC);
+
+					else if (that.getAbstractValue() == NOT_NUMERIC)
+						return new TAJSShellStrings(NOT_NUMERIC);
+
+					else if (that.getAbstractValue() == SIGNED_OR_FLOATS)
+						return new TAJSShellStrings(NOT_UNSIGNED_STR);
+
+					else if (that.getAbstractValue() == NOT_UNSIGNED_STR)
+						return new TAJSShellStrings(NOT_UNSIGNED_STR);
+
+					else if (that.getAbstractValue() == UNSIGNED_OR_NOT_NUMERIC)
+						return new TAJSShellStrings(UNSIGNED_OR_NOT_NUMERIC);
+
+				} else if (isSignedOrFloatsString()) {
+
+					if (that.getAbstractValue() == UNSIGNED_STR)
+						return new TAJSShellStrings(TOP);
+
+					else if (that.getAbstractValue() == NOT_NUMERIC)
+						return new TAJSShellStrings(NOT_UNSIGNED_STR);
+
+					else if (that.getAbstractValue() == SIGNED_OR_FLOATS)
+						return new TAJSShellStrings(SIGNED_OR_FLOATS);
+
+					else if (that.getAbstractValue() == NOT_UNSIGNED_STR)
+						return new TAJSShellStrings(NOT_UNSIGNED_STR);
+
+					else if (that.getAbstractValue() == UNSIGNED_OR_NOT_NUMERIC)
+						return new TAJSShellStrings(TOP);
+
+				}
 			}
 
 			else if (that.isString()) {
 
-				// that is single string and it is numeric
 				if (that.isUnsignedInteger()) {
-					if (isNotUnsignedString())
-						return createTopTAJSString();
 
-					if (isUnsignedString())
-						return clone();
-				} 
-				// that is single string and it is not numeric
-				else {
-					if (isNotUnsignedString())
-						return clone();
+					if (getAbstractValue() == UNSIGNED_STR)
+						return new TAJSShellStrings(UNSIGNED_STR);
 
-					if (isUnsignedString())
-						return createTopTAJSString();
+					else if (getAbstractValue() == NOT_NUMERIC)
+						return new TAJSShellStrings(UNSIGNED_OR_NOT_NUMERIC);
 
-				}	
+					else if (getAbstractValue() == UNSIGNED_OR_NOT_NUMERIC)
+						return new TAJSShellStrings(UNSIGNED_OR_NOT_NUMERIC);
+
+					else if (getAbstractValue() == NOT_UNSIGNED_STR)
+						return new TAJSShellStrings(TOP);	
+					
+					else if (getAbstractValue() == SIGNED_OR_FLOATS)
+							return new TAJSShellStrings(TOP);
+
+					else if (getAbstractValue() == UNSIGNED_OR_NOT_NUMERIC)
+						return new TAJSShellStrings(UNSIGNED_OR_NOT_NUMERIC);
+
+				} else if (that.isNotNumericString()) {
+
+					if (getAbstractValue() == UNSIGNED_STR)
+						return new TAJSShellStrings(UNSIGNED_OR_NOT_NUMERIC);
+
+					else if (getAbstractValue() == NOT_NUMERIC)
+						return new TAJSShellStrings(NOT_NUMERIC);
+
+					else if (getAbstractValue() == SIGNED_OR_FLOATS)
+						return new TAJSShellStrings(NOT_UNSIGNED_STR);
+
+					else if (getAbstractValue() == NOT_UNSIGNED_STR)
+						return new TAJSShellStrings(NOT_UNSIGNED_STR);
+
+					else if (getAbstractValue() == UNSIGNED_OR_NOT_NUMERIC)
+						return new TAJSShellStrings(UNSIGNED_OR_NOT_NUMERIC);
+
+				} else if (that.isSignedOrFloatsString()) {
+
+					if (getAbstractValue() == UNSIGNED_STR)
+						return new TAJSShellStrings(TOP);
+
+					else if (getAbstractValue() == NOT_NUMERIC)
+						return new TAJSShellStrings(NOT_UNSIGNED_STR);
+
+					else if (getAbstractValue() == SIGNED_OR_FLOATS)
+						return new TAJSShellStrings(SIGNED_OR_FLOATS);
+
+					else if (getAbstractValue() == NOT_UNSIGNED_STR)
+						return new TAJSShellStrings(NOT_UNSIGNED_STR);
+
+					else if (getAbstractValue() == UNSIGNED_OR_NOT_NUMERIC)
+						return new TAJSShellStrings(TOP);
+
+				}
+			}
+			
+			else if (getAbstractValue() == UNSIGNED_STR) {
+				
+				if (that.getAbstractValue() == UNSIGNED_STR)
+					return new TAJSShellStrings(UNSIGNED_STR);
+
+				else if (that.getAbstractValue() == NOT_NUMERIC)
+					return new TAJSShellStrings(UNSIGNED_OR_NOT_NUMERIC);
+				
+				else if (that.getAbstractValue() == UNSIGNED_OR_NOT_NUMERIC)
+					return new TAJSShellStrings(UNSIGNED_OR_NOT_NUMERIC);
+				
+				else if (that.getAbstractValue() == NOT_UNSIGNED_STR)
+					return new TAJSShellStrings(TOP);
+				
+				else if (that.getAbstractValue() == SIGNED_OR_FLOATS)
+					return new TAJSShellStrings(TOP);
 			}
 
-			else if (isUnsignedString() && that.isUnsignedString() || isNotUnsignedString() && that.isNotUnsignedString())
-				return that;
-			else if (isUnsignedString() && that.isNotUnsignedString() || isNotUnsignedString() && that.isUnsignedString())
-				return createTopTAJSString();
-		} 
+			else if (getAbstractValue() == NOT_NUMERIC) {
+				
+				if (that.getAbstractValue() == UNSIGNED_STR)
+					return new TAJSShellStrings(UNSIGNED_OR_NOT_NUMERIC);
 
+				else if (that.getAbstractValue() == NOT_NUMERIC)
+					return new TAJSShellStrings(NOT_NUMERIC);
+				
+				else if (that.getAbstractValue() == UNSIGNED_OR_NOT_NUMERIC)
+					return new TAJSShellStrings(UNSIGNED_OR_NOT_NUMERIC);
+				
+				else if (that.getAbstractValue() == NOT_UNSIGNED_STR)
+					return new TAJSShellStrings(NOT_UNSIGNED_STR);
+				
+				else if (that.getAbstractValue() == SIGNED_OR_FLOATS)
+					return new TAJSShellStrings(NOT_UNSIGNED_STR);
+			}
+			
+			else if (getAbstractValue() == SIGNED_OR_FLOATS) {
+				
+				if (that.getAbstractValue() == UNSIGNED_STR)
+					return new TAJSShellStrings(TOP);
+
+				else if (that.getAbstractValue() == NOT_NUMERIC)
+					return new TAJSShellStrings(NOT_UNSIGNED_STR);
+				
+				else if (that.getAbstractValue() == UNSIGNED_OR_NOT_NUMERIC)
+					return new TAJSShellStrings(TOP);
+				
+				else if (that.getAbstractValue() == NOT_UNSIGNED_STR)
+					return new TAJSShellStrings(NOT_UNSIGNED_STR);
+				
+				else if (that.getAbstractValue() == SIGNED_OR_FLOATS)
+					return new TAJSShellStrings(NOT_UNSIGNED_STR);
+			}
+			
+			else if (getAbstractValue() == UNSIGNED_OR_NOT_NUMERIC) {
+				
+				if (that.getAbstractValue() == UNSIGNED_STR)
+					return new TAJSShellStrings(UNSIGNED_OR_NOT_NUMERIC);
+
+				else if (that.getAbstractValue() == NOT_NUMERIC)
+					return new TAJSShellStrings(UNSIGNED_OR_NOT_NUMERIC);
+				
+				else if (that.getAbstractValue() == UNSIGNED_OR_NOT_NUMERIC)
+					return new TAJSShellStrings(UNSIGNED_OR_NOT_NUMERIC);
+				
+				else if (that.getAbstractValue() == NOT_UNSIGNED_STR)
+					return new TAJSShellStrings(TOP);
+				
+				else if (that.getAbstractValue() == SIGNED_OR_FLOATS)
+					return new TAJSShellStrings(TOP);
+			}
+			
+			else if (getAbstractValue() == NOT_UNSIGNED_STR) {
+				
+				if (that.getAbstractValue() == UNSIGNED_STR)
+					return new TAJSShellStrings(TOP);
+
+				else if (that.getAbstractValue() == NOT_NUMERIC)
+					return new TAJSShellStrings(NOT_UNSIGNED_STR);
+				
+				else if (that.getAbstractValue() == UNSIGNED_OR_NOT_NUMERIC)
+					return new TAJSShellStrings(TOP);
+				
+				else if (that.getAbstractValue() == NOT_UNSIGNED_STR)
+					return new TAJSShellStrings(NOT_UNSIGNED_STR);
+				
+				else if (that.getAbstractValue() == SIGNED_OR_FLOATS)
+					return new TAJSShellStrings(NOT_UNSIGNED_STR);
+			}	
+		}
+		
 		return new Top();
-
 	}
 
 	@Override
@@ -276,6 +487,20 @@ public class TAJSShellStrings implements AbstractValue {
 				return false;
 		}
 		return true;
+	}
+
+	private boolean isSignedOrFloatsString() {
+		assertTrue(isString());
+
+		if (NUMBER.matcher(str).matches())
+			if (UNSIGNED_FLOAT.matcher(str).matches() || str.charAt(0) == '-' || str.charAt(0) == '+')
+				return true;
+
+		return false;
+	}
+
+	private boolean isNotNumericString() {
+		return str.isEmpty() || (!isUnsignedInteger() && !isSignedOrFloatsString());
 	}
 
 }
