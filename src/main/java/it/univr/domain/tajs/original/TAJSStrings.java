@@ -267,4 +267,19 @@ public class TAJSStrings implements AbstractValue {
 		return true;
 	}
 
+	public String distanceFromBottom() {
+
+		if (isString())
+			return "1";
+
+		switch (v) {
+		case UNSIGNED_STR: return "2";
+
+		case NOT_UNSIGNED_STR: return "3";
+
+		case BOT: return "0";
+		default: return "4";
+		}
+	}
+
 }

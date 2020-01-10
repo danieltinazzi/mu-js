@@ -744,5 +744,23 @@ public class TAJSShellStrings implements AbstractValue {
 	private boolean isNotNumericString() {
 		return str.isEmpty() || (!isUnsignedInteger() && !isSignedOrFloatsString());
 	}
+	
+	public String distanceFromBottom() {
+
+		if (isString())
+			return "1";
+
+		switch (v) {
+		case UNSIGNED_STR:
+		case NOT_NUMERIC:
+		case SIGNED_OR_FLOATS: return "2";
+
+		case NOT_UNSIGNED_STR:
+		case UNSIGNED_OR_NOT_NUMERIC: return "3";
+
+		case BOT: return "0";
+		default: return "4";
+		}
+	}
 
 }

@@ -2,11 +2,6 @@ package it.univr.domain.safe.shell;
 
 import it.univr.domain.AbstractDomain;
 import it.univr.domain.AbstractValue;
-import it.univr.domain.safe.original.Bool;
-import it.univr.domain.safe.original.Bottom;
-import it.univr.domain.safe.original.Interval;
-import it.univr.domain.safe.original.SAFEStrings;
-import it.univr.domain.safe.original.Top;
 
 public class SAFEShellAbstractDomain extends AbstractDomain {
 
@@ -76,7 +71,7 @@ public class SAFEShellAbstractDomain extends AbstractDomain {
 
 	@Override
 	public  AbstractValue makeStringAbstractValue(String v) {
-		return new SAFEStrings(v);
+		return new SAFEShellStrings(v);
 	}
 	
 	@Override
@@ -113,8 +108,8 @@ public class SAFEShellAbstractDomain extends AbstractDomain {
 
 	@Override
 	public AbstractValue concat(AbstractValue left, AbstractValue right) {
-		if (left instanceof SAFEStrings && right instanceof SAFEStrings) 
-			return ((SAFEStrings) left).concat((SAFEStrings) right);		
+		if (left instanceof SAFEShellStrings && right instanceof SAFEShellStrings) 
+			return ((SAFEShellStrings) left).concat((SAFEShellStrings) right);		
 		return new Bottom();
 	}
 

@@ -3,7 +3,6 @@ package it.univr.main;
 import it.univr.domain.AbstractDomain;
 import it.univr.domain.AbstractValue;
 
-import it.univr.state.AbstractStore;
 import it.univr.state.AbstractEnvironment;
 import it.univr.state.AbstractState;
 import it.univr.state.KeyAbstractState;

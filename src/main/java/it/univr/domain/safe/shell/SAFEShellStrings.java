@@ -1738,5 +1738,28 @@ public class SAFEShellStrings implements AbstractValue {
 		return set;
 	}
 
+	public String distanceFromBottom() {
 
+		if (isString())
+			return "1";
+
+		switch (v) {
+		case UINT:
+		case UFLOAT:
+		case SIGNED_NUM:
+		case NOTNUM_NOTEMPTY: return "2";
+
+		case UINT_EPSILON:
+		case NOT_NUMERIC:
+		case UNUM:
+		case NOTUNSIGNED_NOTEMPTY: 
+		case NUMERIC: return "3";
+
+		case NOTUINT_NOTEMPTY:
+		case UNUM_EPSILON: return "4";
+
+		case BOT: return "0";
+		default: return "5";
+		}
+	}
 }

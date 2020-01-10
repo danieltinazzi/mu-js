@@ -283,5 +283,19 @@ public class SAFEStrings implements AbstractValue {
 		}
 		return true;
 	}
+	
+	public String distanceFromBottom() {
+
+		if (isString())
+			return "1";
+
+		switch (v) {
+		case NOT_NUMERIC:
+		case NUMERIC: return "3";
+
+		case BOT: return "0";
+		default: return "5";
+		}
+	}
 
 }

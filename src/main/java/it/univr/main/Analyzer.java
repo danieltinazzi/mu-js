@@ -10,11 +10,20 @@ import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 
+import dnl.utils.text.table.TextTable;
 import it.univr.domain.AbstractDomain;
 import it.univr.domain.safe.original.SAFEAbstractDomain;
-import it.univr.state.AbstractStore;
+import it.univr.domain.safe.original.SAFEStrings;
+import it.univr.domain.safe.shell.SAFEShellAbstractDomain;
+import it.univr.domain.safe.shell.SAFEShellStrings;
+import it.univr.domain.tajs.original.TAJSAbstractDomain;
+import it.univr.domain.tajs.original.TAJSStrings;
+import it.univr.domain.tajs.shell.TAJSShellAbstractDomain;
+import it.univr.domain.tajs.shell.TAJSShellStrings;
 import it.univr.state.AbstractEnvironment;
 import it.univr.state.AbstractState;
+import it.univr.state.KeyAbstractState;
+import it.univr.state.Variable;
 
 public class Analyzer {
 
@@ -23,29 +32,59 @@ public class Analyzer {
 		String file = args[0];
 
 		boolean narrowing = false;
-		boolean printInvariants = false;
+		boolean printInvariants = true;
+		boolean tajsComparison = false;
+		boolean safeComparison = false;
 
 		AbstractDomain domain = new SAFEAbstractDomain();
-		
+
 		for (int i = 0; i < args.length; ++i) {
 			if (args[i].equals("-narr"))
 				narrowing = true;
 			else if (args[i].equals("-tajs"))
+				domain = new TAJSAbstractDomain();
+			else if (args[i].equals("-safe"))
 				domain = new SAFEAbstractDomain();
+			else if (args[i].equals("-tajs-shell"))
+				domain = new TAJSShellAbstractDomain();
+			else if (args[i].equals("-safe-shell"))
+				domain = new SAFEShellAbstractDomain();
 			else if (args[i].equals("-help")) {
 				System.out.println(potd()  + "\n\n" + printHelp());
 				return;
 			}
-			
+
 			else if (args[i].equals("-invariants")) {
 				printInvariants = true;
 			}
+
+			else if (args[i].equals("-tajs-comp"))
+				tajsComparison = true;
+
+			else if (args[i].equals("-safe-comp"))
+				safeComparison = true;
 		}
 
 		AbstractEnvironment env = null;
 		AbstractState state = null;
-		
+
 		try {
+
+			if (tajsComparison) {
+				AbstractState tajs = Analyzer.analyzeInvariants(file, new TAJSAbstractDomain(), narrowing);
+				AbstractState tajsShell = Analyzer.analyzeInvariants(file, new TAJSShellAbstractDomain(), narrowing);
+				printTAJSComparison(tajs, tajsShell);
+				return;
+			}
+
+			if (safeComparison) {
+				AbstractState safe = Analyzer.analyzeInvariants(file, new SAFEAbstractDomain(), narrowing);
+				AbstractState safeShell = Analyzer.analyzeInvariants(file, new SAFEShellAbstractDomain(), narrowing);
+				printSAFEComparison(safe, safeShell);
+				return;
+			}
+
+
 			if (printInvariants) {
 				state = Analyzer.analyzeInvariants(file, domain, narrowing);
 				System.out.println("\n\n\n");
@@ -60,12 +99,64 @@ public class Analyzer {
 		}
 	}
 
+	private static void printTAJSComparison(AbstractState tajs, AbstractState tajsShell) {
+
+		String[] columns = {"Variable", "TAJS original domain", "TAJS shell domain", "Distance"};
+
+
+		for (KeyAbstractState k : tajs.keySet()) {
+			System.out.println("Abstract state at Line " + k.getRow() +", Column " + k.getCol() + "\n");
+			int n = tajs.get(k).getStore().keySet().size();
+			String[][] t = new String[n][4];
+			int i = 0;
+			
+			for (Variable v : tajs.get(k).getStore().keySet()) {
+				t[i][0] = v.toString();
+				t[i][1] = tajs.get(k).getStore().getValue(v).toString();
+				t[i][2] = tajsShell.get(k).getStore().getValue(v).toString();
+				t[i][3] = tajsShell.get(k).getStore().getValue(v).distanceFromBottom();
+				i++;
+			}
+
+			TextTable table = new TextTable(columns, t);
+			table.printTable();
+			System.out.println("\n");
+
+		}
+	}
+	
+	private static void printSAFEComparison(AbstractState tajs, AbstractState tajsShell) {
+
+		String[] columns = {"Variable", "SAFE original domain", "SAFE shell domain", "Distance"};
+
+
+		for (KeyAbstractState k : tajs.keySet()) {
+			System.out.println("Abstract state at Line " + k.getRow() +", Column " + k.getCol() + "\n");
+			int n = tajs.get(k).getStore().keySet().size();
+			String[][] t = new String[n][4];
+			int i = 0;
+			
+			for (Variable v : tajs.get(k).getStore().keySet()) {
+				t[i][0] = v.toString();
+				t[i][1] = tajs.get(k).getStore().getValue(v).toString();
+				t[i][2] = tajsShell.get(k).getStore().getValue(v).toString();
+				t[i][3] = tajsShell.get(k).getStore().getValue(v).distanceFromBottom();
+				i++;
+			}
+
+			TextTable table = new TextTable(columns, t);
+			table.printTable();
+			System.out.println("\n");
+
+		}
+	}
+
 	public static AbstractEnvironment analyze(String file, AbstractDomain domain, boolean narrowing) throws IOException {
 		AbstractInterpreter interpreter = new AbstractInterpreter(domain, narrowing, false);
 
 		interpreter.setAbstractDomain(domain);
 		InputStream stream = new FileInputStream(file);
-				
+
 		MuJsLexer lexer = new MuJsLexer(CharStreams.fromStream(stream, StandardCharsets.UTF_8));
 
 		MuJsParser parser = new MuJsParser(new CommonTokenStream(lexer));
@@ -74,7 +165,7 @@ public class Analyzer {
 
 		return interpreter.getFinalAbstractMemory();
 	}
-	
+
 	public static AbstractState analyzeInvariants(String file, AbstractDomain domain, boolean narrowing) throws IOException {
 		AbstractInterpreter interpreter = new AbstractInterpreter(domain, narrowing, true);
 

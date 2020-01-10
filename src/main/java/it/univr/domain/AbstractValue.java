@@ -7,5 +7,8 @@ public interface AbstractValue {
 	public String toString();
 	public AbstractValue greatestLowerBound(AbstractValue value);
 	public AbstractValue narrowing(AbstractValue value);
-
+	
+	public default String distanceFromBottom() {
+		return "-";
+	}
 }
