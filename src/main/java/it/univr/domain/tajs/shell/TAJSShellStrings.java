@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 import java.util.regex.Pattern;
 
 import it.univr.domain.AbstractValue;
+import it.univr.domain.tajs.original.TAJSStrings;
 
 public class TAJSShellStrings implements AbstractValue {
 
@@ -745,6 +746,7 @@ public class TAJSShellStrings implements AbstractValue {
 		return str.isEmpty() || (!isUnsignedInteger() && !isSignedOrFloatsString());
 	}
 	
+	@Override
 	public String distanceFromBottom() {
 
 		if (isString())
@@ -763,4 +765,79 @@ public class TAJSShellStrings implements AbstractValue {
 		}
 	}
 
+	@Override
+	public String distanceFrom(AbstractValue other) {
+		
+		if (other instanceof TAJSStrings) {
+			TAJSShellStrings that = ((TAJSStrings) other).castToShell();
+			
+			
+			if (equals(that))
+				return "-";
+			
+			if (isString()) {
+				
+				if (isUnsignedInteger()) {
+					if (that.getAbstractValue() == UNSIGNED_STR)
+						return "1";
+					else if (that.getAbstractValue() == TOP)
+						return "2";
+				}
+				
+				else if (isNotNumericString()) {
+					if (that.getAbstractValue() == NOT_UNSIGNED_STR)
+						return "1";
+					else if (that.getAbstractValue() == TOP)
+						return "2";
+				}
+				
+				else if (isSignedOrFloatsString()) {
+					if (that.getAbstractValue() == NOT_UNSIGNED_STR)
+						return "1";
+					else if (that.getAbstractValue() == TOP)
+						return "2";
+				}
+			}
+			
+			else if (getAbstractValue() == UNSIGNED_STR) {
+				if (that.getAbstractValue() == UNSIGNED_STR)
+					return "-";
+				else if (that.getAbstractValue() == TOP)
+					return "1";
+			}
+			
+			else if (getAbstractValue() == NOT_NUMERIC) {
+				if (that.getAbstractValue() == NOT_UNSIGNED_STR)
+					return "1";
+				else if (that.getAbstractValue() == TOP)
+					return "2";
+			}
+			
+			else if (getAbstractValue() == SIGNED_OR_FLOATS) {
+				if (that.getAbstractValue() == NOT_UNSIGNED_STR)
+					return "1";
+				else if (that.getAbstractValue() == TOP)
+					return "2";
+			}
+			
+			else if (getAbstractValue() == UNSIGNED_OR_NOT_NUMERIC) {
+				if (that.getAbstractValue() == TOP)
+					return "2";
+			}
+			
+			else if (getAbstractValue() == NOT_UNSIGNED_STR) {
+				if (that.getAbstractValue() == NOT_UNSIGNED_STR)
+					return "-";
+				else if (that.getAbstractValue() == TOP)
+					return "1";
+			}
+			
+			else if (getAbstractValue() == TOP) {
+				if (that.getAbstractValue() == TOP)
+					return "-";
+			}		
+		}
+		
+		return "-";
+	}
 }

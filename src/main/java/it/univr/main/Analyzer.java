@@ -114,7 +114,7 @@ public class Analyzer {
 				t[i][0] = v.toString();
 				t[i][1] = tajs.get(k).getStore().getValue(v).toString();
 				t[i][2] = tajsShell.get(k).getStore().getValue(v).toString();
-				t[i][3] = tajsShell.get(k).getStore().getValue(v).distanceFromBottom();
+				t[i][3] = tajsShell.get(k).getStore().getValue(v).distanceFrom(tajs.get(k).getStore().getValue(v));
 				i++;
 			}
 
@@ -125,22 +125,22 @@ public class Analyzer {
 		}
 	}
 	
-	private static void printSAFEComparison(AbstractState tajs, AbstractState tajsShell) {
+	private static void printSAFEComparison(AbstractState safe, AbstractState safeShell) {
 
 		String[] columns = {"Variable", "SAFE original domain", "SAFE shell domain", "Distance"};
 
 
-		for (KeyAbstractState k : tajs.keySet()) {
+		for (KeyAbstractState k : safe.keySet()) {
 			System.out.println("Abstract state at Line " + k.getRow() +", Column " + k.getCol() + "\n");
-			int n = tajs.get(k).getStore().keySet().size();
+			int n = safe.get(k).getStore().keySet().size();
 			String[][] t = new String[n][4];
 			int i = 0;
 			
-			for (Variable v : tajs.get(k).getStore().keySet()) {
+			for (Variable v : safe.get(k).getStore().keySet()) {
 				t[i][0] = v.toString();
-				t[i][1] = tajs.get(k).getStore().getValue(v).toString();
-				t[i][2] = tajsShell.get(k).getStore().getValue(v).toString();
-				t[i][3] = tajsShell.get(k).getStore().getValue(v).distanceFromBottom();
+				t[i][1] = safe.get(k).getStore().getValue(v).toString();
+				t[i][2] = safeShell.get(k).getStore().getValue(v).toString();
+				t[i][3] = safeShell.get(k).getStore().getValue(v).distanceFrom(safe.get(k).getStore().getValue(v));
 				i++;
 			}
 

@@ -11,4 +11,8 @@ public interface AbstractValue {
 	public default String distanceFromBottom() {
 		return "-";
 	}
+	
+	public default String distanceFrom(AbstractValue other) {
+		return "-";
+	}
 }

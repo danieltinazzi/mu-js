@@ -2,11 +2,16 @@ package it.univr.domain.tajs.original;
 
 import static org.junit.Assert.assertTrue;
 
+import java.util.regex.Pattern;
+
 import it.univr.domain.AbstractValue;
-import it.univr.domain.safe.original.Interval;
+import it.univr.domain.tajs.shell.TAJSShellStrings;
 
 public class TAJSStrings implements AbstractValue {
 
+	static private final Pattern NUMBER = Pattern.compile("((-|\\+)?)(([0-9]+(\\.[0-9]*)?)([eE][-+][0-9]+)?)"); 
+
+	
 	private final static int BOT = 0x00000001; 
 	private final static int SINGLE_STRING = 0x00000002;
 	private final static int UNSIGNED_STR = 0x00000003;
@@ -222,8 +227,10 @@ public class TAJSStrings implements AbstractValue {
 
 				if (that.isUnsignedString())
 					return TAJSStrings.createUnsignedString();
-				else
-					return TAJSStrings.createNotUnsignedString();
+				
+				if (that.isNotUnsignedString() || that.isTop())
+					return TAJSStrings.createTopTAJSString();
+
 			} else {
 				return TAJSStrings.createNotUnsignedString();
 			}
@@ -233,11 +240,13 @@ public class TAJSStrings implements AbstractValue {
 		if (that.isString()) {
 
 			if (that.isUnsignedInteger()) {
-
+				
 				if (isUnsignedString())
 					return TAJSStrings.createUnsignedString();
-				else 
-					return TAJSStrings.createNotUnsignedString();
+				
+				if (isNotUnsignedString() || isTop())
+					return TAJSStrings.createTopTAJSString();
+				
 			} else {
 				return TAJSStrings.createNotUnsignedString();
 			}
@@ -248,8 +257,24 @@ public class TAJSStrings implements AbstractValue {
 
 		if (isNotUnsignedString() && that.isNotUnsignedString())
 			return TAJSStrings.createNotUnsignedString();
-
-		return TAJSStrings.createNotUnsignedString();		
+		
+		if (isUnsignedString() && that.isNotUnsignedString())
+			return TAJSStrings.createTopTAJSString();
+		
+		if (that.isUnsignedString() && isNotUnsignedString())
+			return TAJSStrings.createTopTAJSString();
+		
+		return TAJSStrings.createBotString();		
+	}
+	
+	private boolean isNotNumericAndNotEmpty() {
+		assertTrue(isString());
+		return !isNumericString() && !getSingleString().isEmpty();
+	}
+	
+	private boolean isNumericString() {
+		assertTrue(isString());
+		return NUMBER.matcher(str).matches();
 	}
 
 	private  boolean isUnsignedInteger() {
@@ -282,4 +307,21 @@ public class TAJSStrings implements AbstractValue {
 		}
 	}
 
+
+	public TAJSShellStrings castToShell() {
+
+		if (isString())
+			return new TAJSShellStrings(getSingleString());
+
+		else if (isUnsignedString())
+			return new TAJSShellStrings(TAJSShellStrings.UNSIGNED_STR);
+
+		else if (isNotUnsignedString())
+			return new TAJSShellStrings(TAJSShellStrings.NOT_UNSIGNED_STR);
+
+		else if (isTop())
+			return new TAJSShellStrings(TAJSShellStrings.TOP);
+
+		return new TAJSShellStrings(TAJSShellStrings.BOT);
+	}
 }

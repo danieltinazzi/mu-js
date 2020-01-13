@@ -76,4 +76,18 @@ public class SAFEConcatTest {
 		Assert.assertEquals(state.getValue(new Variable("z")), SAFEStrings.createNotNumeric());
 		Assert.assertEquals(state.getValue(new Variable("i")), new Interval("0", "+Inf"));
 	}
+	
+	@Test
+	public void testConcat005() throws Exception {
+		String file = path + "concat005.js";
+		AbstractEnvironment state = Analyzer.analyze(file, domain, true);
+
+		// State size
+		Assert.assertEquals(state.sizeStore(), 2);
+		Assert.assertEquals(state.sizeHeap(), 0);
+
+		// State values
+		Assert.assertEquals(state.getValue(new Variable("x")), SAFEStrings.createTopString());
+		Assert.assertEquals(state.getValue(new Variable("i")), new Interval("0", "+Inf"));
+	}
 }

@@ -5,11 +5,12 @@ import static org.junit.Assert.assertTrue;
 import java.util.regex.Pattern;
 
 import it.univr.domain.AbstractValue;
+import it.univr.domain.safe.shell.SAFEShellStrings;
 
 public class SAFEStrings implements AbstractValue {
 
 	static private final Pattern NUMBER = Pattern.compile("-?(([0-9]+(\\.[0-9]*)?|\\.[0-9]+)([eE][-+][0-9]+)?)"); // TODO: check that this over-approximates the possible output of Number.toString
-
+	static private final Pattern UNSIGNED_FLOAT = Pattern.compile("[0-9]+\\.([0-9]*)"); 
 
 	private final static int BOT = 0x00000001; 
 	private final static int SINGLE_STRING = 0x00000002;
@@ -259,7 +260,22 @@ public class SAFEStrings implements AbstractValue {
 		}
 
 		else if (isNotNumeric()) { // forth row
-			if (that.isString() || that.isNumeric() || that.isNotNumeric())
+			
+			if (that.isString()) {
+				if (that.isUnsignedInteger())
+					return new SAFEStrings(TOP);
+				
+				else if (that.getSingleString().isEmpty())
+					return new SAFEStrings(NOT_NUMERIC);
+				
+				else if (that.isNotNumericAndNotEmpty())
+					return new SAFEStrings(NOT_NUMERIC);
+
+			}
+			
+			if (that.isNumeric())
+				return new SAFEStrings(TOP);
+			else if (that.isNotNumeric())
 				return new SAFEStrings(NOT_NUMERIC);
 			else
 				return new SAFEStrings(TOP);
@@ -284,6 +300,11 @@ public class SAFEStrings implements AbstractValue {
 		return true;
 	}
 	
+	private boolean isNotNumericAndNotEmpty() {
+		assertTrue(isString());
+		return !isNumericString() && !getSingleString().isEmpty();
+	}
+
 	public String distanceFromBottom() {
 
 		if (isString())
@@ -298,4 +319,20 @@ public class SAFEStrings implements AbstractValue {
 		}
 	}
 
+	public SAFEShellStrings castToShell() {
+
+		if (isString())
+			return new SAFEShellStrings(getSingleString());
+
+		else if (isNumeric())
+			return new SAFEShellStrings(SAFEShellStrings.NUMERIC);
+
+		else if (isNotNumeric())
+			return new SAFEShellStrings(SAFEShellStrings.NOT_NUMERIC);
+
+		else if (isTop())
+			return new SAFEShellStrings(SAFEShellStrings.TOP);
+
+		return new SAFEShellStrings(SAFEShellStrings.BOT);
+	}
 }

@@ -16,8 +16,6 @@ public abstract class AbstractDomain {
 	public abstract AbstractValue or(AbstractValue first, AbstractValue second);
 	public abstract AbstractValue div(AbstractValue left, AbstractValue right);
 	public abstract AbstractValue toNum(AbstractValue par);
-
-
 	public abstract AbstractValue makeIntegerAbstractValue(Integer v);
 	public abstract AbstractValue makeStringAbstractValue(String v);
 	public abstract AbstractValue makeBooleanAbstractValue(int v);
