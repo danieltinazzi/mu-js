@@ -145,4 +145,19 @@ public class SAFEAbstractDomain extends AbstractDomain {
 		return new Bottom();
 	}
 
+	@Override
+	public AbstractValue length(AbstractValue other) {
+		if (other instanceof SAFEStrings) 
+			return ((SAFEStrings) other).length();
+			
+		return new Bottom();
+	}
+
+	@Override
+	public AbstractValue charAt(AbstractValue str, AbstractValue idx) {
+		if (str instanceof SAFEStrings && idx instanceof Interval)
+			return ((SAFEStrings) str).charAt((Interval) idx);
+		return new Bottom();
+	}
+
 }

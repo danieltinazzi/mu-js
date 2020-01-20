@@ -48,6 +48,7 @@ public class AbstractInterpreter extends MuJsBaseVisitor<AbstractValue> {
 	public AbstractValue visitBlock(MuJsParser.BlockContext ctx) { 
 		if (ctx.stmt() != null)
 			visit(ctx.stmt());
+		
 		return domain.makeBottom();
 	}
 
@@ -60,10 +61,11 @@ public class AbstractInterpreter extends MuJsBaseVisitor<AbstractValue> {
 
 	@Override 
 	public AbstractValue visitIfStmt(MuJsParser.IfStmtContext ctx) { 
-		if (domain.isTrue(visit(ctx.bexp()))) 
+		AbstractValue guard = visit(ctx.bexp());
+		if (domain.isTrue(guard)) 
 			return visit(ctx.block(0));
 
-		if (domain.isFalse(visit(ctx.bexp())))
+		if (domain.isFalse(guard))
 			return visit(ctx.block(1));
 
 		AbstractEnvironment previous = (AbstractEnvironment) env.clone();
@@ -89,6 +91,20 @@ public class AbstractInterpreter extends MuJsBaseVisitor<AbstractValue> {
 	public AbstractValue visitProgramExecution(MuJsParser.ProgramExecutionContext ctx) {
 		return visit(ctx.stmt()); 
 	}
+
+	@Override
+	public AbstractValue visitLength(MuJsParser.LengthContext ctx) {
+		AbstractValue par = visit(ctx.sexp());
+		return domain.length(par);
+	}
+	
+	@Override
+	public AbstractValue visitCharAt(MuJsParser.CharAtContext ctx) {
+		AbstractValue str = visit(ctx.sexp());
+		AbstractValue idx = visit(ctx.aexp());
+		return domain.charAt(str, idx);
+	}
+
 
 
 	@Override public AbstractValue visitEquals(MuJsParser.EqualsContext ctx) { 
@@ -292,6 +308,7 @@ public class AbstractInterpreter extends MuJsBaseVisitor<AbstractValue> {
 			KeyAbstractState key = new KeyAbstractState(ctx.getStart().getLine(), ctx.getStart().getCharPositionInLine());
 			state.add(key, env.clone());
 		}
+		
 		return domain.makeBottom();
 	}
 

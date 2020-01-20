@@ -141,5 +141,21 @@ public class TAJSAbstractDomain extends AbstractDomain {
 		
 		return new Bottom();
 	}
+	
+
+	@Override
+	public AbstractValue length(AbstractValue other) {
+		if (other instanceof TAJSStrings) 
+			return ((TAJSStrings) other).length();
+			
+		return new Bottom();
+	}
+	
+	@Override
+	public AbstractValue charAt(AbstractValue str, AbstractValue idx) {
+		if (str instanceof TAJSStrings && idx instanceof TAJSNumbers)
+			return ((TAJSStrings) str).charAt((TAJSNumbers) idx);
+		return new Bottom();
+	}
 
 }

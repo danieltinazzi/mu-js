@@ -110,6 +110,7 @@ public class Analyzer {
 			String[][] t = new String[n][4];
 			int i = 0;
 			
+		
 			for (Variable v : tajs.get(k).getStore().keySet()) {
 				t[i][0] = v.toString();
 				t[i][1] = tajs.get(k).getStore().getValue(v).toString();

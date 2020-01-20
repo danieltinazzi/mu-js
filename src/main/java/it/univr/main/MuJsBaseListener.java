@@ -1,4 +1,4 @@
-// Generated from MuJs.g4 by ANTLR 4.7
+// Generated from /home/vincenzo/Scrivania/ictac/mu-js/src/main/java/it/univr/main/MuJs.g4 by ANTLR 4.7.2
 
     package it.univr.main;
 
@@ -37,6 +37,18 @@ public class MuJsBaseListener implements MuJsListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitDiv(MuJsParser.DivContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterLength(MuJsParser.LengthContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitLength(MuJsParser.LengthContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -265,6 +277,18 @@ public class MuJsBaseListener implements MuJsListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitSExpPar(MuJsParser.SExpParContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterCharAt(MuJsParser.CharAtContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitCharAt(MuJsParser.CharAtContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

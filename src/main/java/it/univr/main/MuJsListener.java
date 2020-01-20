@@ -1,4 +1,4 @@
-// Generated from MuJs.g4 by ANTLR 4.7
+// Generated from /home/vincenzo/Scrivania/ictac/mu-js/src/main/java/it/univr/main/MuJs.g4 by ANTLR 4.7.2
 
     package it.univr.main;
 
@@ -33,6 +33,18 @@ public interface MuJsListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitDiv(MuJsParser.DivContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code Length}
+	 * labeled alternative in {@link MuJsParser#aexp}.
+	 * @param ctx the parse tree
+	 */
+	void enterLength(MuJsParser.LengthContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Length}
+	 * labeled alternative in {@link MuJsParser#aexp}.
+	 * @param ctx the parse tree
+	 */
+	void exitLength(MuJsParser.LengthContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code Diff}
 	 * labeled alternative in {@link MuJsParser#aexp}.
@@ -261,6 +273,18 @@ public interface MuJsListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitSExpPar(MuJsParser.SExpParContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code CharAt}
+	 * labeled alternative in {@link MuJsParser#sexp}.
+	 * @param ctx the parse tree
+	 */
+	void enterCharAt(MuJsParser.CharAtContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code CharAt}
+	 * labeled alternative in {@link MuJsParser#sexp}.
+	 * @param ctx the parse tree
+	 */
+	void exitCharAt(MuJsParser.CharAtContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code AeExp}
 	 * labeled alternative in {@link MuJsParser#exp}.

@@ -40,6 +40,7 @@ aexp : INT													#Int
 	|	aexp '/' aexp										#Div
 	| 	'toNum' '(' sexp ')'								#ToNum
 	|	'(' aexp ')'										#AExpPar
+	|	'length' '(' sexp ')'								#Length
 	;
 
 bexp: BOOL													#Bool
@@ -56,6 +57,7 @@ sexp: STRING												#Str
 	|	ID													#IdSExp
 	|	'concat(' sexp ',' sexp ')'							#Concat
 	|	'(' sexp ')'										#SExpPar
+	|	'charAt' '(' sexp ',' aexp ')'						#CharAt
 	;
 
 exp : aexp 													#AeExp

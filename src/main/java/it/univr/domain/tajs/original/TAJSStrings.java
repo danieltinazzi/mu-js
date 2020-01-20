@@ -195,6 +195,8 @@ public class TAJSStrings implements AbstractValue {
 			return TAJSNumbers.createUnsigned();
 		else if (isNotUnsignedString() || isTop())
 			return TAJSNumbers.createTopTAJSNumber();
+		else if (isBot())
+			return TAJSNumbers.createBotString();
 		else {
 
 			try {
@@ -230,7 +232,7 @@ public class TAJSStrings implements AbstractValue {
 				
 				if (that.isNotUnsignedString() || that.isTop())
 					return TAJSStrings.createTopTAJSString();
-
+				
 			} else {
 				return TAJSStrings.createNotUnsignedString();
 			}
@@ -262,6 +264,18 @@ public class TAJSStrings implements AbstractValue {
 			return TAJSStrings.createTopTAJSString();
 		
 		if (that.isUnsignedString() && isNotUnsignedString())
+			return TAJSStrings.createTopTAJSString();
+		
+		if (isTop() || that.isUnsignedString())
+			return TAJSStrings.createTopTAJSString();
+		
+		if (that.isTop() || isUnsignedString())
+			return TAJSStrings.createTopTAJSString();
+		
+		if (isTop() || that.isNotUnsignedString())
+			return TAJSStrings.createTopTAJSString();
+		
+		if (that.isTop() || isNotUnsignedString())
 			return TAJSStrings.createTopTAJSString();
 		
 		return TAJSStrings.createBotString();		
@@ -323,5 +337,65 @@ public class TAJSStrings implements AbstractValue {
 			return new TAJSShellStrings(TAJSShellStrings.TOP);
 
 		return new TAJSShellStrings(TAJSShellStrings.BOT);
+	}
+	
+	public AbstractValue length() {
+		if (isString())
+			return new TAJSNumbers(getSingleString().length());
+		else
+			return new TAJSNumbers(TAJSNumbers.UNSIGNED_INT, true);
+	}
+
+	public AbstractValue charAt(TAJSNumbers idx) {
+		if (idx.isSingleNumber()) {
+			if (isString()) {
+				String s = getSingleString();
+				int i = idx.getSingleNumber() < 0 ? 0 : (int) idx.getSingleNumber();
+				
+				if (i < s.length())
+					return new TAJSStrings(String.valueOf(s.charAt(i)));
+				else 
+					return new TAJSStrings("");
+			}
+			
+			else if (isUnsignedString())
+				return new TAJSStrings(UNSIGNED_STR);
+			
+			else if (isNotUnsignedString())
+				return new TAJSStrings(TOP);
+		}
+		
+		else if (idx.isUnsignedInt() || idx.isNotUnsignedInt() || idx.isTop()) {
+			if (isString()) {
+				if (isUnsignedInteger())
+					return new TAJSStrings(UNSIGNED_STR);
+				else if (!containsNumbers())
+					return new TAJSStrings(NOT_UNSIGNED_STR);
+				else
+					return new TAJSStrings(TOP);
+			}
+			
+			else if (isUnsignedString())
+				return new TAJSStrings(UNSIGNED_STR);
+			
+			else if (isNotUnsignedString())
+				return new TAJSStrings(TOP);
+		}
+		
+		return new Bottom();
+	}
+	
+	private boolean containsNumbers() {
+		assertTrue(isString());
+		return str.contains("0")
+				|| str.contains("1")
+				|| str.contains("2")
+				|| str.contains("3")
+				|| str.contains("4")
+				|| str.contains("5")
+				|| str.contains("6")
+				|| str.contains("7")
+				|| str.contains("8")
+				|| str.contains("9");
 	}
 }

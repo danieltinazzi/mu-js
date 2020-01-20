@@ -2,6 +2,7 @@ package it.univr.domain.tajs.shell;
 
 import it.univr.domain.AbstractDomain;
 import it.univr.domain.AbstractValue;
+import it.univr.domain.tajs.original.TAJSStrings;
 
 public class TAJSShellAbstractDomain extends AbstractDomain {
 
@@ -134,6 +135,22 @@ public class TAJSShellAbstractDomain extends AbstractDomain {
 		if (that instanceof TAJSShellStrings) 
 			return ((TAJSShellStrings) that).toNum();
 		
+		return new Bottom();
+	}
+	
+
+	@Override
+	public AbstractValue length(AbstractValue other) {
+		if (other instanceof TAJSShellStrings) 
+			return ((TAJSShellStrings) other).length();
+			
+		return new Bottom();
+	}
+	
+	@Override
+	public AbstractValue charAt(AbstractValue str, AbstractValue idx) {
+		if (str instanceof TAJSShellStrings && idx instanceof TAJSNumbers)
+			return ((TAJSShellStrings) str).charAt((TAJSNumbers) idx);
 		return new Bottom();
 	}
 

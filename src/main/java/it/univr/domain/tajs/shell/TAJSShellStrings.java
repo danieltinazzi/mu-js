@@ -712,7 +712,7 @@ public class TAJSShellStrings implements AbstractValue {
 			else if (that.getAbstractValue() == TOP)
 				return new TAJSShellStrings(TAJSShellStrings.TOP);
 		}
-		
+
 		return new TAJSShellStrings(BOT);
 	}
 
@@ -731,7 +731,7 @@ public class TAJSShellStrings implements AbstractValue {
 
 		return true;
 	}
-	
+
 	private boolean isSignedOrFloatsString() {
 		assertTrue(isString());
 
@@ -745,7 +745,7 @@ public class TAJSShellStrings implements AbstractValue {
 	private boolean isNotNumericString() {
 		return str.isEmpty() || (!isUnsignedInteger() && !isSignedOrFloatsString());
 	}
-	
+
 	@Override
 	public String distanceFromBottom() {
 
@@ -767,30 +767,30 @@ public class TAJSShellStrings implements AbstractValue {
 
 	@Override
 	public String distanceFrom(AbstractValue other) {
-		
+
 		if (other instanceof TAJSStrings) {
 			TAJSShellStrings that = ((TAJSStrings) other).castToShell();
-			
-			
+
+
 			if (equals(that))
 				return "-";
-			
+
 			if (isString()) {
-				
+
 				if (isUnsignedInteger()) {
 					if (that.getAbstractValue() == UNSIGNED_STR)
 						return "1";
 					else if (that.getAbstractValue() == TOP)
 						return "2";
 				}
-				
+
 				else if (isNotNumericString()) {
 					if (that.getAbstractValue() == NOT_UNSIGNED_STR)
 						return "1";
 					else if (that.getAbstractValue() == TOP)
 						return "2";
 				}
-				
+
 				else if (isSignedOrFloatsString()) {
 					if (that.getAbstractValue() == NOT_UNSIGNED_STR)
 						return "1";
@@ -798,46 +798,116 @@ public class TAJSShellStrings implements AbstractValue {
 						return "2";
 				}
 			}
-			
+
 			else if (getAbstractValue() == UNSIGNED_STR) {
 				if (that.getAbstractValue() == UNSIGNED_STR)
 					return "-";
 				else if (that.getAbstractValue() == TOP)
 					return "1";
 			}
-			
+
 			else if (getAbstractValue() == NOT_NUMERIC) {
 				if (that.getAbstractValue() == NOT_UNSIGNED_STR)
 					return "1";
 				else if (that.getAbstractValue() == TOP)
 					return "2";
 			}
-			
+
 			else if (getAbstractValue() == SIGNED_OR_FLOATS) {
 				if (that.getAbstractValue() == NOT_UNSIGNED_STR)
 					return "1";
 				else if (that.getAbstractValue() == TOP)
 					return "2";
 			}
-			
+
 			else if (getAbstractValue() == UNSIGNED_OR_NOT_NUMERIC) {
 				if (that.getAbstractValue() == TOP)
 					return "2";
 			}
-			
+
 			else if (getAbstractValue() == NOT_UNSIGNED_STR) {
 				if (that.getAbstractValue() == NOT_UNSIGNED_STR)
 					return "-";
 				else if (that.getAbstractValue() == TOP)
 					return "1";
 			}
-			
+
 			else if (getAbstractValue() == TOP) {
 				if (that.getAbstractValue() == TOP)
 					return "-";
 			}		
 		}
-		
+
 		return "-";
+	}
+
+	public AbstractValue length() {
+		if (isString())
+			return new TAJSNumbers(getSingleString().length());
+		else
+			return new TAJSNumbers(TAJSNumbers.UNSIGNED_INT, true);
+	}
+
+	public AbstractValue charAt(TAJSNumbers idx) {
+		if (idx.isSingleNumber()) {
+			if (isString()) {
+				String s = getSingleString();
+				int i = idx.getSingleNumber() < 0 ? 0 : (int) idx.getSingleNumber();
+
+				if (i < s.length())
+					return new TAJSShellStrings(String.valueOf(s.charAt(i)));
+				else 
+					return new TAJSShellStrings("");
+			}
+
+			else if (isUnsignedString())
+				return new TAJSShellStrings(UNSIGNED_STR);
+
+			else if (getAbstractValue() == NOT_NUMERIC 
+					|| getAbstractValue() == SIGNED_OR_FLOATS 
+					|| getAbstractValue() == NOT_UNSIGNED_STR 
+					|| getAbstractValue() == TOP 
+					|| getAbstractValue() == UNSIGNED_OR_NOT_NUMERIC)
+
+				return new TAJSShellStrings(TOP);
+		}
+
+		else if (idx.isUnsignedInt() || idx.isNotUnsignedInt() || idx.isTop()) {
+			if (isString()) {
+				if (isUnsignedInteger())
+					return new TAJSShellStrings(UNSIGNED_STR);
+				else if (!containsNumbers())
+					return new TAJSShellStrings(NOT_UNSIGNED_STR);
+				else 
+					return new TAJSShellStrings(TOP);
+			}
+
+			else if (isUnsignedString())
+				return new TAJSShellStrings(UNSIGNED_STR);
+
+			else if (getAbstractValue() == NOT_NUMERIC 
+					|| getAbstractValue() == SIGNED_OR_FLOATS 
+					|| getAbstractValue() == NOT_UNSIGNED_STR 
+					|| getAbstractValue() == TOP 
+					|| getAbstractValue() == UNSIGNED_OR_NOT_NUMERIC)
+				return new TAJSShellStrings(TOP);
+
+		}
+
+		return new Bottom();
+	}
+
+	private boolean containsNumbers() {
+		assertTrue(isString());
+		return str.contains("0")
+				|| str.contains("1")
+				|| str.contains("2")
+				|| str.contains("3")
+				|| str.contains("4")
+				|| str.contains("5")
+				|| str.contains("6")
+				|| str.contains("7")
+				|| str.contains("8")
+				|| str.contains("9");
 	}
 }

@@ -2,6 +2,7 @@ package it.univr.domain.safe.shell;
 
 import it.univr.domain.AbstractDomain;
 import it.univr.domain.AbstractValue;
+import it.univr.domain.safe.original.SAFEStrings;
 
 public class SAFEShellAbstractDomain extends AbstractDomain {
 
@@ -138,6 +139,22 @@ public class SAFEShellAbstractDomain extends AbstractDomain {
 			return ((SAFEShellStrings) par).toNum();
 		}
 
+		return new Bottom();
+	}
+	
+
+	@Override
+	public AbstractValue length(AbstractValue other) {
+		if (other instanceof SAFEShellStrings) 
+			return ((SAFEShellStrings) other).length();
+			
+		return new Bottom();
+	}
+	
+	@Override
+	public AbstractValue charAt(AbstractValue str, AbstractValue idx) {
+		if (str instanceof SAFEShellStrings && idx instanceof Interval)
+			return ((SAFEShellStrings) str).charAt((Interval) idx);
 		return new Bottom();
 	}
 

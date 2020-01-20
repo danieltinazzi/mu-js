@@ -1810,7 +1810,7 @@ public class SAFEShellStrings implements AbstractValue {
 						return "3";
 				}
 			}
-			
+
 			else if (getAbstractValue() == UINT) {
 				if (that.getAbstractValue() == NUMERIC)
 					return "2";
@@ -1887,5 +1887,33 @@ public class SAFEShellStrings implements AbstractValue {
 		}
 
 		return "-";
+	}
+
+	public AbstractValue length() {
+		
+		if (isString())
+			return new Interval(String.valueOf(getSingleString().length()),String.valueOf(getSingleString().length()));
+
+		else if (getAbstractValue() == UINT || getAbstractValue() == UNUM || getAbstractValue() == NUMERIC)
+			return new Interval("1", "+Inf");
+
+		else if (getAbstractValue() == UFLOAT)
+			return new Interval("3", "+Inf");
+
+		else if (getAbstractValue() == SIGNED_NUM)
+			return new Interval("2", "+Inf");
+
+		else if (getAbstractValue() == NOTNUM_NOTEMPTY || getAbstractValue() == NOTUNSIGNED_NOTEMPTY || getAbstractValue() == NOTUINT_NOTEMPTY)
+			return new Interval("1", "+Inf");
+
+		else if (getAbstractValue() == UINT_EPSILON || getAbstractValue() == UNUM_EPSILON || getAbstractValue() == NOT_NUMERIC || getAbstractValue() == TOP)
+			return new Interval("0", "+Inf");
+		
+		return new Bottom();
+	}
+	
+	public AbstractValue charAt(Interval idx) {
+		//TODO
+		return new SAFEShellStrings(TOP);
 	}
 }

@@ -1,4 +1,4 @@
-// Generated from MuJs.g4 by ANTLR 4.7
+// Generated from /home/vincenzo/Scrivania/ictac/mu-js/src/main/java/it/univr/main/MuJs.g4 by ANTLR 4.7.2
 
     package it.univr.main;
 
@@ -26,6 +26,13 @@ public interface MuJsVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitDiv(MuJsParser.DivContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Length}
+	 * labeled alternative in {@link MuJsParser#aexp}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitLength(MuJsParser.LengthContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code Diff}
 	 * labeled alternative in {@link MuJsParser#aexp}.
@@ -159,6 +166,13 @@ public interface MuJsVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitSExpPar(MuJsParser.SExpParContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code CharAt}
+	 * labeled alternative in {@link MuJsParser#sexp}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCharAt(MuJsParser.CharAtContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code AeExp}
 	 * labeled alternative in {@link MuJsParser#exp}.

@@ -335,4 +335,22 @@ public class SAFEStrings implements AbstractValue {
 
 		return new SAFEShellStrings(SAFEShellStrings.BOT);
 	}
+	
+	public AbstractValue length() {
+		if (isString())
+			return new Interval(String.valueOf(getSingleString().length()),String.valueOf(getSingleString().length()));
+		
+		else if (getAbstractValue() == NUMERIC)
+			return new Interval("1", "+Inf");
+		
+		else if (getAbstractValue() == NOT_NUMERIC || getAbstractValue() == TOP)
+			return new Interval("0", "+Inf");	
+		
+		return new Bottom();
+	}
+	
+	public AbstractValue charAt(Interval idx) {
+		//TODO
+		return new SAFEStrings(TOP);
+	}
 }
