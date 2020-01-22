@@ -29,7 +29,7 @@ public class TAJSComparisonTest {
 		Assert.assertEquals(state.getValue(new Variable("numbers")), TAJSStrings.createTopTAJSString());
 		Assert.assertEquals(state.getValue(new Variable("notnumbers")), TAJSStrings.createTopTAJSString());
 		Assert.assertEquals(state.getValue(new Variable("i")), new TAJSNumbers(TAJSNumbers.UNSIGNED_INT, true));
-		
+
 		state = Analyzer.analyze(file, shell, false);
 
 		// State size
@@ -41,5 +41,29 @@ public class TAJSComparisonTest {
 		Assert.assertEquals(state.getValue(new Variable("numbers")), new TAJSShellStrings(TAJSShellStrings.UNSIGNED_OR_NOT_NUMERIC));
 		Assert.assertEquals(state.getValue(new Variable("notnumbers")), new TAJSShellStrings(TAJSShellStrings.UNSIGNED_OR_NOT_NUMERIC));
 		Assert.assertEquals(state.getValue(new Variable("i")), new it.univr.domain.tajs.shell.TAJSNumbers(it.univr.domain.tajs.shell.TAJSNumbers.UNSIGNED_INT, true));
+	}
+
+	@Test
+	public void testTAJSComparisong002() throws Exception {
+		String file = "src/test/resources/tajs-comp/tajs002.js";
+		AbstractEnvironment state = Analyzer.analyze(file, original, false);
+
+		// State size
+		Assert.assertEquals(state.sizeStore(), 2);
+		Assert.assertEquals(state.sizeHeap(), 0);
+
+		// State values
+		Assert.assertEquals(state.getValue(new Variable("x")), TAJSStrings.createNotUnsignedString());
+		Assert.assertEquals(state.getValue(new Variable("y")), new TAJSNumbers(TAJSNumbers.TOP, true));
+
+		state = Analyzer.analyze(file, shell, false);
+
+		// State size
+		Assert.assertEquals(state.sizeStore(), 2);
+		Assert.assertEquals(state.sizeHeap(), 0);
+
+		// State values
+		Assert.assertEquals(state.getValue(new Variable("x")), new TAJSShellStrings(TAJSShellStrings.NOT_NUMERIC));
+		Assert.assertEquals(state.getValue(new Variable("y")), new it.univr.domain.tajs.shell.TAJSNumbers(0));
 	}
 }
