@@ -1,5 +1,9 @@
 grammar MuJs;
 
+@header {
+    package it.univr.main;
+}
+
 ASG: '=';
 
 NAN: 'NaN'
@@ -57,19 +61,30 @@ expression:
 	|	'!' expression													#Not
 	|	object															#ObjectExpression
 	|	ID'[' expression ']'											#PropLookup
+	|	ID '(' expression ( ',' expression )* ')'						#FunctionCall
 	;
+	
+	
+ret:
+	'return' expression ';'												#Return
+	;	
 	
 stmt:
 	   ID ASG expression SEMICOLON										#AssignmentStmt
 	| 'if' '(' expression ')' block 'else' block						#IfStmt
 	| 'while' '(' expression ')' block									#WhileStmt
 	|  block															#BlockStmt
-	|  stmt stmt														#Composition
+	|  <assoc=right> stmt stmt											#Composition
 	|  ID ASG 'new' object SEMICOLON 									#ObjectAsg
 	|  ID '[' expression ']' ASG expression SEMICOLON 					#PropUpdate
-	
+	| 'function' ID '(' ID ( ',' ID)* ')' '{' bodyfunction '}'			#FunctionDeclaration
 	;
-	
+
+bodyfunction:															
+	stmt? ret 															#BodyFunction									
+	; 	
+
+
 block:  '{' '}'
 	|	'{' stmt '}'
 	;	

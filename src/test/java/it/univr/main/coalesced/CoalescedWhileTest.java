@@ -23,20 +23,21 @@ public class CoalescedWhileTest {
 	@Test
 	public void testWhile001() throws Exception {
 		String file = "src/test/resources/while/while001.js";
-		AbstractEnvironment state = Analyzer.analyze(file, domain, true);
+		AbstractEnvironment state = Analyzer.analyze(file, domain).getAbstractEnvironmentAtMainCallString();
 
 		// State size
-		Assert.assertEquals(state.sizeStore(), 1);
+		Assert.assertEquals(state.sizeStore(), 2);
 		Assert.assertEquals(state.sizeHeap(), 0);
 
 		// State values
-		Assert.assertEquals(state.getValue(new Variable("x")), new Interval("100", "100"));
+		Assert.assertEquals(state.getValue(new Variable("x")), new Interval("0", "+Inf"));
+		Assert.assertEquals(state.getValue(new Variable("y")), new Interval("0", "+Inf"));
 	}
 
 	@Test
 	public void testWhile002() throws Exception {
 		String file = "src/test/resources/while/while002.js";
-		AbstractEnvironment state = Analyzer.analyze(file, domain, true);
+		AbstractEnvironment state = Analyzer.analyze(file, domain).getAbstractEnvironmentAtMainCallString();
 
 		HashSet<State> states = new HashSet<State>();
 		HashSet<Transition> delta = new HashSet<Transition>();
@@ -61,7 +62,7 @@ public class CoalescedWhileTest {
 	@Test
 	public void testWhile003() throws Exception {
 		String file = "src/test/resources/while/while003.js";
-		AbstractEnvironment state = Analyzer.analyze(file, domain, true);
+		AbstractEnvironment state = Analyzer.analyze(file, domain).getAbstractEnvironmentAtMainCallString();
 
 		// State size
 		Assert.assertEquals(state.sizeStore(), 1);
@@ -74,20 +75,20 @@ public class CoalescedWhileTest {
 	@Test
 	public void testWhile004() throws Exception {
 		String file = "src/test/resources/while/while004.js";
-		AbstractEnvironment state = Analyzer.analyze(file, domain, true);
+		AbstractEnvironment state = Analyzer.analyze(file, domain).getAbstractEnvironmentAtMainCallString();
 
 		// State size
 		Assert.assertEquals(state.sizeStore(), 1);
 		Assert.assertEquals(state.sizeHeap(), 0);
 
 		// State values
-		Assert.assertEquals(state.getValue(new Variable("x")), new Interval("0", "0"));
+		Assert.assertEquals(state.getValue(new Variable("x")), new Interval("-Inf", "100"));
 	}	
 
 	@Test
 	public void testWhile005() throws Exception {
 		String file = "src/test/resources/while/while005.js";
-		AbstractEnvironment state = Analyzer.analyze(file, domain, true);
+		AbstractEnvironment state = Analyzer.analyze(file, domain).getAbstractEnvironmentAtMainCallString();
 
 		// State size
 		Assert.assertEquals(state.sizeStore(), 2);
@@ -95,14 +96,14 @@ public class CoalescedWhileTest {
 
 		// State values
 		Assert.assertEquals(state.getValue(new Variable("x")), new Interval("0", "+Inf"));
-		Assert.assertEquals(state.getValue(new Variable("y")), new Interval("100", "100"));
+		Assert.assertEquals(state.getValue(new Variable("y")), new Interval("0", "+Inf"));
 	}
 
 
 	@Test
 	public void testWhile006() throws Exception {
 		String file = "src/test/resources/while/while006.js";
-		AbstractEnvironment state = Analyzer.analyze(file, domain, true);
+		AbstractEnvironment state = Analyzer.analyze(file, domain).getAbstractEnvironmentAtMainCallString();
 
 		// State size
 		Assert.assertEquals(state.sizeStore(), 2);
@@ -110,6 +111,6 @@ public class CoalescedWhileTest {
 
 		// State values
 		Assert.assertEquals(state.getValue(new Variable("x")), new Interval("0", "+Inf"));
-		Assert.assertEquals(state.getValue(new Variable("y")), new Interval("100", "101"));
+		Assert.assertEquals(state.getValue(new Variable("y")), new Interval("0", "+Inf"));
 	}
 }

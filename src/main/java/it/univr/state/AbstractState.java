@@ -2,29 +2,72 @@ package it.univr.state;
 
 import java.util.HashMap;
 
-public class AbstractState extends HashMap<KeyAbstractState, AbstractEnvironment>{
+import it.univr.domain.AbstractDomain;
 
-	public AbstractState() {
-		super();
+public class AbstractState {
+
+	private AbstractDomain domain;
+	private HashMap<Variable, Function> functions;
+	private HashMap<KeyAbstractState, CallStringAbstractEnvironment> state;
+	
+	public AbstractState(AbstractDomain domain) {
+		this.functions = new HashMap<Variable, Function>();
+		this.state = new HashMap<KeyAbstractState, CallStringAbstractEnvironment>();
+		this.domain = domain;
 	}
 
-	public void add(KeyAbstractState key, AbstractEnvironment m) {
-		if (containsKey(key))
-			put(key, get(key).leastUpperBound(m));
-		else
-			put(key, m);
+	public void add(KeyAbstractState key, AbstractEnvironment m, CallString cs) {
+		if (state.containsKey(key)) {
+			
+			if (state.get(key).containsKey(cs)) {
+				AbstractEnvironment newEnv = state.get(key).get(cs).leastUpperBound(m);
+				state.get(key).put(cs, newEnv);
+			} else {
+				state.get(key).put(cs, m);
+			}
+		} else {
+			state.put(key, new CallStringAbstractEnvironment(domain, m, cs));
+
+		}
 	}
 
+	public HashMap<Variable, Function> getFunctions() {
+		return functions;
+	}
+	
+	public void addFunction(Variable name, Function function) {
+		functions.put(name, function);
+	}
+
+	public CallStringAbstractEnvironment getCallStringEnvironment(KeyAbstractState key) {
+		return state.get(key);
+	}
+	
 	@Override
 	public String toString() {
 		String result = "";
-
-		for (KeyAbstractState k : keySet()) {
+		
+		for (KeyAbstractState k : state.keySet()) {
 			result += "\n*******************\n";
 			result += "Line " + k.getRow() +", Column " + k.getCol() + "\n";
-			result += get(k).toString();
+			result += state.get(k).toString();
 		}
 		
 		return result;
+	}
+	
+	public boolean contains(KeyAbstractState key) {
+		return state.containsKey(key);
+	}
+	
+	public void createAbstractEnvironment(KeyAbstractState key, CallString cs) {
+		state.put(key, new CallStringAbstractEnvironment(domain));
+		state.get(key).put(cs, new AbstractEnvironment(domain));
+	}
+	
+		
+
+	public Function getFunction(Variable variable) {
+		return functions.get(variable);
 	}
 }

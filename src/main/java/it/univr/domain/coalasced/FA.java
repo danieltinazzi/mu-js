@@ -19,7 +19,7 @@ public class FA implements AbstractValue {
 		System.err.println(a);
 	}
 
-	private Automaton automaton; 
+	private Automaton automaton;
 	
 	// 20.12 START
 	private boolean hasCycle() {
